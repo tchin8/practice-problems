@@ -22,22 +22,51 @@ var twoSum = function (nums, target) {
 
 
 
-// Given a string, find the length of the longest substring without repeating characters.
+
+// Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+// An input string is valid if:
+
+//   Open brackets must be closed by the same type of brackets.
+// Open brackets must be closed in the correct order.
+// Note that an empty string is also considered valid.
+
 //   Example 1:
-// Input: "abcabcbb"
-// Output: 3
-// Explanation: The answer is "abc", with the length of 3.
 
+// Input: "()"
+// Output: true
 // Example 2:
-// Input: "bbbbb"
-// Output: 1
-// Explanation: The answer is "b", with the length of 1.
 
+// Input: "()[]{}"
+// Output: true
 // Example 3:
-// Input: "pwwkew"
-// Output: 3
-// Explanation: The answer is "wke", with the length of 3.
-// Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
-var lengthOfLongestSubstring = function (s) {
 
+// Input: "(]"
+// Output: false
+// Example 4:
+
+// Input: "([)]"
+// Output: false
+// Example 5:
+
+// Input: "{[]}"
+// Output: true
+var isValid = function (s) {
+  if (s.length % 2 !== 0) return false;
+
+  syms = ['(', ')', '{', '}', '[', ']'];
+
+  let arr = {};
+
+  s.split("").forEach((sym, i) => {
+    arr[sym] = i;
+  });
+
+  for (let i = 0; i < syms.length; i += 2) {
+    if (arr[syms[i]] < arr[syms[i + 1]] && arr[syms[i]] % arr[syms[i + 1]] === 1) {
+      return true;
+    }
+  }
+
+  return false;
 };
