@@ -58,12 +58,29 @@
 
 //------------------------------------------------------------------------------
 
+// 1365. How Many Numbers Are Smaller Than the Current Number
 
+var smallerNumbersThanCurrent = function (nums) {
+
+};
 
 
 //------------------------------------------------------------------------------
 
+// 771. Jewels and Stones
 
+var numJewelsInStones = function (J, S) {
+  let count = 0;
+
+  J.split("").forEach(j => {
+    S.split("").forEach(s => {
+      if (j === s) {
+        count += 1;
+      }
+    })
+  })
+  return count;
+};
 
 
 //------------------------------------------------------------------------------
@@ -71,7 +88,19 @@
 // 1486. XOR Operation in an Array
 
 var xorOperation = function (n, start) {
+  let xor;
 
+  for (let i = 0; i < n; i++) {
+    let num = start + 2 * i;
+
+    if (i === 0) {
+      xor = num;
+    } else {
+      xor = xor ^ num;
+    }
+  }
+
+  return xor;
 };
 
 
