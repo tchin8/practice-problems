@@ -53,7 +53,19 @@
 
 //------------------------------------------------------------------------------
 
+// 1313. Decompress Run - Length Encoded List
 
+var decompressRLElist = function (nums) {
+  let res = [];
+
+  for (let i = 0; i < nums.length; i += 2) {
+    for (let j = 0; j < nums[i]; j++) {
+      res.push(nums[i + 1]);
+    }
+  }
+
+  return res;
+};
 
 
 //------------------------------------------------------------------------------
@@ -61,7 +73,23 @@
 // 1365. How Many Numbers Are Smaller Than the Current Number
 
 var smallerNumbersThanCurrent = function (nums) {
+  let counts = [];
 
+  for (let i = 0; i < nums.length; i++) {
+    let count = 0;
+
+    for (let j = 0; j < nums.length; j++) {
+      if (i !== j) {
+        if (nums[i] > nums[j]) {
+          count += 1;
+        }
+      }
+    }
+
+    counts.push(count);
+  }
+
+  return counts;
 };
 
 
