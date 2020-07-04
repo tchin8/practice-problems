@@ -46,7 +46,7 @@
 // 1389. Create Target Array in the Given Order
 
 var createTargetArray = function (nums, index) {
-
+// slice then concat
 };
 
 
