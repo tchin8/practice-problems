@@ -43,13 +43,51 @@
 
 //------------------------------------------------------------------------------
 
+// 1389. Create Target Array in the Given Order
 
+var createTargetArray = function (nums, index) {
+
+};
 
 
 //------------------------------------------------------------------------------
 
+// 1281. Subtract the Product and Sum of Digits of an Integer
 
+var subtractProductAndSum = function (n) {
+  let prod, sum;
+  let nums = [];
 
+  while (n > 9) {
+    if (n === 10) {
+      nums.unshift(0);
+      nums.unshift(1);
+      n = 0;
+    } else {
+      nums.unshift(n % 10);
+      n = Math.floor(n / 10);
+    }
+  }
+
+  nums.unshift(n);
+
+  // console.log(nums);
+
+  for (let i = 0; i < nums.length; i++) {
+    let num = nums[i]
+    if (i === 0) {
+      prod = num;
+      sum = num;
+    } else {
+      prod *= num;
+      sum += num;
+    }
+  }
+
+  return prod - sum;
+};
+
+subtractProductAndSum(234)
 
 //------------------------------------------------------------------------------
 
