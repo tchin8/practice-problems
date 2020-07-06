@@ -46,7 +46,16 @@
 // 1389. Create Target Array in the Given Order
 
 var createTargetArray = function (nums, index) {
-// slice then concat
+  let res = [];
+  for (let i = 0; i < nums.length; i++) {
+    if (res[i] === undefined) {
+      res = res.push(nums[i]);
+    } else {
+      res = res.slice(0, index[i]).push(nums[i]).concat(res.slice(index[i]));
+    }
+  }
+
+  return res;
 };
 
 
