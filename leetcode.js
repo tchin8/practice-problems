@@ -29,16 +29,65 @@
 
 //------------------------------------------------------------------------------
 
+// 938. Range Sum of BST
+
+var rangeSumBST = function (root, L, R) {
+
+};
 
 
 
 //------------------------------------------------------------------------------
 
+// 1295. Find Numbers with Even Number of Digits
+
+var findNumbers = function (nums) {
+  let count = 0;
+  nums = nums.map(n => `${n}`);
+  nums.forEach(n => {
+    if (n.length % 2 === 0) {
+      return count += 1;
+    }
+  });
+  return count;
+};
+
+let nums = [12, 345, 2, 6, 7896];
+findNumbers(nums)
+
 
 
 //------------------------------------------------------------------------------
 
+// 1221. Split a String in Balanced Strings
 
+var balancedStringSplit = function (s) {
+  let subs = 0;
+  let count = 0;
+
+  s = s.split("");
+
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === 'R') {
+      count += 1;
+    } else {
+      count -= 1;
+    }
+
+    if (i !== 0 && count === 0) {
+      subs += 1;
+    }
+  }
+
+  return subs;
+};
+
+let s = "RLRRLLRLRL";
+balancedStringSplit(s);
+
+// Input: s = "RLRRLLRLRL"
+// Output: 4
+// Explanation: s can be split into "RL", "RRLL", "RL", "RL", each substring contains same number of 'L' and 'R'.
 
 
 //------------------------------------------------------------------------------
@@ -48,15 +97,31 @@
 var createTargetArray = function (nums, index) {
   let res = [];
   for (let i = 0; i < nums.length; i++) {
-    if (res[i] === undefined) {
-      res = res.push(nums[i]);
+    if (res[index[i]] === undefined) {
+      res.push(nums[i]);
     } else {
-      res = res.slice(0, index[i]).push(nums[i]).concat(res.slice(index[i]));
+      let first = res.slice(0, index[i]);
+      let second = res.slice(index[i]);
+      first.push(nums[i]);
+      res = first.concat(second);
     }
   }
 
   return res;
 };
+
+// let nums = [0, 1, 2, 3, 4];
+// let index = [0, 1, 2, 2, 1];
+
+// createTargetArray(nums, index);
+// Output: [0,4,1,3,2]
+// Explanation:
+// nums       index     target
+// 0            0[0]
+// 1            1[0, 1]
+// 2            2[0, 1, 2]
+// 3            2[0, 1, 3, 2]
+// 4            1[0, 4, 1, 3, 2]
 
 
 //------------------------------------------------------------------------------
