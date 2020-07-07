@@ -7,8 +7,94 @@
 
 
 
+
 //------------------------------------------------------------------------------
 
+// 1323. Maximum 69 Number
+
+var maximum69Number = function (num) {
+
+};
+
+// Example 1:
+
+// Input: num = 9669
+// Output: 9969
+// Explanation:
+// Changing the first digit results in 6669.
+// Changing the second digit results in 9969.
+// Changing the third digit results in 9699.
+// Changing the fourth digit results in 9666.
+// The maximum number is 9969.
+// Example 2:
+
+// Input: num = 9996
+// Output: 9999
+// Explanation: Changing the last digit 6 to 9 results in the maximum number.
+//   Example 3:
+
+// Input: num = 9999
+// Output: 9999
+// Explanation: It is better not to apply any change.
+
+
+
+//------------------------------------------------------------------------------
+
+// 1252. Cells with Odd Values in a Matrix
+
+// n is height
+// m is width
+
+var oddCells = function (n, m, indices) {
+  let matrix = [];
+  for (let i = 0; i < n; i++) {     // height
+    matrix[i] = [];
+    for (let j = 0; j < m; j++) {    // width
+      matrix[i][j] = 0;
+    }
+  }
+
+  indices.forEach(pos => {
+    for (let i = 0; i < m; i++) {
+      matrix[pos[0]][i] += 1;
+    }
+
+    for (let j = 0; j < n; j++) {
+      matrix[j][pos[1]] += 1;
+    }
+  })
+
+  let count = 0;
+  for (let i = 0; i < n; i++) {     // height
+    for (let j = 0; j < m; j++) {    // width
+      if (matrix[i][j] % 2 === 1) count += 1;
+    }
+  }
+
+  return count;
+};
+
+let n = 2, m = 3, indices = [[0, 1], [1, 1]]
+oddCells(n, m, indices);
+
+//------------------------------------------------------------------------------
+
+// 1464. Maximum Product of Two Elements in an Array
+
+var maxProduct = function (nums) {
+  let max = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j < nums.length; j++) {
+      if (max < (nums[i] - 1) * (nums[j] - 1)) {
+        max = (nums[i] - 1) * (nums[j] - 1);
+      }
+    }
+  }
+
+  return max;
+};
 
 
 
@@ -17,7 +103,14 @@
 // 1450. Number of Students Doing Homework at a Given Time
 
 var busyStudent = function (startTime, endTime, queryTime) {
+  let busy = 0;
+  for (let i = 0; i < startTime.length; i++) {
+    if (startTime[i] <= queryTime && endTime[i] >= queryTime) {
+      busy += 1;
+    }
+  }
 
+  return busy;
 };
 
 
@@ -473,3 +566,5 @@ var runningSum = function (nums) {
 
 
 //------------------------------------------------------------------------------
+
+
