@@ -14,17 +14,44 @@
 
 //------------------------------------------------------------------------------
 
+// 1450. Number of Students Doing Homework at a Given Time
+
+var busyStudent = function (startTime, endTime, queryTime) {
+
+};
 
 
 
 //------------------------------------------------------------------------------
 
+// 1502. Can Make Arithmetic Progression From Sequence
 
+var canMakeArithmeticProgression = function (arr) {
+  arr = arr.sort(function(a, b) { return a - b });
+
+  let diff = arr[0] - arr[1];
+  let diff2 = diff;
+  for (let i = 1; i < arr.length - 1; i++) {
+    if (arr[i] - arr[i + 1] !== diff) {
+      diff2 = arr[i] - arr[i + 1];
+    }
+  }
+
+  return diff === diff2;
+};
+
+let arr = [3, 5, 1];
+canMakeArithmeticProgression(arr);
 
 
 //------------------------------------------------------------------------------
 
+// 709. To Lower Case
+// what is this q even asking for?
 
+var toLowerCase = function (str) {
+  return str.toLowerCase();
+};
 
 
 //------------------------------------------------------------------------------
