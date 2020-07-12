@@ -13,16 +13,27 @@
 // 1323. Maximum 69 Number
 
 var maximum69Number = function (num) {
-  let newNum, numArr = `${num}`.split("");
+  let newNum, changed = false, numArr = `${num}`.split("");
 
   if (!numArr.includes('6')) {
     return num;
   } else {
     for (let i = 0; i < numArr.length; i++) {
-      
+      if (changed === false && numArr[i] === '6') {
+        newNum = newNum || 0;
+        newNum = newNum * 10 + 9;
+        changed = true;
+      } else {
+        if (numArr[i] === '6') {
+          newNum = newNum * 10 + 6;
+        } else {
+          newNum = newNum * 10 + 9;
+        }
+      }
     }
   }
 
+  return newNum;
 };
 
 // Example 1:
