@@ -10,17 +10,59 @@
 
 //------------------------------------------------------------------------------
 
+
+
+
+//------------------------------------------------------------------------------
+
+// 1021. Remove Outermost Parentheses     // UNSOLVED
+
+var removeOuterParentheses = function (S) {
+  let outer = false, count = 0, newS = "", idx = [];
+  S = S.split("");
+
+  for (let i = 0; i < S.length; i++) {
+    if (S[i] === '(') {
+      count += 1;
+    } else {
+      count -= 1;
+    }
+
+    if (outer === false && count === 1) {
+      idx.push(i);
+    } else if (count > 1) {
+      outer = true;
+    }
+
+    if (outer === true && count === 0) {
+      idx.push(i);
+      outer = false;
+    }
+  }
+
+  for (let i = 0; i < S.length; i++) {
+    if (!idx.includes(i)) {
+      newS += S[i];
+    }
+  }  
+
+  return newS;
+};
+
+
+
+//------------------------------------------------------------------------------
+
 // 1323. Maximum 69 Number
 
 var maximum69Number = function (num) {
-  let newNum, changed = false, numArr = `${num}`.split("");
+  let newNum = 0, changed = false, numArr = `${num}`.split("");
 
   if (!numArr.includes('6')) {
     return num;
   } else {
     for (let i = 0; i < numArr.length; i++) {
       if (changed === false && numArr[i] === '6') {
-        newNum = newNum || 0;
         newNum = newNum * 10 + 9;
         changed = true;
       } else {
