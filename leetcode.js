@@ -10,6 +10,20 @@
 
 //------------------------------------------------------------------------------
 
+// 1309. Decrypt String from Alphabet to Integer Mapping
+
+var freqAlphabets = function (s) {
+  let alpha = ("abcdefghijklmnopqrstuvwxyz").split("");
+
+  let newStr = "";
+
+  for (let i = 0; i < s.length; i++) {
+    let char = s[i];
+    if (char !== '#') {
+      
+    }
+  }
+};
 
 
 
