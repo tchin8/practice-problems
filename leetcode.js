@@ -4,7 +4,11 @@
 
 //------------------------------------------------------------------------------
 
+// 1512. Number of Good Pairs
 
+var numIdenticalPairs = function (nums) {
+
+};
 
 
 
