@@ -13,18 +13,27 @@
 // 1309. Decrypt String from Alphabet to Integer Mapping
 
 var freqAlphabets = function (s) {
-  let alpha = ("abcdefghijklmnopqrstuvwxyz").split("");
+  let alpha = " abcdefghijklmnopqrstuvwxyz";
 
   let newStr = "";
 
   for (let i = 0; i < s.length; i++) {
     let char = s[i];
-    if (char !== '#') {
-      
+    if (s[i + 2] === '#') {
+      let num = s[i] + s[i + 1];
+      newStr += alpha[parseInt(num)];
+    } else if (char === '#' || s[i + 1] === '#') {
+      continue;
+    } else {
+      newStr += alpha[parseInt(char)];
     }
   }
+  return newStr;
 };
 
+// let s = "10#11#12"
+// freqAlphabets(s);
+// Output: "jkab"
 
 
 //------------------------------------------------------------------------------
@@ -278,8 +287,8 @@ var balancedStringSplit = function (s) {
   return subs;
 };
 
-let s = "RLRRLLRLRL";
-balancedStringSplit(s);
+// let s = "RLRRLLRLRL";
+// balancedStringSplit(s);
 
 // Input: s = "RLRRLLRLRL"
 // Output: 4
