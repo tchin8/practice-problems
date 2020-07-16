@@ -1,6 +1,13 @@
 
 
 
+
+
+//------------------------------------------------------------------------------
+
+
+
+
 //------------------------------------------------------------------------------
 
 
@@ -8,13 +15,166 @@
 //------------------------------------------------------------------------------
 
 
+
+
+//------------------------------------------------------------------------------
+
+
 //------------------------------------------------------------------------------
 
 
 
+
 //------------------------------------------------------------------------------
 
+// 1207. Unique Number of Occurrences
 
+var uniqueOccurrences = function (arr) {
+  let counts = {}, countsCounts = {};
+
+  arr.forEach(num => {
+    if (!counts[num]) counts[num] = 0;
+    counts[num] += 1;
+  });
+
+  let v = Object.values(counts);
+
+  v.forEach(val => {
+    if (!countsCounts[val]) countsCounts[val] = 0;
+    countsCounts[val] += 1;
+  });
+
+  return Object.values(countsCounts).every(n => n === 1);
+};
+
+
+
+//------------------------------------------------------------------------------
+
+// 852. Peak Index in a Mountain Array
+
+var peakIndexInMountainArray = function (A) {
+  for (let i = 1; i < A.length - 1; i++) {
+    if (A[i] > A[i - 1] && A[i] > A[i + 1]) return i;
+  }
+};
+
+
+//------------------------------------------------------------------------------
+
+// 561. Array Partition I
+
+var luckyNumbers = function (matrix) {
+  let min = [], max = [], transposed = [], lucky = [];
+
+  for (let i = 0; i < matrix[0].length; i++) {
+    let row = [];
+    min.push(Math.min(...matrix[i]));
+    for (let j = 0; j < matrix.length; j++) {
+      row.push(matrix[j][i]);
+    }
+    transposed.push(row);
+  }
+
+  for (let i = 0; i < transposed[0].length; i++) {
+    max.push(Math.max(...transposed[i]));
+  }
+
+  for (let i = 0; i < min.length; i++) {
+    if (max.includes(min[i]) && !lucky.includes(min[i])) lucky.push(min[i]);
+  }
+
+  return lucky;
+};
+
+let matrix = [[3, 7, 8], [9, 11, 13], [15, 16, 17]];
+arrayPairSum(matrix);
+
+//------------------------------------------------------------------------------
+
+// 977. Squares of a Sorted Array
+
+var sortedSquares = function (A) {
+  let squares = [];
+  A.forEach(num => squares.push(num ** 2));
+
+  squares.sort(function(a, b) { return a - b });    // ascending
+  return squares;
+};
+
+// let A = [-4, -1, 0, 3, 10];
+// sortedSquares(A);
+
+
+//------------------------------------------------------------------------------
+
+// 961. N - Repeated Element in Size 2N Array
+
+var repeatedNTimes = function (A) {
+  let count = {};
+
+  A.forEach(num => {
+    if (!count[num]) {
+      count[num] = 0;
+    } 
+    count[num] += 1;
+  });
+
+  let times = A.length / 2;
+
+  return Object.keys(count).find(key => count[key] === times);
+};
+
+
+
+//------------------------------------------------------------------------------
+
+// 905. Sort Array By Parity
+
+var sortArrayByParity = function (A) {
+  if (A.every(num => num % 2 === 1)) {
+    return A;
+  } else {
+    let e = A.filter(num => num % 2 === 0);
+    let o = A.filter(num => num % 2 !== 0)
+    return e.concat(o);
+  }
+};
+
+
+//------------------------------------------------------------------------------
+
+// 728. Self Dividing Numbers
+
+var selfDividingNumbers = function (left, right) {
+  let nums = [];
+
+  let i = left;
+  while (i <= right) {
+    let num = `${i}`;
+    let selfDividing = false;
+
+    if (num.length === 1) {
+      selfDividing = true;
+    } else if (num.includes('0')) {
+      selfDividing = false;
+    } else {
+      selfDividing = num.split("").every(n => i % parseInt(n) === 0);
+    }
+
+    if (selfDividing) {
+      nums.push(i);
+    }
+
+    i++
+  }
+
+  return nums;
+};
+
+// Input:
+// left = 1, right = 22
+// Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 15, 22]
 
 
 //------------------------------------------------------------------------------
@@ -393,8 +553,8 @@ var findNumbers = function (nums) {
   return count;
 };
 
-let nums = [12, 345, 2, 6, 7896];
-findNumbers(nums)
+// let nums = [12, 345, 2, 6, 7896];
+// findNumbers(nums)
 
 
 
