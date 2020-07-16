@@ -1,13 +1,108 @@
 
 
 
+//------------------------------------------------------------------------------
+
+
+
+//------------------------------------------------------------------------------
+
+
+//------------------------------------------------------------------------------
+
+
+
+//------------------------------------------------------------------------------
+
+
+//------------------------------------------------------------------------------
+
+
+
+//------------------------------------------------------------------------------
+
+function order(words) {
+  if (words.length === 0) return "";
+  let nums = "123456789";
+  words = words.split(" ");
+  let sorted = new Array(words.length);
+
+  for (let i = 0; i < words.length; i++) {
+    let word = words[i];
+    for (let j = 0; j < word.length; j++) {
+      let char = word[j];
+      if (nums.includes(char)) {
+        sorted[parseInt(char) - 1] = word;
+      }
+    }
+  }
+
+  return sorted.join(" ");
+}
+
+// "is2 Thi1s T4est 3a"  -- > "Thi1s is2 3a T4est"
+// "4of Fo1r pe6ople g3ood th5e the2"  -- > "Fo1r the2 g3ood 4of th5e pe6ople"
+// ""  -- > ""
+
+let words = "is2 Thi1s T4est 3a";
+order(words);
+
+
+//------------------------------------------------------------------------------
+
+// 1351. Count Negative Numbers in a Sorted Matrix
+
+var countNegatives = function (grid) {
+  let negs = 0;
+
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[0].length; j++) {
+      if (grid[i][j] < 0) negs++;
+    }
+  }
+
+  return negs;
+};
+
+
+//------------------------------------------------------------------------------
+
+// 804. Unique Morse Code Words
+
+var uniqueMorseRepresentations = function (words) {
+  let alpha = "abcdefghijklmnopqrstuvwxyz".split("");
+  let morse = [".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.."];
+  let codes = [];
+
+  for (let i = 0; i < words.length; i++) {
+    let word = words[i];
+    let code = "";
+    
+    for (let j = 0; j < word.length; j++) {
+      let char = word[j];
+      let idx = alpha.indexOf(char);
+      code += morse[idx];
+    }
+
+    if (!codes.includes(code)) codes.push(code);
+  }
+
+  return codes.length;
+};
+
 
 //------------------------------------------------------------------------------
 
 // 1512. Number of Good Pairs
 
 var numIdenticalPairs = function (nums) {
-
+  let good = 0;
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j < nums.length; j++) {
+      if (nums[i] === nums[j]) good++;
+    }
+  }
+  return good;
 };
 
 
