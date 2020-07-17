@@ -22,6 +22,21 @@
 
 //------------------------------------------------------------------------------
 
+// 1491. Average Salary Excluding the Minimum and Maximum Salary
+
+var average = function (salary) {
+  let minMaxIdx = [];
+  let sum = 0;
+
+  minMaxIdx.push(salary.indexOf(Math.min(...salary)));
+  minMaxIdx.push(salary.indexOf(Math.max(...salary)));
+
+  salary.forEach((s, i) => {
+    if (!minMaxIdx.includes(i)) sum += s;
+  });
+
+  return sum / (salary.length - 2);
+};
 
 
 
