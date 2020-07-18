@@ -2,7 +2,6 @@
 
 
 
-
 //------------------------------------------------------------------------------
 
 
@@ -16,8 +15,94 @@
 
 
 
+//------------------------------------------------------------------------------
+
+
+
 
 //------------------------------------------------------------------------------
+
+
+
+//------------------------------------------------------------------------------
+
+// 1122. Relative Sort Array
+
+var relativeSortArray = function (arr1, arr2) {
+
+};
+
+// Input: 
+// arr1 = [2, 3, 1, 3, 2, 4, 6, 7, 9, 2, 19]
+// arr2 = [2, 1, 4, 3, 9, 6]
+// Output: [2, 2, 2, 1, 4, 3, 3, 9, 6, 7, 19]
+
+
+
+//------------------------------------------------------------------------------
+
+// 344. Reverse String
+// O(1) space
+
+var reverseString = function (s) {
+  s.reverse();
+};
+
+
+
+//------------------------------------------------------------------------------
+
+// 1047. Remove All Adjacent Duplicates In String
+
+var removeDuplicates = function (S) {
+  let duplicates = false;
+
+  for (let i = 0; i < S.length - 1; i++) {
+    if (S[i] === S[i + 1]) {
+      duplicates = true;
+    }
+  }
+
+  if (!duplicates) return S;
+
+  for (let i = 0; i < S.length - 1; i++) {
+    if (S[i] === S[i + 1]) {
+      return removeDuplicates(S.slice(0, i) + S.slice(i + 1));
+    }
+  }
+};
+
+
+//------------------------------------------------------------------------------
+
+// 922. Sort Array By Parity II
+
+var sortArrayByParityII = function (A) {
+  let newArr = [];
+  let evens = A.filter(n => n % 2 === 0);
+  let odds = A.filter(n => n % 2 !== 0);
+
+  while (evens.length > 0 && odds.length > 0) {
+    newArr.push(evens.pop());
+    newArr.push(odds.pop());
+  }
+
+  return newArr;
+};
+
+
+
+//------------------------------------------------------------------------------
+
+// 557. Reverse Words in a String III
+
+var reverseWords = function (s) {
+  let newWords = s.split(" ").map(word => {
+    return word.split("").reverse().join("");
+  });
+
+  return newWords.join(" ");
+};
 
 
 //------------------------------------------------------------------------------
