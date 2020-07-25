@@ -26,14 +26,189 @@
 //------------------------------------------------------------------------------
 
 
+// Sum of Pairs
+
+var sum_pairs = function (ints, s) {
+  //your code here
+}
+
+
 
 //------------------------------------------------------------------------------
 
+// Simple Pig Latin
+
+function pigIt(str) {
+  words = str.split(" ").map(word => {
+    if (!"!?".includes(word)) {
+      let newWord = word.slice(1);
+      newWord += `${word[0]}ay`;
+      return newWord;
+    } else {
+      return word;
+    }
+  });
+  
+  console.log(words.join(" "));
+}
+
+// pigIt('Pig latin is cool'); // igPay atinlay siay oolcay
+// pigIt('Hello world !');     // elloHay orldway !
+
 
 
 //------------------------------------------------------------------------------
 
+// Maximum subarray sum
 
+var maxSequence = function (arr) {
+  if (arr.length === 0) return 0;
+
+  let subs = [];
+  let max = 0;
+
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j <= arr.length + 1; j++) {
+      let sub = arr.slice(i, j);
+      if (!subs.includes(sub)) subs.push(sub);
+    }
+  }
+
+  for (let i = 0; i < subs.length; i++) {
+    let sub = subs[i];
+    let sum = sub.reduce((a, b) => a + b);
+    if (sum > max) {
+      max = sum;
+    };
+  }
+
+  return max;
+}
+
+maxSequence([-2, 1, -3, 4, -1, 2, 1, -5, 4])
+
+
+//------------------------------------------------------------------------------
+
+// Vowel Count
+
+function getCount(str) {
+  let vowels = "aeiou"
+  var vowelsCount = 0;
+
+  for (let i = 0; i < str.length; i++) {
+    if (vowels.includes(str[i])) vowelsCount += 1;
+  }
+
+  return vowelsCount;
+}
+
+
+
+//------------------------------------------------------------------------------
+
+// IQ Test
+
+function iqTest(numbers) {
+  let oddsEvens = {
+    odd: [],
+    even: []
+  };
+
+  numbers = numbers.split(" ").map(num => parseInt(num));
+
+  for (let i = 0; i < numbers.length; i++) {
+    let num = numbers[i];
+    if (Math.abs(num % 2) === 1) {
+      oddsEvens.odd.push(i + 1);
+    } else {
+      oddsEvens.even.push(i + 1);
+    }
+
+    if (oddsEvens.odd.length > 1 && oddsEvens.even.length > 0) {
+      return oddsEvens.even[0];
+    } else if (oddsEvens.even.length > 1 && oddsEvens.odd.length > 0) {
+      return oddsEvens.odd[0];
+    }
+  }
+}
+
+
+
+//------------------------------------------------------------------------------
+
+// Dubstep
+
+function songDecoder(song) {
+  let songArr = song.split("WUB");
+  let newArr = [];
+  
+  for (let i = 0; i < songArr.length; i++) {
+    let ele = songArr[i];
+    if (ele !== " ") newArr.push(ele);
+  }
+
+  return newArr.join(" ");
+}
+
+
+
+//------------------------------------------------------------------------------
+
+// Replace With Alphabet Position
+
+function alphabetPosition(text) {
+  let alpha = "abcdefghijklmnopqrstuvwxyz";
+
+  let newText = ""
+
+  text.split("").forEach((char, i) => {
+    char = char.toLowerCase();
+    if (alpha.includes(char)) {
+      newText += ` ${alpha.indexOf(char) + 1}`;
+    }
+  });
+
+  if (newText[0] === " ") {
+    newText = newText.slice(1)
+  }
+
+  return newText;
+}
+alphabetPosition("The sunset sets at twelve o' clock.") 
+// "20 8 5 19 21 14 19 5 20 19 5 20 19 1 20 20 23 5 12 22 5 15 3 12 15 3 11"
+
+//------------------------------------------------------------------------------
+
+// Who likes it ?
+
+function likes(names) {
+  if (names.length === 0) {
+    return "no one likes this";
+  } else if (names.length === 1) {
+    return `${names[0]} likes this`;
+  } else if (names.length <= 3) {
+    let sent = ""
+    for (let i = 0; i < names.length; i++) {
+      let name = names[i];
+      if (i === 0) {
+        sent += name;
+      } else if (i !== names.length - 1) {
+        sent += `, ${name}`;
+      } else {
+        sent += ` and ${name} like this`;
+      }
+    }
+    return sent;
+  } else {
+    let num = names.length - 2;
+    return `${names[0]}, ${names[1]} and ${num} others like this`;
+  }
+}
+
+likes(["Peter"]);
+likes(["Jacob", "Alex"]);
+likes(["Alex", "Jacob", "Mark", "Max"]);
 
 
 //------------------------------------------------------------------------------
@@ -55,19 +230,15 @@ function findOutlier(integers) {
     }
 
     if (oddsEvens.odd.length > 1 && oddsEvens.even.length > 0) {
-      // return oddsEvens[2][0];
-      console.log(oddsEvens.even[0]);
-      break;
+      return oddsEvens.even[0];
     } else if (oddsEvens.even.length > 1 && oddsEvens.odd.length > 0) {
-      // return oddsEvens[1][0];
-      console.log(oddsEvens.odd[0]);
-      break;
+      return oddsEvens.odd[0];
     }
   }
 }
 
-findOutlier([2, 4, 0, 100, 4, 11, 2602, 36]);
-findOutlier([160, 3, 1719, 19, 11, 13, -21]);
+// findOutlier([2, 4, 0, 100, 4, 11, 2602, 36]);
+// findOutlier([160, 3, 1719, 19, 11, 13, -21]);
 
 
 //------------------------------------------------------------------------------
@@ -81,7 +252,7 @@ function persistence(num) {
   while (num > 10) {
     num = `${num}`.split("").reduce((acc, ele) => parseInt(acc) * parseInt(ele));
     pers += 1;
-    debugger;
+    // debugger;
   }
 
   return pers;
