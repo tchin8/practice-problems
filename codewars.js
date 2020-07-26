@@ -23,7 +23,29 @@
 
 //------------------------------------------------------------------------------
 
+// Extract the domain name from a URL
 
+function domainName(url) {
+  url = url.split('.');
+
+  for (let i = 0; i < url.length; i++) {
+    let ele = url[i];
+    if (ele.includes('//')) {
+      if (ele.includes('www')) {
+        continue;
+      }
+      let idx = ele.indexOf('/');
+      return ele.slice(idx + 2);
+    } else if (ele !== 'co' && ele !== 'com' && ele !== 'www' && i !== url.length - 1) {
+      return ele;
+    }
+  }
+}
+
+domainName("http://google.com");
+domainName("http://google.co.jp");
+domainName("www.xakep.ru");
+domainName("https://youtube.com");
 
 
 //------------------------------------------------------------------------------
