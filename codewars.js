@@ -2,6 +2,22 @@
 
 
 
+//------------------------------------------------------------------------------
+
+
+
+
+//------------------------------------------------------------------------------
+
+
+//------------------------------------------------------------------------------
+
+
+
+
+//------------------------------------------------------------------------------
+
+
 
 
 
@@ -12,6 +28,33 @@
 
 //------------------------------------------------------------------------------
 
+// Find the missing letter
+
+function findMissingLetter(array) {
+  let alpha = 'abcdefghijklmnopqrstuvwxyz';
+
+  if (!alpha.includes(array[0])) {
+    alpha = alpha.toUpperCase();
+  } 
+
+  let missingChar, prevIdx = alpha.indexOf(array[0]);
+
+  for (let i = 1; i < array.length; i++) {
+    let char = array[i];
+    let alphaIdx = alpha.indexOf(char);
+
+    if (prevIdx !== alphaIdx - 1) {
+      missingChar = alpha[alphaIdx - 1];
+      break;
+    } else {
+      prevIdx = alphaIdx;
+    }
+  }
+
+  return missingChar;
+}
+
+// findMissingLetter(['O', 'Q', 'R', 'S'])
 
 
 //------------------------------------------------------------------------------
