@@ -25,7 +25,55 @@
 // Human readable duration format
 
 function formatDuration(seconds) {
-  // Complete this function
+  if (seconds === 0) return 'now';
+  let years, days, hours, mins, secs, time = {};
+
+  if (seconds >= 31536000) {
+    years = Math.floor(seconds / 31536000)
+    seconds = seconds - (years * 31536000);
+
+    time["years"] = years === 1 ? `${years} year` : `${years} years`;
+  }
+  if (seconds >= 86400) {
+    days = Math.floor(seconds / 86400) 
+    seconds = seconds - (days * 86400);
+
+    time["days"] = days === 1 ? `${days} day` : `${days} days`;
+  }
+  if (seconds >= 3600) {
+    hours = Math.floor(seconds / 3600);
+    seconds = seconds - (hours * 3600);
+
+    time["hours"] = hours === 1 ? `${hours} hour` : `${hours} hours`;
+  }
+  if (seconds >= 60) {
+    mins = Math.floor(seconds / 60);
+    seconds = seconds - (mins * 60);
+
+    time["mins"] = mins === 1 ? `${mins} minute` : `${mins} minutes`;
+  }
+  if (seconds < 60 && seconds > 0) {
+    time["secs"] = seconds === 1 ? `${seconds} second` : `${seconds} seconds`;;
+  }
+
+  keys = Object.keys(time);
+  if (keys.length === 1) {
+    return time[keys];
+  } else {
+    let timeInWords = "";
+    for (let i = 0; i < keys.length; i++) {
+      let key = keys[i];
+      if (i === 0) {
+        timeInWords += time[key];
+      } else if (i !== keys.length - 1) {
+        timeInWords += `, ${time[key]}`;
+      } else {
+        timeInWords += ` and ${time[key]}`;
+      }
+    }
+
+    return timeInWords;
+  }
 }
 
 
