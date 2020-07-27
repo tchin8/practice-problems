@@ -1,7 +1,5 @@
 
 
-
-
 //------------------------------------------------------------------------------
 
 
@@ -14,9 +12,327 @@
 
 
 
+//------------------------------------------------------------------------------
+
 
 //------------------------------------------------------------------------------
 
+
+
+
+//------------------------------------------------------------------------------
+
+// Human readable duration format
+
+function formatDuration(seconds) {
+  // Complete this function
+}
+
+
+
+//------------------------------------------------------------------------------
+
+// Repetitive Sequence - Easy Version
+
+function find(n) {
+  if (n === 0) return 0;
+
+  let seq = [];
+  let multiple = 1;
+  let num = 0;
+
+  while (n >= seq.length) {
+    if (num === 0) {
+      seq.push(num);
+      debugger;
+    } else {
+      debugger;
+      for (let i = 0; i < multiple; i++) {
+        seq.push(num);
+      }
+    }
+
+    if (num % 2 === 1) {
+      multiple += 1;
+    }
+
+    num += 1;
+  }
+  debugger;
+
+  // return seq[n];
+  console.log(seq[n - 1]);
+} 
+
+// find(839);
+
+// [
+  // 0, 
+  // 1, 
+  // 2, 2, 
+  // 3, 3, 
+  // 4, 4, 4, 
+  // 5, 5, 5, 
+  // 6, 6, 6, 6, 
+  // 7, 7, 7, 7, 
+  // 8, 8, 8, 8, 
+       // 9, 9, 9, 9, 9, 
+  // 10, 10, 10, 10, 10, 
+  // 11, 11, 11, 11, 11, 
+  // 12, 12, 12, 12, 12, 12, 
+  // 13, 13, 13, 13, 13, 13, 
+  // 14, 14, 14, 14, 14, 14, 
+  // 15, 15, 15, 15, 15, 15, 
+  // 16, 16, 16, 16, 16, 16, 16, 
+  // 17, 17, 17, 17, 17, 17, 17, 
+  // 18, 18, 18, 18, 18, 18, 18, 
+  // 19, 19, 19, 19, 19, 19, 19, 
+  // 20, 20, 20, 20, 20, 20, 20, 20, 
+  // 21, 21, 21, 21, 21, 21, 21, 21
+// ]
+
+
+//------------------------------------------------------------------------------
+
+// The Hashtag Generator
+
+function generateHashtag(str) {
+  if (str.length === 0) return false;
+
+  let hashtag = "#";
+
+  str = str.split(" ");
+
+  for (let i = 0; i < str.length; i++) {
+    let ele = str[i];
+    if (ele !== " ") {
+      let newWord = ele.charAt(0).toUpperCase() + ele.slice(1).toLowerCase();
+      
+    }
+  }
+}
+
+
+
+//------------------------------------------------------------------------------
+
+// // First non-repeating character
+
+// function firstNonRepeatingLetter(s) {
+//   let count = {};
+//   for (let i = 0; i < s.length; i++) {
+//     let char = s[i];
+//     if (count[char.toUpperCase()]) {
+//       count[count[char.toUpperCase()]] += 1;
+//     } else if (count[char.toLowerCase()]) {
+//       count[char.toLowerCase()] += 1;
+//     } else if (!count[char]) {
+//       count[char] = 1;
+//     }
+//   }
+
+//   let chars = Object.keys(count);
+//   for (let i = 0; i < chars.length; i++) {
+//     let char = chars[i];
+//     if (count[char] === 1) return char;
+//   }
+// }
+
+
+
+//------------------------------------------------------------------------------
+
+// Pete, the baker
+
+function cakes(recipe, available) {
+  let ingredients = Object.keys(recipe);
+  let max = 0;
+
+  for (let i = 0; i < ingredients.length; i++) {
+    let ingred = ingredients[i];
+    if (!available[ingred]) {
+      return 0;
+    }
+
+    let maxIngred = Math.floor(available[ingred] / recipe[ingred]);
+
+    if (i === 0) {
+      max = maxIngred;
+    } else {
+      if (maxIngred < max) {
+        max = maxIngred;
+      }
+    }
+  }
+
+  return max;
+
+}
+
+
+
+//------------------------------------------------------------------------------
+
+// Mumbling
+
+function accum(s) {
+  let newStr = "";
+  for (let i = 0; i < s.length; i++) {
+    let char = s[i];
+    newStr += char.toUpperCase();
+
+    if (i > 0) {
+      for (let j = 0; j < i; j++) {
+        newStr += char.toLowerCase();
+      }
+    }
+
+    if (i !== s.length - 1) {
+      newStr += "-";
+    }
+  }
+
+  return newStr;
+}
+
+
+
+//------------------------------------------------------------------------------
+
+// Sum Strings as Numbers
+
+function sumStrings(a, b) {
+  if (a === '') {
+    a = '0';
+  } else if (b === '') {
+    b = '0'
+  }
+
+  let newNumStr = '', extra = '0';
+
+  a = a.split("").reverse().join("");
+  b = b.split("").reverse().join("");
+
+  for (let i = 0; i < a.length || i < b.length; i++) {
+    let numA = a[i];
+    let numB = b[i];
+
+    if (!numA) numA = '0';
+    if (!numB) numB = '0';
+
+    let sum = parseInt(numA) + parseInt(numB) + parseInt(extra);
+    sum = sum.toString();
+
+    if (sum.length > 1) {
+      extra = sum.slice(0, sum.length - 1);
+
+      if ((a.length === b.length && i === a.length - 1) 
+      || (a.length > b.length && i === a.length - 1) 
+      || (b.length > a.length && i === b.length - 1)) {
+        newNumStr += sum[sum.length - 1];
+        newNumStr += extra;
+        break;
+      }
+
+    } else {
+      extra = '0';
+    }
+
+    newNumStr += sum[sum.length - 1];
+  }
+
+  newNumStr = newNumStr.split("").reverse().join("");
+
+  if (newNumStr[0] === '0') {
+    newNumStr = newNumStr.slice(1);
+  }
+  return newNumStr;
+}
+
+sumStrings('800', '9567')
+// sumStrings('123', '456')
+// sumStrings('712569312664357328695151392', '8100824045303269669937');
+// sumStrings('50095301248058391139327916261', '81055900096023504197206408605') 
+
+
+
+//------------------------------------------------------------------------------
+
+// String incrementer
+
+function incrementString(strng) {
+  if (strng.length === 0) return "1";
+
+  let ints = "1234567890", letters, nums;
+
+  if (!ints.includes(strng[strng.length - 1])) {
+    letters = strng;
+    nums = '0';
+  } else if (ints.includes(strng[0])) {
+    letters = "";
+    nums = strng;
+  } else {
+    for (let i = 0; i < strng.length; i++) {
+      let char = strng[i];
+      if (ints.includes(char)) {
+        letters = strng.slice(0, i);
+        nums = strng.slice(i);
+        break;
+      }
+    }
+  }
+
+  let num = parseInt(nums);
+  num = `${num + 1}`;
+  if (nums.length > num.length) {
+    let diff = nums.length - num.length;
+    for (let i = 0; i < diff; i++) {
+      num = '0' + `${num}`;
+    }
+  }
+
+  return `${letters + num}`;
+}
+
+incrementString("1");
+
+
+
+//------------------------------------------------------------------------------
+
+// Human Readable Time
+
+function humanReadable(seconds) {
+  let hour = "00";
+  let min = "00";
+  let sec = "00";
+
+  if (seconds >= 3600) {
+    hour = Math.floor(seconds / 3600);
+    if (`${hour}`.length === 1) {
+      hour = `0${hour}`;
+    }
+
+    seconds = seconds - (hour * 3600);
+  }
+
+  if (seconds >= 60) {
+    min = Math.floor(seconds / 60);
+    if (`${min}`.length === 1) {
+      min = `0${min}`;
+    }
+
+    seconds = seconds - (min * 60);
+  }
+  if (seconds < 60 && seconds > 0) {
+    sec = seconds;
+    if (`${sec}`.length === 1) {
+      sec = `0${sec}`;
+    }
+  }
+
+  return `${hour}:${min}:${sec}`;
+}
 
 
 
