@@ -9,6 +9,20 @@
 
 //------------------------------------------------------------------------------
 
+                                    // 104. Maximum Depth of Binary Tree
+
+                                    var maxDepth = function (root) {
+                                      if (root === null) return 0;
+
+                                      let leftTree = maxDepth(root.left);
+                                      let rightTree = maxDepth(root.right);
+
+                                      if (leftTree > rightTree) {
+                                        return leftTree + 1;
+                                      } else {
+                                        return rightTree + 1;
+                                      }
+                                    };
 
 
 //------------------------------------------------------------------------------
