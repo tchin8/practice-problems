@@ -20,8 +20,33 @@
 // 1282. Group the People Given the Group Size They Belong To
 
 var groupThePeople = function (groupSizes) {
-
+  let grouped = {};
+  for (let i = 0; i < groupSizes.length; i++) {
+    let groupSize = groupSizes[i];
+    if (!grouped[groupSize]) {
+      grouped[groupSize] = [];
+    }
+    if (groupSize === 1) {
+      grouped[groupSize].push([i]);
+    } else {
+      let full = grouped[groupSize].every(group => group.length === groupSize);
+      if (full) {
+        grouped[groupSize].push([i]);
+      } else {
+        grouped[groupSize][grouped[groupSize].length - 1].push(i);
+      }
+    }
+  }
+  let keys = Object.keys(grouped);
+  let people = []; 
+  for (let i = 0; i < keys.length; i++) {
+    let group = grouped[keys[i]];
+    people = people.concat(group);
+  }
+  return people;
 };
+
+// groupThePeople([3, 3, 3, 3, 3, 1, 3]);
 
 
 
@@ -204,8 +229,8 @@ var luckyNumbers = function (matrix) {
   return lucky;
 };
 
-let matrix = [[3, 7, 8], [9, 11, 13], [15, 16, 17]];
-arrayPairSum(matrix);
+// let matrix = [[3, 7, 8], [9, 11, 13], [15, 16, 17]];
+// arrayPairSum(matrix);
 
 //------------------------------------------------------------------------------
 
