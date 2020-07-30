@@ -11,6 +11,12 @@
 
 
 
+
+//------------------------------------------------------------------------------
+
+
+
+
 //------------------------------------------------------------------------------
 
 
@@ -18,10 +24,19 @@
 
 //------------------------------------------------------------------------------
 
+var reverseList = function (head) {
+  let currentNode = head;
+  let prevNode = null;
 
+  while (currentNode !== null) {
+    let next = currentNode.next;    // 2
+    currentNode.next = prevNode;    // null
+    prevNode = currentNode;     // 1 is prev node, changing currentnode to 2
+    currentNode = next;
+  }
 
-//------------------------------------------------------------------------------
-
+  return prevNode;
+};
 
 
 
