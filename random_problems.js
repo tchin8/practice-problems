@@ -52,6 +52,13 @@ function justifyNewspaperText(lines, aligns, width) {
     justified.push(newLine);
   }
 
+  let border = "";
+  for (let i = 0; i < width + 2; i++) {
+    border += "*";
+  }
+
+  justified.unshift(border);
+  justified.push(border);
   return justified;
 }
 
