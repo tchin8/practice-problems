@@ -19,68 +19,40 @@
 //------------------------------------------------------------------------------
 
 function justifyNewspaperText(lines, aligns, width) {
-  let align;
   let justified = [];
-  let border = "";
-
-  for (let i = 0; i < width + 2; i++) {
-    border += "*";
-  }
-  justified.push(border);
+  let newLine = "";
 
   for (let i = 0; i < lines.length; i++) {
     let words = lines[i];
+    let align = aligns[i];
+    if (words.join(" ").length <= width) {
+      newLine = words.join(" ");
+    } else {
+      for (let i = words.length; i > 0; i--) {
+        let sub = words.slice(0, i);
+        if (sub.join(" ").length > width) continue;
 
-    align = aligns[i];
-    let newLine = "";
+        newLine = sub.join(" ");
+        lines.push(words.slice(i));
+        break;
+      }
+    }
 
-    // if (words.join(" ").length < width) {
-    //   let chars = words.join(" ").length;
-    //   for (let i = 0; i < width - chars; i++) {
-    //     newLine += " ";
-    //   }
-
-    //   if (align === "LEFT") {
-    //     newLine = words.join(" ") + newLine;
-    //   } else {
-    //     newLine += words.join(" ");
-    //   }
-    if (words.join(" ").length > width) {
-      let sub = words.shift();
-
-      while (words.length > 0) {
-        let word = words[0];
-        if (`${sub} ${word}`.length > width) {
-          newLine = sub;
-          sub = words.shift();
+    if (newLine.length < width) {
+      for (let j = 0; j < (width - newLine.length); j++) {
+        if (align === 'LEFT') {
+          newLine += " ";
         } else {
-          sub += ` ${word}`;
-          word = words.slice(1);
+          newLine = " " + newLine;
         }
       }
-    } else {
-      newLine = words.join(" ");
     }
 
-    let chars = words.join(" ").length;
-    for (let i = 0; i < width - chars; i++) {
-      newLine += " ";
-    }
-
-    if (align === "LEFT") {
-      newLine = words.join(" ") + newLine;
-    } else {
-      newLine += words.join(" ");
-    }
-
-    newLine = `*${newLine}*`;
-
+    newLine = `*${newLine}*`
     justified.push(newLine);
   }
 
-  justified.push(border);
   return justified;
-
 }
 
 let lines = [["hello", "world"], ["How", "areYou", "doing"], ["Please look", "and align", "to right"]];
