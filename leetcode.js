@@ -20,7 +20,13 @@
 //------------------------------------------------------------------------------
 
 var deleteNode = function (node) {
-  
+  if (this.head === node) {
+    let next = this.head.next;
+    this.head.next = this.head.next.next;
+    next.next = null;
+  } else {
+    
+  }
 };
 
 
