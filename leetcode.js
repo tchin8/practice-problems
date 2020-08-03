@@ -22,6 +22,81 @@
 //------------------------------------------------------------------------------
 
 
+//------------------------------------------------------------------------------
+
+
+
+
+//------------------------------------------------------------------------------
+
+
+
+
+//------------------------------------------------------------------------------
+
+// 326. Power of Three
+
+var isPowerOfThree = function (n) {
+
+};
+
+
+
+//------------------------------------------------------------------------------
+
+// 66. Plus One
+
+var plusOne = function (digits) {
+  let numStr = digits.join("");
+  let num = parseInt(numStr) + 1;
+  return `${num}`.split("").map(n => parseInt(n));
+};
+
+// // console.log(plusOne([1, 2, 3]));
+// console.log(plusOne([6, 1, 4, 5, 3, 9, 0, 1, 9, 5, 1, 8, 6, 7, 0, 5, 5, 4, 3]));
+
+
+//------------------------------------------------------------------------------
+
+// 73. Set Matrix Zeroes
+
+var setZeroes = function (matrix) {
+  let rowIdx = [];
+  let colIdx = [];
+
+  for (let i = 0; i < matrix.length; i++) {
+    let row = matrix[i];
+    if (row.includes(0)) rowIdx.push(i);
+    for (let j = 0; j < matrix[0].length; j++) {
+      let col = matrix[i][j];
+      if (col === 0) colIdx.push(j);
+    }
+  }
+
+  for (let i = 0; i < rowIdx.length; i++) {
+    let row = rowIdx[i];
+    for (let j = 0; j < matrix[0].length; j++) {
+      matrix[row][j] = 0;
+    }
+  }
+
+  for (let j = 0; j < colIdx.length; j++) {
+    let col = colIdx[j];
+    for (let i = 0; i < matrix.length; i++) {
+      matrix[i][col] = 0;
+    }
+  }
+
+  return matrix;
+};
+
+// let matrix = [
+//   [1, 1, 1],
+//   [1, 0, 1],
+//   [1, 1, 1]
+// ];
+
+// setZeroes(matrix);
 
 
 //------------------------------------------------------------------------------
