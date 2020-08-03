@@ -18,9 +18,6 @@
 //------------------------------------------------------------------------------
 
 
-//------------------------------------------------------------------------------
-
-
 
 //------------------------------------------------------------------------------
 
@@ -29,11 +26,145 @@
 
 //------------------------------------------------------------------------------
 
+// 240. Search a 2D Matrix II
+
+var searchMatrix = function (matrix, target) {
+  for (let i = 0; i < matrix.length; i++) {
+    if (matrix[i].includes(target)) return true;
+  }
+
+  return false;
+};
 
 
 
 //------------------------------------------------------------------------------
 
+// 162. Find Peak Element
+
+var findPeakElement = function (nums) {
+  if (nums.length === 1) {
+    return 0;
+  } else if (nums.length === 2) {
+    if (nums[0] > nums[1]) {
+      return 0;
+    } else {
+      return 1;
+    }
+  }
+
+  for (let i = 1; i < nums.length - 1; i++) {
+    let prev = nums[i - 1];
+    let next = nums[i + 1];
+    let current = nums[i];
+    if (current > prev && current > next) return i;
+  }
+
+  return nums.indexOf(Math.max(...nums));
+};
+
+
+
+//------------------------------------------------------------------------------
+
+// 53. Maximum Subarray
+
+var maxSubArray = function (nums) {
+  if (nums.length === 1) return nums[0];
+  let maxSum = nums[0];
+
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j <= nums.length; j++) {
+      let sub = nums.slice(i, j);
+      let sum = sub.reduce((a, b) => a + b);
+      if (sum > maxSum) maxSum = sum;
+    }
+  }
+
+  return maxSum;
+};
+
+
+
+//------------------------------------------------------------------------------
+
+// 121. Best Time to Buy and Sell Stock
+
+var maxProfit = function (prices) {
+  let max = 0;
+
+  for (let i = 0; i < prices.length; i++) {
+    let buy = prices[i];
+    for (let j = i + 1; j < prices.length; j++) {
+      let sell = prices[j];
+
+      if (sell - buy > max) max = sell - buy;
+    }
+  }
+
+  return max;
+};
+
+
+
+//------------------------------------------------------------------------------
+
+// 238. Product of Array Except Self
+
+var productExceptSelf = function (nums) {
+  let products = [];
+
+  for (let i = 0; i < nums.length; i++) {
+    let first = nums.slice(0, i);
+    let second = nums.slice(i + 1);
+    let sub = first.concat(second);
+    let product = sub.reduce((a, b) => a * b);
+    products.push(product);
+  }
+
+  return products;
+};
+
+
+
+//------------------------------------------------------------------------------
+
+// 347. Top K Frequent Elements
+
+var topKFrequent = function (nums, k) {
+  let count = {};
+  for (let i = 0; i < nums.length; i++) {
+    let num = nums[i];
+    if (!count[num]) count[num] = 0;
+    count[num] += 1;
+  }
+
+  return Object.keys(count).sort((a, b) => count[b] - count[a]).slice(0, k);
+};
+
+
+
+//------------------------------------------------------------------------------
+
+// 454. 4Sum II
+
+var fourSumCount = function (A, B, C, D) {
+  let count = 0;
+  for (let i = 0; i < A.length; i++) {
+    let a = A[i];
+    for (let j = 0; j < B.length; j++) {
+      let b = B[j];
+      for (let k = 0; k < C.length; k++) {
+        let c = C[k];
+        for (let l = 0; l < D.length; l++) {
+          let d = D[l];
+          if (a + b + c + d === 0) count += 1;
+        }
+      }
+    }
+  }
+  return count;
+};
 
 
 //------------------------------------------------------------------------------
@@ -70,24 +201,22 @@ var missingNumber = function (nums) {
 // 26. Remove Duplicates from Sorted Array
 
 var removeDuplicates = function (nums) {  
-  // if (nums.length === 2 && (nums[0] !== nums[1])) return 2;
+  let n = 0;
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] !== nums[n]) {
+      n++;
+      nums[n] = nums[i];
+    }
+  }
 
-  // let n = 0;
-  // for (let i = 1; i < nums.length; i++) {
-  //   if (nums[i] !== nums[n]) {
-  //     n++;
-  //     nums[n] = nums[i];
-  //   }
-  // }
+  if (n + 1 !== nums.length) {
 
-  // if (n + 1 !== nums.length) {
+    for (let i = 0; i < n; i++) {
+      nums.pop();
+    }
+  }
 
-  //   for (let i = 0; i < n; i++) {
-  //     nums.pop();
-  //   }
-  // }
-
-  // return n + 1;
+  return n + 1;
 };
 
 
