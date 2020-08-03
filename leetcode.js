@@ -20,6 +20,28 @@
 
 //------------------------------------------------------------------------------
 
+// 26. Remove Duplicates from Sorted Array
+
+var removeDuplicates = function (nums) {  
+  // if (nums.length === 2 && (nums[0] !== nums[1])) return 2;
+
+  // let n = 0;
+  // for (let i = 1; i < nums.length; i++) {
+  //   if (nums[i] !== nums[n]) {
+  //     n++;
+  //     nums[n] = nums[i];
+  //   }
+  // }
+
+  // if (n + 1 !== nums.length) {
+
+  //   for (let i = 0; i < n; i++) {
+  //     nums.pop();
+  //   }
+  // }
+
+  // return n + 1;
+};
 
 
 
