@@ -40,7 +40,15 @@ var moveZeroes = function (nums) {
     if (nums[i] !== 0) nonZeros.push(nums[i]); 
   }
 
-  
+  for (let i = 0; i < nums.length; i++) {
+    if (nonZeros[i]) {
+      nums[i] = nonZeros[i];
+    } else {
+      nums[i] = 0;
+    }
+  }
+
+  return nums;
 };
 
 // moveZeroes([0, 1, 0, 3, 12]);
