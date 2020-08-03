@@ -17,16 +17,92 @@
 
 //------------------------------------------------------------------------------
 
+// 13. Roman to Integer
+
+// I can be placed before V(5) and X(10) to make 4 and 9.
+// X can be placed before L(50) and C(100) to make 40 and 90.
+// C can be placed before D(500) and M(1000) to make 400 and 900.
+
+var romanToInt = function (s) {
+  let num = 0;
+
+  let symbols = {
+    "I": 1,
+    "V": 5, 
+    "X": 10,
+    "L": 50,
+    "C": 100,
+    "D": 500,
+    "M": 1000
+  }
+
+  for (let i = 0; i < s.length; i++) {
+    let prev = s[i - 1];
+    let current = s[i];
+
+    num += symbols[current];
+    if (prev) {
+      if (prev === "I") {
+        if (current === "V" || current === "X") {
+          num -= 2;
+        } 
+      } else if (prev === "X") {
+        if (current === "L" || current === "C") {
+          num -= 20;
+        } 
+      } else if (prev === "C") {
+        if (current === "D" || current === "M") {
+          num -= 200;
+        }
+      }
+    }
+  }
+
+  return num;
+};
+
+romanToInt("IV");
 
 
 
 //------------------------------------------------------------------------------
 
+// 217. Contains Duplicate
+
+var containsDuplicate = function (nums) {
+  let count = {};
+  for (let i = 0; i < nums.length; i++) {
+    let num = nums[i];
+    if (!count[num]) count[num] = 0;
+    count[num] += 1;
+    if (count[num] > 1) return true;
+  }
+
+  return false;
+};
 
 
 
 //------------------------------------------------------------------------------
 
+// 242. Valid Anagram
+
+var isAnagram = function (s, t) {
+  if (s.length !== t.length) return false;
+  let count = {};
+  let count2 = {};
+  for (let i = 0; i < s.length; i++) {
+    let char = s[i];
+    if (!count[char]) count[char] = 0;
+    count[char] += 1;
+
+    let char2 = t[i];
+    if (!count2[char2]) count2[char2] = 0;
+    count2[char2] += 1;
+  }
+
+  return Object.keys(count).every(key => count[key] === count2[key]);
+};
 
 
 
