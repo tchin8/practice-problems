@@ -41,13 +41,25 @@
 // 268. Missing Number
 
 var missingNumber = function (nums) {
-  if (nums.length === 1) return nums[0] + 1;
-  
+  if (nums.length === 1) {
+    if (nums[0] === 0) {
+      return nums[0] + 1;
+    } else {
+      return nums[0] - 1;
+    }
+  };
+
   let max = Math.max(...nums);
   let min = Math.min(...nums);
 
   for (let i = min; i < max; i++) {
     if (!nums.includes(i)) return i;
+  }
+
+  if (min === 0) {
+    return max + 1;
+  } else {
+    return min - 1;
   }
 };
 
