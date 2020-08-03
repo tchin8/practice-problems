@@ -17,6 +17,59 @@
 
 //------------------------------------------------------------------------------
 
+
+//------------------------------------------------------------------------------
+
+
+
+
+//------------------------------------------------------------------------------
+
+// 387. First Unique Character in a String
+
+var firstUniqChar = function (s) {
+  if (s.length === 1) return 0;
+
+  for (let i = 0; i < s.length; i++) {
+    let char = s[i];
+    if ((!s.slice(i + 1).includes(char) && i !== s.length - 1) && 
+      (!s.slice(0, i).includes(char)) || 
+      (i === s.length - 1 && !s.slice(0, i).includes(char))) return i;
+  }
+  return -1;
+};
+
+
+
+//------------------------------------------------------------------------------
+
+// 171. Excel Sheet Column Number
+
+var titleToNumber = function (s) {
+  // let num = 0;
+  // let alpha = "abcdefghijklmnopqrstuvwxyz".toUpperCase();
+
+  // if (s.length === 1) return alpha.indexOf(s) + 1;
+
+  // for (let i = 0; i < s.length; i++) {
+  //   let char = s[i];
+  //   let n = alpha.indexOf(char) + 1;
+
+  //   if (i !== s.length - 1) {
+  //     if (num === 0) num = 1;
+  //     num *= (n * 26);
+  //   } else {
+  //     num += n;
+  //   }
+  // }
+
+  // return num;
+};
+
+
+
+//------------------------------------------------------------------------------
+
 // 13. Roman to Integer
 
 // I can be placed before V(5) and X(10) to make 4 and 9.
