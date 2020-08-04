@@ -29,6 +29,40 @@
 
 //------------------------------------------------------------------------------
 
+// 198. House Robber
+
+var rob = function (nums) {
+  if (nums.length === 1) {
+    return nums[0];
+  } else if (nums.length === 2) {
+    if (nums[0] > nums[1]) {
+      return nums[0];
+    } else {
+      return nums[1];
+    }
+  }
+  
+  let evens = [];
+  let odds = [];
+
+  for (let i = 0; i < nums.length; i++) {
+    let num = nums[i];
+    if (i % 2 === 0 || i === 0) {
+      evens.push(num);
+    } else {
+      odds.push(num);
+    }
+  }
+
+  let evensSum = evens.reduce((a, b) => a + b);
+  let oddsSum = odds.reduce((a, b) => a + b);
+
+  if (evensSum > oddsSum) {
+    return evensSum;
+  } else {
+    return oddsSum;
+  }
+};
 
 
 
