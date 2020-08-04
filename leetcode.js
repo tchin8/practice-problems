@@ -24,7 +24,36 @@
 
 //------------------------------------------------------------------------------
 
+// 395. Longest Substring with At Least K Repeating Characters
 
+var longestSubstring = function (s, k) {
+  let count = 1;
+  let longest = 1;
+  let validSub = false;
+
+  for (let i = 0; i < s.length - 1; i++) {
+    let current = s[i];
+    let next = s[i + 1];
+
+    if (current === next) {
+      // debugger;
+      count += 1;
+    } else {
+      if (validSub && longest < count) {
+        // debugger;
+        longest = count;
+      }
+      count = 1;
+      validSub = false;
+    }
+
+    if (count >= k) validSub = true;
+  }
+
+  return longest;
+};
+
+// console.log(longestSubstring("aaabb", 3));
 
 
 //------------------------------------------------------------------------------
@@ -41,7 +70,7 @@ var rob = function (nums) {
       return nums[1];
     }
   }
-  
+
   let evens = [];
   let odds = [];
 
@@ -84,7 +113,7 @@ var isPowerOfThree = function (n) {
   return n === 1;
 };
 
-console.log(isPowerOfThree(30371328));
+// console.log(isPowerOfThree(30371328));
 
 
 
