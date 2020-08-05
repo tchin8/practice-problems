@@ -1,6 +1,23 @@
 
 
 
+
+//------------------------------------------------------------------------------
+
+
+
+
+//------------------------------------------------------------------------------
+
+
+
+
+//------------------------------------------------------------------------------
+
+
+
+//------------------------------------------------------------------------------
+
 //------------------------------------------------------------------------------
 
 
@@ -17,9 +34,46 @@
 
 //------------------------------------------------------------------------------
 
+// 125. Valid Palindrome
+
+var isPalindrome = function (s) {
+  if (s.length <= 1) return true;
+
+  let str = "";
+  let alpha = "abcdefghijklmnopqrstuvwxyz0123456789";
+  s = s.toLowerCase();
+
+  for (let i = 0; i < s.length; i++) {
+    let char = s[i];
+    if (alpha.includes(char)) str += char;
+  }
+
+  let reversed = str.split("").reverse().join("");
+
+  return reversed === str;
+};
+
+console.log(isPalindrome("0P"));
 
 
 //------------------------------------------------------------------------------
+
+// 334. Increasing Triplet Subsequence
+
+var increasingTriplet = function (nums) {
+  if (nums.length < 3) return false;
+
+  for (let i = 2; i < nums.length; i++) {
+    let first = nums[i - 2];
+    let second = nums[i - 1];
+    let third = nums[i];
+
+    if (first < second && second < third) return true;
+  }
+
+  return false;
+};
+
 
 
 //------------------------------------------------------------------------------
