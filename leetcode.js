@@ -25,6 +25,20 @@
 
 //------------------------------------------------------------------------------
 
+// Detect Capital
+
+var detectCapitalUse = function (word) {
+  if (word.toUpperCase() === word || word.toLowerCase() === word) return true;
+
+  for (let i = 1; i < word.length; i++) {
+    let char = word[i];
+    if (char.toUpperCase() === char) return false;
+  }
+
+  return true;
+};
+
+
 
 //------------------------------------------------------------------------------
 
