@@ -26,9 +26,16 @@
 //------------------------------------------------------------------------------
 
 
-
-
 //------------------------------------------------------------------------------
+
+// 7. Reverse Integer
+
+var reverse = function (x) {
+  let negative = x < 0 ? true : false;
+  let reversedNumStr = Math.abs(x).toString().split("").reverse().join("");
+  reversedNumStr = negative ? `-${reversedNumStr}` : reversedNumStr;
+  return parseInt(reversedNumStr);
+};
 
 
 
