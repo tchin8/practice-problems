@@ -13,6 +13,32 @@
 
 //------------------------------------------------------------------------------
 
+// random incomplete q 
+
+function closest(s, queries) {
+  let matches = [];
+  let hash = {};
+
+  for (let i = 0; i < s.length; i++) {
+    let char = s[i];
+    if (!hash[char]) hash[char] = [];
+    hash[char].push[i];
+  }
+
+  for (let i = 0; i < queries.length; i++) {
+    let idx = queries[i];
+    let char = s[idx];
+
+    let indices = hash[char];
+    if (indices.length > 1) {
+      let idxOfIdx = indices.indexOf(idx);
+      // let diffLeft = indices[idxOfIdx - 1] ? 
+    } else {
+      matches.push(-1);
+    }
+  }
+}
+
 
 
 
