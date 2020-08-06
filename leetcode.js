@@ -18,6 +18,9 @@
 
 //------------------------------------------------------------------------------
 
+
+
+
 //------------------------------------------------------------------------------
 
 // Power of Four
@@ -85,7 +88,7 @@ var isPalindrome = function (s) {
   return reversed === str;
 };
 
-console.log(isPalindrome("0P"));
+// console.log(isPalindrome("0P"));
 
 
 //------------------------------------------------------------------------------
@@ -438,22 +441,27 @@ var missingNumber = function (nums) {
 
 var removeDuplicates = function (nums) {  
   let n = 0;
-  for (let i = 1; i < nums.length; i++) {
+  for (let i = 0; i < nums.length; i++) {
     if (nums[i] !== nums[n]) {
       n++;
       nums[n] = nums[i];
     }
   }
 
-  if (n + 1 !== nums.length) {
-
-    for (let i = 0; i < n; i++) {
+  let length = nums.length;
+  if (n + 1 !== length) {
+    for (let i = 0; i < (length - (n + 1)); i++) {
       nums.pop();
     }
   }
 
+  console.log(nums);
   return n + 1;
 };
+
+console.log(removeDuplicates([1, 1, 2]));
+console.log(removeDuplicates([0, 0, 1, 1, 1, 2, 2, 3, 3, 4]));
+console.log(removeDuplicates([1, 1, 2, 3]));
 
 
 
