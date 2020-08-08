@@ -39,7 +39,38 @@
 
 //------------------------------------------------------------------------------
 
+// 1347. Minimum Number of Steps to Make Two Strings Anagram
 
+var minSteps = function (s, t) {
+  let count = {}, count2 = {};
+
+  for (let i = 0; i < s.length; i++) {
+    let char = s[i];
+    let char2 = t[i];
+
+    if (!count[char]) count[char] = 0;
+    if (!count2[char2]) count2[char2] = 0;
+    count[char] += 1;
+    count2[char2] += 1;
+  }
+
+  let diff = 0;
+  let keys = Object.keys(count);
+
+  for (let i = 0; i < keys.length; i++) {
+    let key = [keys[i]]
+    if (!count2[key]) {
+      diff += count[key];
+    } else if (count2[key] < count[key]) {
+      diff += (count[key] - count2[key]);
+    }
+  }
+
+  return diff;
+};
+
+console.log(minSteps("bab","aba"));
+console.log(minSteps("leetcode", "practice"));
 
 
 //------------------------------------------------------------------------------
@@ -503,9 +534,9 @@ var removeDuplicates = function (nums) {
   return n + 1;
 };
 
-console.log(removeDuplicates([1, 1, 2]));
-console.log(removeDuplicates([0, 0, 1, 1, 1, 2, 2, 3, 3, 4]));
-console.log(removeDuplicates([1, 1, 2, 3]));
+// console.log(removeDuplicates([1, 1, 2]));
+// console.log(removeDuplicates([0, 0, 1, 1, 1, 2, 2, 3, 3, 4]));
+// console.log(removeDuplicates([1, 1, 2, 3]));
 
 
 
