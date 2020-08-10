@@ -37,6 +37,19 @@ var groupAnagrams = function (strs) {
   for (let i = 0; i < strs.length; i++) {
     let str = strs[i];
     let count = {};
+
+    if (str.length === 0) {
+      if (!groups.some(g => g.includes(""))) {
+        groups.push([""]);
+      } else {
+        for (let j = 0; j < groups.length; j++) {
+          let group = groups[j];
+          if (group.includes("")) group.push("");
+        }
+      }
+      continue;
+    }
+
     for (let j = 0; j < str.length; j++) {
       let char = str[j];
       if (!count[char]) count[char] = 0;
@@ -53,7 +66,8 @@ var groupAnagrams = function (strs) {
     for (let i = 0; i < counts.length; i++) {
       let c = counts[i];
 
-      if (Object.keys(c).every(key => count[key] === c[key])) {
+      if (Object.keys(c).every(key => count[key] === c[key]) && 
+        Object.keys(count).every(key => count[key] === c[key])) {
         match = true;
         groups[i].push(str);
         break;
@@ -69,6 +83,7 @@ var groupAnagrams = function (strs) {
   return groups;
 };
 
+console.log(groupAnagrams(["tea", "and", "ace", "ad", "eat", "dans"]));
 
 // Input: ["eat", "tea", "tan", "ate", "nat", "bat"],
 //   Output:
