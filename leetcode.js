@@ -48,8 +48,9 @@ var numTeams = function (rating) {
       for (let k = j + 1; k < rating.length; k++) {
         let c = rating[k];
 
-        debugger;
-        if ((a < b && b < c) || (a > b && b > c)) teams =+ 1;
+        if ((a < b && b < c) || (a > b && b > c)) {
+          teams += 1;
+        };
       }
     }
   }
