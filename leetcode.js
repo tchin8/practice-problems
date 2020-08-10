@@ -22,17 +22,11 @@
 // 448. Find All Numbers Disappeared in an Array
 
 var findDisappearedNumbers = function (nums) {
+  if (nums.length === 0) return [];
   let missing = [];
-  nums = nums.sort((a,b) => a - b);
-
-  for (let i = 1; i < nums.length; i++) {
-    let num = nums[i];
-    let prev = nums[i - 1];
-    if (num - prev > 1) {
-      for (let j = 1; j <= num - prev; j++) {
-        missing.push(prev + i);
-      }
-    }
+  
+  for (let i = 1; i <= nums.length; i++) {
+    if (!nums.includes(i)) missing.push(i);
   }
 
   return missing;
