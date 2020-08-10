@@ -19,6 +19,73 @@
 
 //------------------------------------------------------------------------------
 
+
+
+//------------------------------------------------------------------------------
+
+
+
+
+//------------------------------------------------------------------------------
+
+// 49. Group Anagrams
+
+var groupAnagrams = function (strs) {
+  let counts = [];
+  let groups = [];
+
+  for (let i = 0; i < strs.length; i++) {
+    let str = strs[i];
+    let count = {};
+    for (let j = 0; j < str.length; j++) {
+      let char = str[j];
+      if (!count[char]) count[char] = 0;
+      count[char] += 1;
+    }
+    
+    if (counts.length === 0) {
+      counts.push(count);
+      groups.push([str]);
+      continue;
+    } 
+
+    let match = false;
+    for (let i = 0; i < counts.length; i++) {
+      let c = counts[i];
+
+      if (Object.keys(c).every(key => count[key] === c[key])) {
+        match = true;
+        groups[i].push(str);
+        break;
+      }
+    }
+
+    if (!match) {
+      counts.push(count);
+      groups.push([str]);
+    }
+  }
+
+  return groups;
+};
+
+
+// Input: ["eat", "tea", "tan", "ate", "nat", "bat"],
+//   Output:
+// [
+//   ["ate", "eat", "tea"],
+//   ["nat", "tan"],
+//   ["bat"]
+// ]
+
+
+//------------------------------------------------------------------------------
+
+
+
+
+//------------------------------------------------------------------------------
+
 // 448. Find All Numbers Disappeared in an Array
 
 var findDisappearedNumbers = function (nums) {
