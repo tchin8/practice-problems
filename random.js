@@ -4,16 +4,70 @@
 
 //------------------------------------------------------------------------------
 
+// Medly Pharmacy Q1
+// //Installed node modules: jquery underscore request express jade shelljs passport http sys lodash async mocha moment connect validator restify ejs ws co when helmet wrench brain mustache should backbone forever debug
+
+// process.stdin.resume();
+// process.stdin.setEncoding('utf8');
+// var util = require('util');
+// var input = "";
+
+// process.stdin.on('data', function (text) {
+//   input += text;
+// });
+
+// process.stdin.on('end', function () {
+//   input = input.split(" ")
+//   let first = input[0];
+//   let second = input[1];
+//   let n = input[2];
+  
+//   fib(first, second, n);
+// }); 
+
+// function fib(first, second, n) {
+//   if (n === 1) return first;
+//   if (n === 2) return second;
+
+//   console.log(fib(first, second, n-1) + fib(first, second, n-2));
+// }
+
+
+//------------------------------------------------------------------------------
+
+// Medly Pharmacy Q2
+// //Installed node modules: jquery underscore request express jade shelljs passport http sys lodash async mocha moment connect validator restify ejs ws co when helmet wrench brain mustache should backbone forever debug
+
+// process.stdin.resume();
+// process.stdin.setEncoding('utf8');
+// var util = require('util');
+// var input = "";
+
+// process.stdin.on('data', function (text) {
+//   input += text;
+// });
+
+// process.stdin.on('end', function () {
+//   input = input.split("\n");
+//   input.shift();
+//   input = input.map(inp => inp.split(" ").reverse().join(" "));
+//   console.log(input.join("\n"));
+// }); 
 
 
 
 //------------------------------------------------------------------------------
 
+function myLastIndexOf(array, searchValue, startIdx) {
+  startIdx = startIdx || array.length - 1;
 
+  for (let i = startIdx; i >= 0; i--) {
+    if (array[i] === searchValue) return i;
+  }
+  return -1;
+}
 
-//------------------------------------------------------------------------------
-
-
+// console.log(myLastIndexOf([0, 10, 20, 10, 0], 10));
 
 
 //------------------------------------------------------------------------------
@@ -175,9 +229,9 @@ function getPicNumbers(citiesKeys, cities) {
         // then somehow '001'  bc '001'.length = 3 as well?
 
 
-let S = 'photo.jpg, Warsaw, 2013-09-05 14:08:15\njohn.png, London, 2015-06-20 15:13:22\nmyFriends.png, Warsaw, 2013-09-05 14:07:13\nEiffel.jpg, Paris, 2015-07-23 08:03:02\npisatower.jpg, Paris, 2015-07-22 23:59:59\nBOB.jpg, London, 2015-08-05 00:02:03\nnotredame.png, Paris, 2015-09-01 12:00:00\nme.jpg, Warsaw, 2013-09-06 15:40:22\na.png, Warsaw, 2016-02-13 13:33:50\nb.jpg, Warsaw, 2016-01-02 15:12:22\nc.jpg, Warsaw, 2016-01-02 14:34:30\nd.jpg, Warsaw, 2016-01-02 15:15:01\ne.png, Warsaw, 2016-01-02 09:49:09\nf.png, Warsaw, 2016-01-02 10:55:32\ng.jpg, Warsaw, 2016-02-29 22:13:11';
+// let S = 'photo.jpg, Warsaw, 2013-09-05 14:08:15\njohn.png, London, 2015-06-20 15:13:22\nmyFriends.png, Warsaw, 2013-09-05 14:07:13\nEiffel.jpg, Paris, 2015-07-23 08:03:02\npisatower.jpg, Paris, 2015-07-22 23:59:59\nBOB.jpg, London, 2015-08-05 00:02:03\nnotredame.png, Paris, 2015-09-01 12:00:00\nme.jpg, Warsaw, 2013-09-06 15:40:22\na.png, Warsaw, 2016-02-13 13:33:50\nb.jpg, Warsaw, 2016-01-02 15:12:22\nc.jpg, Warsaw, 2016-01-02 14:34:30\nd.jpg, Warsaw, 2016-01-02 15:15:01\ne.png, Warsaw, 2016-01-02 09:49:09\nf.png, Warsaw, 2016-01-02 10:55:32\ng.jpg, Warsaw, 2016-02-29 22:13:11';
 
-console.log(solution(S));
+// console.log(solution(S));
 
 
 
