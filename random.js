@@ -14,6 +14,55 @@
 
 //------------------------------------------------------------------------------
 
+// Q: Given a 2D board and a word, find if the word exists in the grid.
+// The word can be constructed from letters of sequentially adjacent cell, where "adjacent" cells are those horizontally or vertically neighboring. The same letter cell may not be used more than once.
+// Example:
+// board =
+// [
+//   ['A','B','C','E'],
+//   ['S','F','C','S'],
+//   ['A','D','E','E']
+// ]
+// Given word = "ABCCED", return true.
+// Given word = "SEE", return true.
+// Given word = "ABCB", return false.
+const recursiveBoard = (board, word) => {
+  let temp = board.slice();
+  const dfs = (x, y) => {
+    if (x < 0 || x >= temp.length || y < 0 || y >= temp[x].length || temp[x][y] !== letters[letters.length - 1]) return;
+    temp[x][y] = null;
+    letters.pop();
+    dfs(x + 1, y);
+    dfs(x - 1, y);
+    dfs(x, y + 1);
+    dfs(x, y - 1);
+  }
+  let letters = word.split("").reverse();
+  for (let x = 0; x < temp.length; x++) {
+    for (let y = 0; y < temp[x].length; y++) {
+      if (temp[x][y] === letters[letters.length - 1]) {
+        dfs(x, y)
+        if (letters.length === 0) return true;
+        else {
+          letters = word.split("").reverse();
+          temp = board.slice();
+        }
+      }
+    }
+  }
+  return false;
+}
+// board =
+//   [
+//     ['A', 'B', 'C', 'E'],
+//     ['S', 'F', 'C', 'S'],
+//     ['A', 'D', 'E', 'E']
+//   ]
+// console.log(recursiveBoard(board, "ABCCED"))
+// console.log(recursiveBoard(board, "SEE"))
+// console.log(recursiveBoard(board, "ABCB"))
+
+
 
 //------------------------------------------------------------------------------
 
