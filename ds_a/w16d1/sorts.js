@@ -1,5 +1,15 @@
 // Merge Sort Notes
 
+// 0 is considered a falsey value, meaning it acts like false when used in 
+// boolean expressions. All other numbers are truthy.
+
+// Infinity is a value that is guaranteed to be greater than any other quantity
+
+// shift is an array method that removes and returns the first element
+
+
+
+
 // function merge(array1, array2) {
 //   let merged = [];
 
@@ -44,23 +54,66 @@ function merge(arr1, arr2) {
   return merged;
 }
 
+// let arr1 = [1, 5, 10, 15];
+// let arr2 = [0, 2, 3, 7, 10];
+// console.log(merge(arr1, arr2)); // => [0, 1, 2, 3, 5, 7, 10, 10, 15]
+// console.log(merge([10, 13, 15, 25], []));    // => [10, 13, 15, 25]
 
-let arr1 = [1, 5, 10, 15];
-let arr2 = [0, 2, 3, 7, 10];
-console.log(merge(arr1, arr2)); // => [0, 1, 2, 3, 5, 7, 10, 10, 15]
+function mergeSort(array) {
+  if (array.length <= 1) {
+    return array;
+  }
 
+  let midIdx = Math.floor(array.length / 2);
+  let leftHalf = array.slice(0, midIdx);
+  let rightHalf = array.slice(midIdx);
 
-// 0 is considered a falsey value, meaning it acts like false when used in 
-// boolean expressions. All other numbers are truthy.
+  let sortedLeft = mergeSort(leftHalf);
+  let sortedRight = mergeSort(rightHalf);
 
-// Infinity is a value that is guaranteed to be greater than any other quantity
+  return merge(sortedLeft, sortedRight);
+}
 
-// shift is an array method that removes and returns the first element
+// let arr = [0, 15, 2, 10, 3, 7, 5, 10, 1];
+// console.log(mergeSort(arr));
 
+// time complexity: O(nlogn)
+// space: O(n)
 
 
 // -----------------------------------------------------------------------------
 
+// Quick Sort Notes
+
+// what we needa do for quick sort
+// function partition(array, pivot) {
+//   let left = array.filter((el) => el < pivot);
+//   let right = array.filter((el) => el >= pivot);
+//   return [left, right];
+// }
+
+
+function quickSort(array) {
+  if (array.length <= 1) {
+    return array;
+  }
+
+  let pivot = array.shift();
+  let left = array.filter((el) => el < pivot);
+  let right = array.filter((el) => el >= pivot);
+
+  let leftSorted = quickSort(left);
+  let rightSorted = quickSort(right);
+
+  // return leftSorted.concat([pivot]).concat(rightSorted);
+  return [...leftSorted, pivot, ...rightSorted];
+}
+
+// let arr = [0, 15, 2, 10, 3, 7, 5, 10, 1];
+// console.log(quickSort(arr));
+
+// time complexity: O(nlogn)
+// space: O(n)
 
 
 
