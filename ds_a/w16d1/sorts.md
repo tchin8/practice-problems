@@ -15,3 +15,11 @@ Time Complexity
 
 Space Complexity: O(n)
 
+---
+
+## Binary Sort Notes
+
+Time Complexity: O(log(n))
+
+Space Complexity: O(n)
+
