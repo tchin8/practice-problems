@@ -19,6 +19,28 @@
 
 //------------------------------------------------------------------------------
 
+// 1304. Find N Unique Integers Sum up to Zero
+
+var sumZero = function (n) {
+  if (n === 1) return [0];
+  let nums = [];
+
+  if (n % 2 === 1) {
+    nums.push(0);
+    n--;
+  }
+
+  let i = 1;
+  while (n > 0) {
+    nums.push(i);
+    nums.push(-i);
+    i++;
+    n -= 2;
+  }
+
+  return nums;
+};
+
 
 
 //------------------------------------------------------------------------------
