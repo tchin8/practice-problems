@@ -23,6 +23,66 @@ there exists `ternary trees` (at most 3 kids) and `n-ary trees` (at most n kids)
 `path` - a series of nodes that can be traveled through edges - for example A, B, E is a path through the above tree  
 
 ---
+## Inorder Preorder Postorder  
+- print all nodes of the tree  
+
+### In-Order 
+- the steps for inOrderPrint: 
+  - print all nodes in the left subtree
+  - print root
+  - print all nodes in the right subtree  
+- in-order has the pattern of left, self right  
+  - a node can only be printed once its left subtree has been completely printed
+  - a node's right subtree can only be printed once the node itself has been printed
+
+```javascript
+function inOrderPrint(root) {
+  if (!root) return;
+
+  inOrderPrint(root.left);
+  console.log(root.val);
+  inOrderPrint(root.right);
+}
+```
+
+### Pre-Order  
+- the steps for preOrderPrint:
+  - print root
+  - print all nodes in the seft subtree
+  - print all nodes in the right subtree
+- pre-order has the pattern of self, left, right
+  - a node must be printed before its children
+  - a node's left subtree must be printed before its right subtree
+
+```javascript
+function preOrderPrint(root) {
+  if (!root) return;
+
+  console.log(root.val);
+  preOrderPrint(root.left);
+  preOrderPrint(root.right);
+}
+```
+
+### Post-Order 
+- the steps for postOrderPrint:
+  - print all nodes in the left subtree
+  - print all nodes in the right subtree
+  - print root
+- post-order has the pattern of left, right, self
+  - a node can only be printed after its left and right subtrees
+  - a node's left subtree is pritned before its right subtree  
+
+```javascript
+function postOrderPrint(root) {
+    if (!root) return;
+
+    postOrderPrint(root.left);
+    postOrderPrint(root.right);
+    console.log(root.val);
+}
+```
+---
 ## DFS and BFS
 
 - `B` and `C` are siblings

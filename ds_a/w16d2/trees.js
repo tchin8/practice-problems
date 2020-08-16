@@ -25,6 +25,41 @@ console.log(a);
 
 // -----------------------------------------------------------------------------
 
+// In-Order Pre-Order Post-Order 
+
+// In-Order 
+
+function inOrderPrint(root) {
+  if (!root) return;
+
+  inOrderPrint(root.left);
+  console.log(root.val);
+  inOrderPrint(root.right);
+}
+
+// Pre-Order 
+
+function preOrderPrint(root) {
+  if (!root) return;
+
+  console.log(root.val);
+  preOrderPrint(root.left);
+  preOrderPrint(root.right);
+}
+
+// Post-Order
+
+function postOrderPrint(root) {
+  if (!root) return;
+
+  postOrderPrint(root.left);
+  postOrderPrint(root.right);
+  console.log(root.val);
+}
+
+
+// -----------------------------------------------------------------------------
+
 // DFS
 
 function depthFirst(root) {
