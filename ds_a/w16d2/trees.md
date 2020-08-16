@@ -21,3 +21,24 @@ there exists `ternary trees` (at most 3 kids) and `n-ary trees` (at most n kids)
 `internal node` - a node that has children  
 `leaf` - a node that does not have any children  
 `path` - a series of nodes that can be traveled through edges - for example A, B, E is a path through the above tree  
+
+---
+## DFS and BFS
+
+- `B` and `C` are siblings
+- `D` and `E` are descendants of `B`
+- `B`, `C`, `D`, `E`, `F` are all descendants of `A`
+
+## Depth First Search  
+
+A depth-first traversal will continually travel deeper into a tree before switching branches.  
+DFS utilizes a `stack`, or `LIFO`
+
+## Breadth First Search
+
+- level 0 contains `A`
+- level 1 contains `B` and `C`
+- level 2 contains `D`, `E`, `F`
+
+A Breadth-First traversal will visit all nodes across a level (or all node siblings), before moving to the next level.  
+BFS utilizes a `queue`, or `FIFO`

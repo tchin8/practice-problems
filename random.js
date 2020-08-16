@@ -24,7 +24,7 @@
 //------------------------------------------------------------------------------
 
 // helping jenny w/ objects
-// 03 Frequency Analysis
+// 05 Frequency Analysis
 
 function frequencyAnalysis(str) {
   let count = {};
