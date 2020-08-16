@@ -8,10 +8,32 @@
 
 //------------------------------------------------------------------------------
 
+// 03 Leet Translator
+
+function leetTranslator(str) {
+  let letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+  let leetChars = ['@', '8', '(', '|)', '3', 'ph', 'g', '#', 'l', '_|', '|<', '1', "|'|'|", '/\/', '0', '|D', '(,)', '|2', '5', '+', '|_|', '|/', "|/|/'", '><', 'j', '2'];
+
+  let leetCodex = {};
+  let newStr = ""
+  for (i = 0; i < letters.length; i++) {
+    let letter = letters[i];
+    let leetChar = leetChars[i];
+    leetCodex[letter] = leetChar;
+  }
+  for (let i = 0; i < str.length; i++) {
+    let char = str[i];
+    newStr += leetCodex[char.toLowerCase()];
+  }
+  return newStr;
+}
+
+
 
 //------------------------------------------------------------------------------
 
 // helping jenny w/ objects
+// 02 Compare Objects
 
 function compareObjects(obj1, obj2) {
   for (let key in obj1) {
