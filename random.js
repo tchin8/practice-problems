@@ -8,10 +8,96 @@
 
 //------------------------------------------------------------------------------
 
+
 //------------------------------------------------------------------------------
 
 
 //------------------------------------------------------------------------------
+
+
+//------------------------------------------------------------------------------
+
+
+//------------------------------------------------------------------------------
+
+
+//------------------------------------------------------------------------------
+
+// helping jenny w/ objects
+// 03 Frequency Analysis
+
+function frequencyAnalysis(str) {
+  let count = {};
+  for (let i = 0; i < str.length; i++) {
+    let char = str[i];
+    if (!count[char]) count[char] = 0;
+    count[char] += 1;
+  }
+
+  return count;
+}
+
+
+//------------------------------------------------------------------------------
+
+// helping jenny w/ objects
+// 04 Pet Sounds
+
+function petSounds(animal, country) {
+  let animalNoises = [
+    {
+      'dog': {
+        'America': 'Woof! Woof!',
+        'Germany': 'Wau Wau!',
+        'England': 'Bow wow!',
+        'Uruguay': 'Jua jua!',
+        'Afrikaans': 'Blaf!',
+        'Korea': 'Mong mong!',
+        'Iceland': 'Voff voff!',
+        'Albania': 'Ham!',
+        'Algeria': 'Ouaf ouaf!'
+      }
+    },
+    {
+      'cat': {
+        'America': 'Meow',
+        'Germany': 'Miauw!',
+        'England': 'mew mew',
+        'Uruguay': 'Miau Miau!',
+        'Afrikaans': 'Purr',
+        'Korea': 'Nyaong!',
+        'Iceland': 'Kurnau!',
+        'Albania': 'Miau',
+        'Algeria': 'Miaou!'
+      }
+    },
+    {
+      'chicken': {
+        'America': 'Cluck cluck',
+        'Germany': 'tock tock tock',
+        'England': 'Cluck Cluck',
+        'Uruguay': 'gut gut gdak',
+        'Afrikaans': 'kukeleku',
+        'Korea': 'ko-ko-ko',
+        'Iceland': 'Chuck-chuck!',
+        'Albania': 'Kotkot',
+        'Algeria': 'Cotcotcodet'
+      }
+    }
+  ];
+
+  let idx;
+  if (animal === 'dog') {
+    idx = 0;
+  } else if (animal === 'cat') {
+    idx = 1;
+  } else {
+    idx = 2;
+  }
+
+  return `${animal.charAt(0).toUpperCase() + animal.slice(1)}s in ${country} say ${animalNoises[idx][animal][country]}`;
+}
+
 
 
 //------------------------------------------------------------------------------
@@ -31,8 +117,10 @@ function leetTranslator(str) {
     leetCodex[letter] = leetChar;
   }
   for (let i = 0; i < str.length; i++) {
-    let char = str[i];
-    newStr += leetCodex[char.toLowerCase()];
+    let char = str[i].toLowerCase();
+    if (leetCodex[char]) {
+      newStr += leetCodex[char];
+    }
   }
   return newStr;
 }
