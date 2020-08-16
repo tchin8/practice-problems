@@ -102,3 +102,96 @@ DFS utilizes a `stack`, or `LIFO`
 
 A Breadth-First traversal will visit all nodes across a level (or all node siblings), before moving to the next level.  
 BFS utilizes a `queue`, or `FIFO`
+
+---
+## Binary Search Tree / BST
+
+### BST criteria
+- given any node of the tree, the values in the left subtree must all be strictly less than the given node's value
+- and the values in the right subtree must all be greater than or equal to the given node's value
+
+### BST definition
+- a `binary tree` is a `binary search tree` if:
+  - the left subtree contains values less than the root
+  - AND the right subtree contains values greater than or equal to the root
+  - AND the left subtree is a BST
+  - AND the right subtree is a BST
+- an empty tree (a tree with 0 nodes) IS a BST
+  - base case  
+
+Examples of binary search trees:  
+![BSTs-example](bst.png)  
+
+`Binary Search Trees` utilize the inOrder algo  
+```javascript
+function inOrderPrint(root) {
+  if (!root) return;
+
+  inOrderPrint(root.left);
+  console.log(root.val);
+  inOrderPrint(root.right);
+}
+```
+
+BST 1: 42  
+BST 2: 4, 5, 6  
+BST 3: 1, 5, 7, 10, 16, 16  
+
+### Example
+```javascript
+class TreeNode {
+  constructor(val) {
+    this.val = val;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+class BST {
+  constructor() {
+    this.root = null;
+  }
+
+  insert(val, root = this.root) {
+    if (!this.root) {
+      this.root = new TreeNode(val);
+      return;
+    }
+
+    if (val < root.val) {
+      if (!root.left) {
+        root.left = new TreeNode(val);
+      } else {
+        this.insert(val, root.left);
+      }
+    } else {
+      if (!root.right) {
+        root.right = new TreeNode(val);
+      } else {
+        this.insert(val, root.right);
+      }
+    }
+  }
+}
+
+let tree1 = new BST();
+tree1.insert(10);
+tree1.insert(5);
+tree1.insert(16);
+tree1.insert(1);
+tree1.insert(7);
+tree1.insert(16);
+
+let tree2 = new BST();
+tree2.insert(1);
+tree2.insert(5);
+tree2.insert(7);
+tree2.insert(10);
+tree2.insert(16);
+tree2.insert(16);
+```
+
+![BST-example](bstexample.png)  
+
+- a worst case BST degenerates into a linked list
+- the 'best' BSTs are height balanced 
