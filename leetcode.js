@@ -28,6 +28,21 @@
 
 //------------------------------------------------------------------------------
 
+// 1299. Replace Elements with Greatest Element on Right Side
+
+var replaceElements = function (arr) {
+  let newArr = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (i === arr.length-1) { 
+      newArr.push(-1)
+    } else {
+      let sub = arr.slice(i + 1);
+      let max = Math.max(...sub);
+      newArr.push(max);
+    };
+  }
+  return newArr;
+};
 
 
 
