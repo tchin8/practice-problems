@@ -33,6 +33,131 @@
 
 //------------------------------------------------------------------------------
 
+// 1475. Final Prices With a Special Discount in a Shop
+
+var finalPrices = function (prices) {
+  let discounted = [];
+
+  for (let i = 0; i < prices.length; i++) {
+    let price = prices[i];
+    let discount;
+    for (let j = i + 1; j < prices.length; j++) {
+      let price2 = prices[j];
+      if (price2 <= price) {
+        discount = price2;
+        break;
+      }
+    }
+
+    discount = discount || 0;
+    discounted.push(price - discount);
+  }
+
+  return discounted;
+};
+
+
+//------------------------------------------------------------------------------
+
+// 832. Flipping an Image
+
+var flipAndInvertImage = function(A) {
+  let flipped = [];
+  for (let row = 0; row < A.length; row++) {
+    let sub = [];
+    for (let col = A[0].length - 1; col >= 0; col--) {
+      let ele = A[row][col] === 0 ? 1 : 0;
+      sub.push(ele);
+    }
+    flipped.push(sub);
+  }
+
+  return flipped;
+};
+
+
+//------------------------------------------------------------------------------
+
+// 1436. Destination City
+
+var destCity = function(paths) {
+  for (let i = 0; i < paths.length; i++) {
+    let path = paths[i];
+    
+    if (!paths.some(path2 => path[1] === path2[0])) return path[1];
+  }
+};
+
+
+
+//------------------------------------------------------------------------------
+
+// 1021. Remove Outermost Parentheses 
+
+var removeOuterParentheses = function (S) {
+  let stack = [];
+  let newStr = "";
+  
+  for (let i = 0; i < S.length; i++) {
+    let char = S[i];
+
+    if (char === '(') {
+      stack.push(char);
+      if (stack.length > 1) newStr += char;
+    } else {
+      if (stack.length > 1) newStr += char;
+      stack.pop();
+    }
+  }
+
+  return newStr;
+};
+
+
+
+//------------------------------------------------------------------------------
+
+var minTimeToVisitAllPoints = function(points) {
+  let count = 0;
+
+  for (let i = 0; i < points.length - 1; i++) {
+    let [ax, ay] = points[i];
+    let [bx, by] = points[i + 1];
+    let xDiff = Math.abs(ax - bx);
+    let yDiff = Math.abs(ay - by);
+
+    if (xDiff > yDiff) {
+      count += xDiff;
+    } else {
+      count += yDiff;
+    }
+  }
+
+  return count;
+};
+
+
+
+//------------------------------------------------------------------------------
+
+// 938. Range Sum of BST
+
+var rangeSumBST = function (root, L, R) {
+  if (!root) return 0;
+
+  let leftTree = rangeSumBST(root.left, L, R);
+  let rightTree = rangeSumBST(root.right, L, R);
+  
+  if (root.val >= L && root.val <= R) {
+    return root.val + leftTree + rightTree;
+  } else {
+    return leftTree + rightTree;
+  }
+};
+
+
+//------------------------------------------------------------------------------
+
 // 20. Valid Parentheses
 
 var isValid = function (s) {
@@ -1504,43 +1629,6 @@ var freqAlphabets = function (s) {
 // Output: "jkab"
 
 
-//------------------------------------------------------------------------------
-
-// 1021. Remove Outermost Parentheses     // UNSOLVED
-
-var removeOuterParentheses = function (S) {
-  let outer = false, count = 0, newS = "", idx = [];
-  S = S.split("");
-
-  for (let i = 0; i < S.length; i++) {
-    if (S[i] === '(') {
-      count += 1;
-    } else {
-      count -= 1;
-    }
-
-    if (outer === false && count === 1) {
-      idx.push(i);
-    } else if (count > 1) {
-      outer = true;
-    }
-
-    if (outer === true && count === 0) {
-      idx.push(i);
-      outer = false;
-    }
-  }
-
-  for (let i = 0; i < S.length; i++) {
-    if (!idx.includes(i)) {
-      newS += S[i];
-    }
-  }  
-
-  return newS;
-};
-
-
 
 //------------------------------------------------------------------------------
 
@@ -1697,15 +1785,6 @@ canMakeArithmeticProgression(arr);
 
 var toLowerCase = function (str) {
   return str.toLowerCase();
-};
-
-
-//------------------------------------------------------------------------------
-
-// 938. Range Sum of BST
-
-var rangeSumBST = function (root, L, R) {
-
 };
 
 
