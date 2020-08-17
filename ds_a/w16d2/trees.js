@@ -180,6 +180,18 @@ class BST {
       }
     }
   }
+
+  search(val, root = this.root) {
+    if (!root) return false;
+
+    if (val < root.val) {
+      return this.search(val, root.left);
+    } else if (val > root.val) {
+      return this.search(val, root.right);
+    } else {
+      return true;
+    }
+  }
 }
 
 
@@ -214,6 +226,26 @@ class BST {
       } else {                                //  ...and the right child already exists,
         this.insert(val, root.right);       //      then recursively insert on the right subtree
       }
+    }
+  }
+
+  search(val, root = this.root) {
+    // if the tree is empty, then the target val is not in the tree, so return false
+    if (!root) return false;
+
+    // otherwise the tree is not empty, so...
+    if (val < root.val) {
+      // if the target is less than the root,
+      //  then search the left subtree
+      return this.search(val, root.left);
+    } else if (val > root.val) {
+      // if the target is greater than the root,
+      //  then search the right subtree
+      return this.search(val, root.right);
+    } else {
+      // otherwise, the target must be equal to the root
+      // so return true since we found it!
+      return true;
     }
   }
 }
