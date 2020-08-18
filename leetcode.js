@@ -19,30 +19,128 @@
 
 //------------------------------------------------------------------------------
 
+// 590. N-ary Tree Postorder Traversal
 
+var postorder = function (root, result = []) {
+  if (!root) return result;
 
-//------------------------------------------------------------------------------
+  for (const child of root.children) {
+    postorder(child, result);
+  }
 
-
-
-//------------------------------------------------------------------------------
-
-
-
-
-//------------------------------------------------------------------------------
-
-
-
-
-//------------------------------------------------------------------------------
-
+  result.push(root.val);
+  return result;
+};
 
 
 
 //------------------------------------------------------------------------------
 
+// 942. DI String Match
 
+var diStringMatch = function (S) {
+  let res = [];
+  let low = 0;
+  let high = S.length;
+
+  for (let i = 0; i <= S.length; i++) {
+    if (S[i] == 'I') {
+      res.push(low);
+      low++;
+    } else {
+      res.push(high);
+      high--;
+    }
+  }
+  return res;
+};
+
+
+
+//------------------------------------------------------------------------------
+
+// 700. Search in a Binary Search Tree
+
+var searchBST = function (root, val) {
+  if (!root) return null;
+  if (root.val === val) return root;
+
+  return root.val > val ? searchBST(root.left, val) : searchBST(root.right, val);
+
+  // if (val < root.val) {
+  //   return searchBST(root.left, val);
+  // } else if (val > root.val) {
+  //   return searchBST(root.right, val);
+  // } else {
+  //   return root;
+  // }
+};
+
+
+//------------------------------------------------------------------------------
+
+// 657. Robot Return to Origin
+
+var judgeCircle = function (moves) {
+  let dirs = {
+    "U" : 0,
+    "L" : 0
+  }
+
+  for (let i = 0; i < moves.length; i++) {
+    let move = moves[i];
+    if (move === "U" || move === "L") {
+      dirs[move] += 1;
+    } else if (move === "D") {
+      dirs["U"] -= 1;
+    } else if (move === "R") {
+      dirs["L"] -= 1;
+    }
+  }
+
+  return Object.values(dirs).every(v => v === 0);
+};
+
+
+//------------------------------------------------------------------------------
+
+// 1460. Make Two Arrays Equal by Reversing Sub-arrays
+
+var canBeEqual = function (target, arr) {
+  if (target.length !== arr.length) return false;
+
+  let count1 = {};
+  let count2 = {};
+  for (let i = 0; i < target.length; i++) {
+    let ele1 = target[i];
+    let ele2 = arr[i];
+
+    if (!count1[ele1]) count1[ele1] = 0;
+    if (!count2[ele2]) count2[ele2] = 0;
+    count1[ele1] += 1;
+    count2[ele2] += 1;
+  }
+
+  return Object.keys(count1).every(key => count1[key] === count2[key]);
+};
+
+
+
+//------------------------------------------------------------------------------
+
+// 617. Merge Two Binary Trees
+
+var mergeTrees = function (t1, t2) {
+  if (!t1) return t2;
+  if (!t2) return t1;
+
+  t1.val += t2.val;
+
+  t1.left = mergeTrees(t1.left, t2.left);
+  t1.right = mergeTrees(t1.right, t2.right);
+
+  return t1;
+};
 
 
 
