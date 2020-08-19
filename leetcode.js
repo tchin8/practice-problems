@@ -20,9 +20,152 @@
 
 
 
+//------------------------------------------------------------------------------
+
+// 821. Shortest Distance to a Character
+
+var shortestToChar = function (S, C) {
+  let eIdx = [];
+  for (let i = 0; i < S.length; i++) {
+    if (S[i] === C) eIdx.push(i);
+  }
+
+  let prev = eIdx.length === 1 ? eIdx[0] : undefined;
+  let next = eIdx[0];
+
+  let dist = new Array(S.length);
+  for (let i = 0; i < S.length; i++) {
+    let char = S[i];
+
+    if (char === C) { 
+      prev = eIdx.shift();
+      next = eIdx.length ? eIdx[0] : undefined;
+      // debugger;
+      dist[i] = 0; 
+      continue;
+    };
+
+    // debugger;
+    if (prev === undefined) {
+      // debugger;
+      dist[i] = next - i;
+      continue;
+    } else if (next === undefined) {
+      dist[i] = i - prev;
+      // debugger;
+      continue;
+    }
+
+    if (i - prev > 0 && i - prev <= next - i) {
+      dist[i] = i - prev;
+    } else {
+      dist[i] = next - i;
+    }
+  }
+
+  return dist;
+};
+
+// let S = "loveleetcode", C = 'e';
+let S = "aaab", C = "b";
+console.log(shortestToChar(S, C));
+
 
 //------------------------------------------------------------------------------
 
+// 509. Fibonacci Number
+
+var fib = function (N) {
+  if (N === 0) return 0;
+  if (N === 1) return 1;
+
+  return fib(N - 1) + fib(N - 2);
+};
+
+
+//------------------------------------------------------------------------------
+
+// 1160. Find Words That Can Be Formed by Characters
+
+var countCharacters = function (words, chars) {
+  let str = "";
+  let count = {};
+
+  for (let i = 0; i < chars.length; i++) {
+    let char = chars[i];
+    if (!count[char]) count[char] = 0;
+    count[char]++;
+  }
+
+  for (let i = 0; i < words.length; i++) {
+    let word = words[i];
+    let count2 = {};
+
+    for (let j = 0; j < word.length; j++) {
+      let char = word[j];
+      if (!count2[char]) count2[char] = 0;
+      count2[char]++;
+    }
+
+    if (Object.keys(count2).every(key => count[key] >= count2[key])) {
+      str += word;
+    }
+  }
+
+  return str.length;
+};
+
+// let words = ["cat", "bt", "hat", "tree"], chars = "atach";
+// console.log(countCharacters(words, chars));
+
+
+//------------------------------------------------------------------------------
+
+// 929. Unique Email Addresses
+
+var numUniqueEmails = function (emails) {
+  emails = emails.map(e => e.split("@"));
+  for (let i = 0; i < emails.length; i++) {
+    let email = emails[i];
+    let local = email[0];
+    if (local.includes("+")) {
+      let idx = local.indexOf("+");
+      local = local.slice(0, idx);
+    }
+    local = local.split(".").join("");
+    emails[i][0] = local;
+  }
+  emails = emails.map(e => e.join("@"));
+  
+  let uniq = [];
+  for (let i = 0; i < emails.length; i++) {
+    let email = emails[i];
+    if (!uniq.includes(email)) uniq.push(email);
+  }
+
+  return uniq.length;
+};
+
+
+//------------------------------------------------------------------------------
+
+// 965. Univalued Binary Tree
+
+var isUnivalTree = function (root) {
+  if (!root) return;
+  let val = root.val;
+  let stack = [root];
+
+  while (stack.length) {
+    let node = stack.pop();
+    if (node.val !== val) return false;
+
+    if (node.left) stack.push(node.left);
+    if (node.right) stack.push(node.right);
+  }
+
+  return true;
+};
 
 
 
@@ -1893,8 +2036,8 @@ function order(words) {
 // "4of Fo1r pe6ople g3ood th5e the2"  -- > "Fo1r the2 g3ood 4of th5e pe6ople"
 // ""  -- > ""
 
-let words = "is2 Thi1s T4est 3a";
-order(words);
+// let words = "is2 Thi1s T4est 3a";
+// order(words);
 
 
 //------------------------------------------------------------------------------
