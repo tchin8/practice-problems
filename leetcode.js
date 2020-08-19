@@ -18,6 +18,154 @@
 
 //------------------------------------------------------------------------------
 
+
+
+
+//------------------------------------------------------------------------------
+
+
+
+
+//------------------------------------------------------------------------------
+
+
+
+//------------------------------------------------------------------------------
+
+// 476. Number Complement (7/20)
+
+var findWords = function (words) {
+  let keys = [
+    "qwertyuiop",
+    "asdfghjkl",
+    "zxcvbnm"
+  ];
+  let rowWords = [];
+
+  for (let i = 0; i < words.length; i++) {
+    let word = words[i].split("");
+
+    for (let j = 0; j < keys.length; j++) {
+      let row = keys[j];
+
+      if (word.every(l => row.includes(l.toLowerCase()))) {
+        rowWords.push(word);
+        break;
+      } else if (word.some(l => row.includes(l.toLowerCase()))) {
+        break;
+      }
+    }
+  }
+  return rowWords.map(word => word.join(""));
+};
+
+
+//------------------------------------------------------------------------------
+
+// 824. Goat Latin (6/20);
+
+var toGoatLatin = function (S) {
+  let vowels = "aeiouAEIOU";
+
+  let goatWords = S.split(" ").map((word, i) => {
+    if (vowels.includes(word[0])) {
+      word += "ma";
+    } else {
+      word = word.slice(1) + word[0] + "ma";
+    }
+    for (let j = 0; j <= i; j++) {
+      word += "a";
+    }
+    return word;
+  });
+  return goatWords.join(" ");
+};
+
+
+//------------------------------------------------------------------------------
+
+// 226. Invert Binary Tree (5/20)
+
+var invertTree = function (root) {
+  if (!root) return null;
+
+  let right = invertTree(root.left);
+  let left = invertTree(root.right);
+
+  root.right = right;
+  root.left = left;
+  return root;
+};
+
+//------------------------------------------------------------------------------
+
+// 766. Toeplitz Matrix (4/20)
+
+var isToeplitzMatrix = function (matrix) {
+  for (let col = 1; col < matrix[0].length; col++) {
+    for (let row = matrix.length - 1; row > 0; row--) {
+      if (matrix[row][col] !== matrix[row - 1][col - 1]) return false;
+    }
+  }
+  return true;
+};
+
+
+//------------------------------------------------------------------------------
+
+// 1413. Minimum Value to Get Positive Step by Step Sum (3/20)
+
+var minStartValue = function (nums) {
+  let min = nums[0] > 1 ? 1 : nums[0];
+  let sum = nums[0];
+  for (let i = 1; i < nums.length; i++) {
+    sum += nums[i];
+    if (sum < min) min = sum;
+  }
+
+  if (min > 0) {
+    return 1;
+  } else {
+    return 1 - min;
+  }
+};
+
+console.log(minStartValue([-3, 6, 2, 5, 8, 6]));
+
+
+//------------------------------------------------------------------------------
+
+// 463. Island Perimeter (2/20)
+
+var islandPerimeter = function (grid) {
+  let perim = 0;
+  for (let row = 0; row < grid.length; row++) {
+    for (let col = 0; col < grid[0].length; col++) {
+      let num = grid[row][col];
+
+      if (num === 0) continue;
+
+      if (grid[row - 1] === undefined || grid[row - 1][col] === 0) {
+        perim++;
+      }
+      if (grid[row + 1] === undefined || grid[row + 1][col] === 0) {
+        perim++;
+      }
+      if (grid[row][col - 1] === undefined || grid[row][col - 1] === 0) {
+        perim++;
+      }
+      if (grid[row][col + 1] === undefined || grid[row][col + 1] === 0) {
+        perim++;
+      }
+    }
+  }
+  return perim;
+};
+
+
+
+//------------------------------------------------------------------------------
+
 // 1200. Minimum Absolute Difference (1/20)
 
 var minimumAbsDifference = function (arr) {
@@ -90,8 +238,8 @@ var shortestToChar = function (S, C) {
 };
 
 // let S = "loveleetcode", C = 'e';
-let S = "aaab", C = "b";
-console.log(shortestToChar(S, C));
+// let S = "aaab", C = "b";
+// console.log(shortestToChar(S, C));
 
 
 //------------------------------------------------------------------------------
