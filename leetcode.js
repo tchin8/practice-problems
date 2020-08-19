@@ -20,7 +20,6 @@
 
 
 
-
 //------------------------------------------------------------------------------
 
 
@@ -28,6 +27,121 @@
 
 //------------------------------------------------------------------------------
 
+
+
+
+//------------------------------------------------------------------------------
+
+
+
+//------------------------------------------------------------------------------
+
+// 1185. Day of the Week (13/20)
+
+var dayOfTheWeek = function (day, month, year) {
+
+};
+
+
+
+//------------------------------------------------------------------------------
+
+// 237. Delete Node in a Linked List (12/20)
+
+var deleteNode = function (node) {
+  node.val = node.next.val;
+  node.next = node.next.next;
+};
+
+
+//------------------------------------------------------------------------------
+
+// 872. Leaf - Similar Trees (11/20)
+
+var leafSimilar = function (root1, root2) {
+  return _.isEqual(getLeaves(root1), getLeaves(root2)); // deep equal check
+};
+
+function getLeaves(node, seq = []) {
+  if (!node) return seq; // base
+  if (!node.left && !node.right) seq.push(node.val);     // if leaf
+
+  // traverse
+  getLeaves(node.left, seq);
+  getLeaves(node.right, seq);
+
+  return seq;
+}
+
+// var leafSimilar = function (root1, root2) {
+//   if (!root1.next) return root1.val;
+//   if (!root2.next) return root2.val;
+
+//   let seq1 = [], seq2 = [];
+//   if (root1.next) 
+//   seq1 = seq1.concat(leafSimilar(root1.left));
+//   seq1 = seq1.concat(leafSimilar(root1.right));
+
+//   seq2 = seq2.concat(leafSimilar(root2.left));
+//   seq2 = seq2.concat(leafSimilar(root2.right));
+  
+//   if (seq1.length === seq2.length) {
+//     if (seq1.every(num => seq2.includes(num)) && 
+//       seq2.every(num => seq1.includes(num))) {
+//         return true;
+//       }
+//   };
+// };
+
+
+//------------------------------------------------------------------------------
+
+// 1455. Check If a Word Occurs As a Prefix of Any Word in a Sentence (10/20)
+
+var isPrefixOfWord = function (sentence, searchWord) {
+  sentence = sentence.split(" ");
+  for (let i = 0; i < sentence.length; i++) {
+    let word = sentence[i];
+    if (word.startsWith(searchWord)) return i;
+  }
+  return -1;
+};
+
+
+//------------------------------------------------------------------------------
+
+// 1078. Occurrences After Bigram (9/20)
+
+var findOcurrences = function (text, first, second) {
+  let words = [];
+  text = text.split(" ");
+  for (let i = 2; i < text.length; i++) {
+    let f = text[i - 2];
+    let s = text[i - 1];
+    let third = text[i];
+    if (f === first && s === second) words.push(third);
+  }
+
+  return words;
+};
+
+
+//------------------------------------------------------------------------------
+
+// 1394. Find Lucky Integer in an Array (8/20)
+
+var findLucky = function (arr) {
+  let count = {};
+  for (let num of arr) {
+    if (!count[num]) count[num] = 0;
+    count[num]++;
+  }
+
+  let keys = Object.keys(count).filter(key => count[key] === parseInt(key));
+  return keys.length > 0 ? keys[keys.length - 1] : -1;
+};
+
+console.log(findLucky([2, 2, 3, 4]));
 
 
 //------------------------------------------------------------------------------
@@ -130,7 +244,7 @@ var minStartValue = function (nums) {
   }
 };
 
-console.log(minStartValue([-3, 6, 2, 5, 8, 6]));
+// console.log(minStartValue([-3, 6, 2, 5, 8, 6]));
 
 
 //------------------------------------------------------------------------------
