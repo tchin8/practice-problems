@@ -18,10 +18,28 @@
 
 //------------------------------------------------------------------------------
 
-// 1200. Minimum Absolute Difference
+// 1200. Minimum Absolute Difference (1/20)
 
 var minimumAbsDifference = function (arr) {
+  arr = arr.sort((a, b) => a - b);
+  let minDiff = arr[1] - arr[0];
+  let pairs = [arr[0], arr[1]];
 
+  for (let i = 1; i < arr.length - 1; i++) {
+    let num1 = arr[i];
+    let num2 = arr[i + 1];
+    let diff = num2 - num1;
+
+    if (diff > minDiff) continue;
+
+    if (diff < minDiff) {
+      minDiff = diff;
+      pairs = [];
+    } 
+    pairs.push([num1, num2]);
+  }
+
+  return pairs;
 };
 
 
