@@ -16,6 +16,238 @@
 
 
 
+//------------------------------------------------------------------------------
+
+
+
+
+//------------------------------------------------------------------------------
+
+
+
+
+//------------------------------------------------------------------------------
+
+// 595. Big Countries
+
+// # Write your MySQL query statement below
+// select name, population, area
+// from World
+// where area > 3000000 or population > 25000000
+
+
+//------------------------------------------------------------------------------
+
+// 620. Not Boring Movies
+
+// # Write your MySQL query statement below
+// select *
+// from cinema
+// where mod(id, 2) = 1 and description != 'boring'
+// order by rating desc
+
+
+//------------------------------------------------------------------------------
+
+// 1122. Relative Sort Array
+
+var relativeSortArray = function (arr1, arr2) {
+  let count = {}
+  let others = [];
+  for (let i = 0; i < arr1.length; i++) {
+    let num = arr1[i];
+    if (arr2.includes(num)) {
+      if (!count[num]) count[num] = 0;
+      count[num]++;
+    } else {
+      others.push(num);
+    }
+  }
+  others.sort((a, b) => a - b);
+  for (let i = arr2.length - 1; i >= 0; i--) {
+    let num = arr2[i];
+    for (let j = 0; j < count[num]; j++) {
+      others.unshift(num);
+    }
+  }
+  return others;
+};
+
+// let arr1 = [2, 3, 1, 3, 2, 4, 6, 7, 9, 2, 19], arr2 = [2, 1, 4, 3, 9, 6];
+// console.log(relativeSortArray(arr1, arr2));
+
+
+//------------------------------------------------------------------------------
+
+// 1002. Find Common Characters
+
+var commonChars = function (A) {
+  let common = [];
+  A = A.map(word => word.split("").sort().join(""));
+  let first = A.shift();
+  while (first.length) {
+    let char = first[0];
+    if (A.every(word => word.includes(char))) {
+      common.push(char);
+      A = A.map(w => {
+        let idx = w.indexOf(char);
+        return w.slice(idx + 1);
+      })
+    }
+    first = first.slice(1);
+  }
+  return common;
+};
+
+// console.log(commonChars(["bella", "label", "roller"]))
+// console.log(commonChars(["cool", "lock", "cook"]))
+
+
+//------------------------------------------------------------------------------
+
+// 1550. Three Consecutive Odds
+
+var threeConsecutiveOdds = function (arr) {
+  if (arr.length < 3) return false;
+  if (arr.length === 3) return arr.every(num => num % 2 === 1);
+
+  let count = 0;
+  for (let i = 0; i < arr.length; i++) {
+    let num = arr[i];
+    if (num % 2 === 1) {
+      count++;
+    } else {
+      count = 0;
+    }
+
+    if (count === 3) return true;
+  }
+
+  return false;
+};
+
+
+
+//------------------------------------------------------------------------------
+
+// 876. Middle of the Linked List
+
+var middleNode = function (head) {
+  if (!head.next) return head;
+
+  let length = 1;
+  let current = head;
+  while (current.next) {
+    length++;
+    current = current.next;
+  }
+
+  let mid = Math.floor(length/2);
+
+  let node = head;
+  while (mid > 0) {
+    node = node.next;
+    mid--;
+  }
+
+  return node;
+};
+
+
+
+//------------------------------------------------------------------------------
+
+// 559. Maximum Depth of N-ary Tree
+
+var maxDepth = function (root) {
+  if (!root) return 0;
+
+  let depths = [];
+  for (let child of root.children) {
+    let depth = 1 + maxDepth(child);
+    depths.push(depth);
+  }
+
+  return Math.max(1, ...depths);
+};
+
+
+//------------------------------------------------------------------------------
+
+// 1337. The K Weakest Rows in a Matrix
+
+var kWeakestRows = function (mat, k) {
+  let soldiers = [], weakestRows = [];
+  for (let i = 0; i < mat.length; i++) {
+    let row = mat[i];
+    let num = row.reduce((acc, ele) => acc + ele);
+    soldiers.push(num);
+  }
+  let copy = soldiers.slice()
+  let kRows = copy.sort((a, b) => a - b).slice(0, k);
+
+  for (let i = 0; i < kRows.length; i++) {
+    let num = kRows[i];
+    let idx = soldiers.indexOf(num);
+
+    if (i > 0 && kRows[i - 1] === num) {
+      let prev = weakestRows[weakestRows.length-1];
+      idx = soldiers.indexOf(num, prev + 1);
+    }
+
+    weakestRows.push(idx);
+  }
+
+  return weakestRows;
+};
+
+
+
+//------------------------------------------------------------------------------
+
+// 1380. Lucky Numbers in a Matrix
+
+var luckyNumbers = function (matrix) {
+  let lucky = [];
+  for (let row = 0; row < matrix.length; row++) {
+    let eachRow = matrix[row];
+    let rowMin = Math.min(...eachRow);
+    for (let col = 0; col < matrix[0].length; col++) {
+      let eachCol = [];
+      let num = matrix[row][col];
+      
+      for (let row2 = 0; row2 < matrix.length; row2++) {
+        let n = matrix[row2][col];
+        eachCol.push(n);
+      }
+
+      let colMax = Math.max(...eachCol);
+      if (rowMin === colMax && rowMin === num) lucky.push(num);
+    }
+  }
+
+  return lucky;
+};
+
+// let matrix = [[3, 7, 8], [9, 11, 13], [15, 16, 17]];
+// arrayPairSum(matrix);
+
+
+
+//------------------------------------------------------------------------------
+
+// 590. N-ary Tree Postorder Traversal
+
+var preorder = function (root, res = []) {
+  if (!root) return res;
+
+  res.push(root.val);
+  for (const child of root.children) {
+    preorder(child, res);
+  }
+  return res;
+};
+
 
 //------------------------------------------------------------------------------
 
@@ -429,7 +661,7 @@ var groupAnagrams = function (strs) {
   return groups;
 };
 
-console.log(groupAnagrams(["tea", "and", "ace", "ad", "eat", "dans"]));
+// console.log(groupAnagrams(["tea", "and", "ace", "ad", "eat", "dans"]));
 
 // Input: ["eat", "tea", "tan", "ate", "nat", "bat"],
 //   Output:
@@ -1509,35 +1741,6 @@ var peakIndexInMountainArray = function (A) {
 };
 
 
-//------------------------------------------------------------------------------
-
-// 561. Array Partition I
-
-var luckyNumbers = function (matrix) {
-  let min = [], max = [], transposed = [], lucky = [];
-
-  for (let i = 0; i < matrix[0].length; i++) {
-    let row = [];
-    min.push(Math.min(...matrix[i]));
-    for (let j = 0; j < matrix.length; j++) {
-      row.push(matrix[j][i]);
-    }
-    transposed.push(row);
-  }
-
-  for (let i = 0; i < transposed[0].length; i++) {
-    max.push(Math.max(...transposed[i]));
-  }
-
-  for (let i = 0; i < min.length; i++) {
-    if (max.includes(min[i]) && !lucky.includes(min[i])) lucky.push(min[i]);
-  }
-
-  return lucky;
-};
-
-// let matrix = [[3, 7, 8], [9, 11, 13], [15, 16, 17]];
-// arrayPairSum(matrix);
 
 //------------------------------------------------------------------------------
 
