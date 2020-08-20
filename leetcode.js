@@ -1,3 +1,4 @@
+// const _ = require('lodash');
 
 // for (let i = 50; i > 0; i--) {
 //   console.log("//------------------------------------------------------------------------------");
@@ -77,25 +78,144 @@
 //------------------------------------------------------------------------------
 //  (15/50)
 //------------------------------------------------------------------------------
-//  (14/50)
+//  (14/50) 
 //------------------------------------------------------------------------------
-//  (13/50)
+//  (13/50) 
 //------------------------------------------------------------------------------
-//  (12/50)
+//  (12/50) 
+
 //------------------------------------------------------------------------------
-//  (11/50)
+//  (11/50) 1417. Reformat The String
+
+var reformat = function (s) {
+
+};
+
 //------------------------------------------------------------------------------
-//  (10/50)
+//  (10/50) 1422. Maximum Score After Splitting a String
+
+var maxScore = function (s) {
+  let max = 0;
+  for (let i = 1; i < s.length; i++) {
+    let left = s.slice(0, i);
+    let right = s.slice(i);
+    left = left.split("").filter(x => x === '0');
+    right = right.split("").filter(x => x === '1');
+    let sum = left.length + right.length;
+    if (sum > max) max = sum;
+  }
+  return max;
+};
+
+// let s = "011101";
+// console.log(maxScore(s));
+
+
 //------------------------------------------------------------------------------
-//  (9/50)
+//  (9/50) 
+
+var buildArray = function (target, n) {
+  let arr = [];
+  let res = [];
+  let i = 1;
+  while (target[target.length - 1] >= i) {
+    arr.push(i);
+    res.push('Push');
+    if (!target.includes(i)) {
+      arr.pop();
+      res.push('Pop');
+    }
+    i++;
+  }
+  return res;
+};
+
+
+// let target = [1, 3], n = 3;
+// console.log(buildArray(target, n));
+
 //------------------------------------------------------------------------------
-//  (8/50)
+//  (8/50) 1496. Path Crossing
+
+var isPathCrossing = function (path) {
+  let x = 0, y = 0;
+  let visited = [[0, 0]];
+  for (let i = 0; i < path.length; i++) {{
+    let dir = path[i];
+    if (dir === "N") y++;
+    if (dir === "S") y--;
+    if (dir === "E") x++;
+    if (dir === "W") x--;
+    let point = [x, y];
+    if (visited.some(p => _.isEqual(p, point))) {
+    // if (visited.some(p => p[0] === point[0] && p[1] === point[1])) {
+      return true;
+    } else {
+      visited.push(point);
+    }
+  }}
+  return false;
+};
+
+// let path = "NESWW";
+// console.log(isPathCrossing(path));
+
 //------------------------------------------------------------------------------
-//  (7/50)
+//  (7/50) 1539. Kth Missing Positive Number
+
+var findKthPositive = function (arr, k) {
+  let res = [];
+  let i = 1;
+  while (res.length < k) {
+    if (!arr.includes(i)) res.push(i);
+    i++;
+  }
+
+  return res[k - 1];
+};
+
 //------------------------------------------------------------------------------
-//  (6/50)
+//  (6/50) 1544. Make The String Great
+
+var makeGood = function (s) {
+  if (s.length < 1) return s;
+
+  let good = false;
+  while (!good) {
+    good = true;
+    for (let i = 0; i < s.length - 1; i++) {
+      let curr = s[i];
+      let next = s[i + 1];
+      if (curr !== next) {
+        if (curr === next.toUpperCase() || curr === next.toLowerCase()) {
+          s = s.slice(0, i) + s.slice(i + 2);
+          good = false;
+        }
+      }
+    }
+  }
+
+  return s;
+};
+
+// let s = "leEeetcode";
+// console.log(makeGood(s));
+
 //------------------------------------------------------------------------------
-//  (5/50)
+//  (5/50) 1137. N-th Tribonacci Number
+
+var tribonacci = function (n) {
+  let trib = [0, 1, 1];
+
+  while (trib.length <= n) {
+    let next = trib[trib.length - 3] + trib[trib.length - 2] + trib[trib.length - 1];
+    trib.push(next);
+  }
+
+  return trib[n];
+};
+
+
 //------------------------------------------------------------------------------
 //  (4/50) 198. House Robber
 
@@ -3211,8 +3331,8 @@ var oddCells = function (n, m, indices) {
   return count;
 };
 
-let n = 2, m = 3, indices = [[0, 1], [1, 1]]
-oddCells(n, m, indices);
+// let n = 2, m = 3, indices = [[0, 1], [1, 1]]
+// oddCells(n, m, indices);
 
 //------------------------------------------------------------------------------
 
