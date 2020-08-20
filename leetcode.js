@@ -2,13 +2,8 @@
 
 
 
-//------------------------------------------------------------------------------
-
-
-
 
 //------------------------------------------------------------------------------
-
 
 
 
@@ -24,14 +19,612 @@
 
 
 
-
 //------------------------------------------------------------------------------
 
 
 
+//------------------------------------------------------------------------------
+
+// 1154. Day of the Year (40/40)
+
+var dayOfYear = function (date) {
+  let months = {
+    '01': 31,
+    '02': 28,
+    '03': 31,
+    '04': 30,
+    '05': 31,
+    '06': 30,
+    '07': 31,
+    '08': 31,
+    '09': 30,
+    '10': 31,
+    '11': 30,
+    '12': 31,
+  }
+  date = date.split("-");
+  year = date[0];
+  month = date[1];
+  day = date[2];
+  let days = 0;
+  for (let i = 1; i < parseInt(month); i++) {
+    if (i === 2 && year % 4 === 0 && year > 1900) {
+      days += months['02'];
+      days += 1;
+    } else {
+      let m = `${i}`.length === 1 ? `0${i}` : `${i}`;
+      days += months[m];
+    };
+  }
+  days += parseInt(day);
+  return days;
+};
+
+
+// let date = "2019-02-10";
+// console.log(dayOfYear(date));
+
 
 //------------------------------------------------------------------------------
 
+// 796. Rotate String (39/40)
+
+var rotateString = function (A, B) {
+  if (A.length !== B.length) return false;
+  if (A.length === 0) return true;
+  for (let i = 0; i < A.length; i++) {
+    A = A.slice(1) + A[0];
+    if (A === B) return true;
+  }
+
+  return false;
+};
+
+// let A = 'abcde', B = 'cdeab';
+// console.log(rotateString(A, B));
+
+
+//------------------------------------------------------------------------------
+
+// 485. Max Consecutive Ones (38/40)
+
+var findMaxConsecutiveOnes = function (nums) {
+  if (nums.every(n => n === 0)) return 0;
+  let max = 1;
+  let count = 1;
+  for (let i = 1; i < nums.length; i++) {
+    let num = nums[i];
+    let prev = nums[i - 1];
+    if (num === prev && num === 1) {
+      count++;
+    } else {
+      count = 1;
+    }
+    if (count > max) max = count;
+  }
+  return max;
+};
+
+
+//------------------------------------------------------------------------------
+
+// 389. Find the Difference (37/40)
+
+var findTheDifference = function (s, t) {
+  let count = {};
+  let count2 = {};
+  for (let i = 0; i < s.length; i++) {
+    let char = s[i];
+    if (!count[char]) count[char] = 0;
+    count[char]++;
+  }
+  for (let i = 0; i < t.length; i++) {
+    let char = t[i];
+    if (!count2[char]) count2[char] = 0;
+    count2[char]++;
+  }
+  let key = Object.keys(count2).filter(k => !count[k] || count[k] !== count2[k]);
+  return key[0];
+};
+
+
+//------------------------------------------------------------------------------
+
+// 1523. Count Odd Numbers in an Interval Range (36/40)
+
+var countOdds = function (low, high) {
+  let odds = 0;
+  for (let i = low; i <= high; i++) {
+    if (i % 2 === 1) odds++;
+  }
+  return odds;
+};
+
+
+//------------------------------------------------------------------------------
+
+// 1331. Rank Transform of an Array (35/40)
+
+var arrayRankTransform = function (arr) {
+  let copy = arr.slice();
+
+  let sort = {};
+  let increment = 1;
+  copy.sort((a, b) => a - b);
+  for (let i = 0; i < copy.length; i++) {
+    let num = copy[i];
+    if (!sort[num]) {
+      sort[num] = increment;
+      increment++;
+    };
+  }
+
+  for (let i = 0; i < arr.length; i++) {
+    let num = arr[i];
+    arr[i] = sort[num];
+  }
+  return arr;
+};
+
+
+//------------------------------------------------------------------------------
+
+// 258. Add Digits (34/40)
+
+var addDigits = function (num) {
+  num = num.toString();
+  while (num.length > 1) {
+    num = num.split("").map(n => parseInt(n));
+    num = num.reduce((a, b) => a + b);
+    num = num.toString();
+  }
+  return num;
+};
+
+
+//------------------------------------------------------------------------------
+
+// 917. Reverse Only Letters (33/40)
+
+var reverseOnlyLetters = function (S) {
+  let newArr = new Array(S.length);
+  let alpha = "abcdefghijklmnopqrstuvwxyz"
+  let chars = "";
+  for (let i = 0; i < S.length; i++) {
+    let char = S[i];
+    if (!alpha.includes(char.toLowerCase())) {
+      newArr[i] = char;
+    } else {
+      chars += char;
+    }
+  }
+
+  chars = chars.split("");
+  for (let i = 0; i < newArr.length; i++) {
+    if (!newArr[i]) {
+      let char = chars.pop();
+      newArr[i] = char;
+    }
+  }
+
+  return newArr.join("");
+};
+
+// let S = "a-bC-dEf-ghIj";
+// console.log(reverseOnlyLetters(S));
+
+
+//------------------------------------------------------------------------------
+
+// (32/40)
+
+var isMonotonic = function (A) {
+  let dir;
+  for (let i = 2; i < A.length; i++) {
+    let first = A[i - 2];
+    let second = A[i - 1];
+    let third = A[i];
+
+    if (first === second && second === third) {
+      continue;
+    }
+
+    if (first >= second && second >= third) {
+      if (!dir) dir = 'dec';
+      if (dir !== 'dec') return false;
+    } else if (first <= second && second <= third) {
+      if (!dir) dir = 'inc';
+      if (dir !== 'inc') return false;
+    } else {
+      return false;
+    }
+  }
+  return true;
+};
+
+
+//------------------------------------------------------------------------------
+
+// 1446. Consecutive Characters (31/40)
+
+var maxPower = function (s) {
+  let max = 1;
+  let count = 1
+  for (let i = 1; i < s.length; i++) {
+    let char = s[i];
+    let prev = s[i - 1];
+    if (char === prev) {
+      if (max < count) max = count;
+      count++;
+    } else {
+      if (max < count) max = count;
+      count = 1;
+    }
+  }
+  return max;
+};
+
+
+//------------------------------------------------------------------------------
+
+// 1287. Element Appearing More Than 25% In Sorted Array (30/30)
+
+var findSpecialInteger = function (arr) {
+  if (arr.length === 1) return arr[0];
+  let quarter = Math.ceil(arr.length / 4);
+  let count = 1;
+  for (let i = 1; i < arr.length; i++) {
+    let num = arr[i];
+    let prev = arr[i - 1];
+    if (num === prev) {
+      count++
+    } else {
+      count = 1;
+    };
+    if (count >= quarter) return num;
+  }
+};
+
+
+//------------------------------------------------------------------------------
+
+// 1507. Reformat Date (29/30)
+
+var reformatDate = function (date) {
+  let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  date = date.split(" ");
+  year = date[2];
+  let idx = months.indexOf(date[1]);
+  month = `${idx + 1}`.length === 1 ? `0${idx + 1}` : `${idx + 1}`;
+  day = date[0].slice(0, date[0].length - 2);
+  day = `${day}`.length === 1 ? `0${day}` : `${day}`;
+
+  return `${year}-${month}-${day}`;
+};
+
+
+//------------------------------------------------------------------------------
+
+// 566. Reshape the Matrix (28/30)
+
+var matrixReshape = function (nums, r, c) {
+  let rows = nums.length;
+  let cols = nums[0].length;
+  if (rows * cols !== r * c) return nums;
+  nums = [].concat.apply([], nums);
+
+  let grid = [];
+  for (let row = 0; row < r; row++) {
+    let sub = [];
+    for (let col = 0; col < c; col++) {
+      let ele = nums.shift();
+      sub.push(ele);
+    }
+    grid.push(sub);
+  }
+  return grid;
+};
+
+
+//------------------------------------------------------------------------------
+
+//  (27/30)
+
+// # Write your MySQL query statement below
+// select FirstName, LastName, City, State
+// from Person
+// left join Address on Person.PersonId = Address.PersonId
+
+
+//------------------------------------------------------------------------------
+
+// 1189. Maximum Number of Balloons (26/30)
+
+var maxNumberOfBalloons = function (text) {
+  let count = {};
+  for (let i = 0; i < text.length; i++) {
+    let char = text[i];
+    if ("balloon".includes(char)) {
+      if (!count[char]) count[char] = 0;
+      count[char]++;
+    }
+  }
+
+  let times = 0;
+  let word = "balloon".split("");
+
+  while (word.length) {
+    let char = word.shift();
+    count[char]--;
+    // debugger;
+    if (char === "n" && Object.values(count).every(v => v >= 0)) { 
+      // debugger;
+      times++;
+      word = "balloon".split("");
+    };
+  }
+
+  return times;
+};
+
+// let text = "nlaebolko";
+// console.log(maxNumberOfBalloons(text))
+
+
+//------------------------------------------------------------------------------
+
+// 985. Sum of Even Numbers After Queries (25/30)
+
+var sumEvenAfterQueries = function (A, queries) {
+  let res = [];
+  for (let i = 0; i < queries.length; i++) {
+    let pair = queries[i];
+    A[pair[1]] += pair[0];
+    let sum = 0;
+    for (let i = 0; i < A.length; i++) {
+      let num = A[i];
+      if (Math.abs(num % 2) === 0) sum += num;
+    }
+    res.push(sum);
+  }
+  return res;
+};
+
+
+//------------------------------------------------------------------------------
+
+//  (24/30)
+
+var shiftGrid = function (grid, k) {
+  let rows = grid.length;
+  let cols = grid[0].length;
+  let newGrid = [];
+  for (let i = 0; i < rows; i++) {
+    let sub = [];
+    for (let j = 0; j < cols; j++) {
+      sub.push(0);
+    }
+    newGrid.push(sub);
+  }
+
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < cols; col++) {
+      let ele = grid[row][col];
+      let nRow, nCol;
+      if (col + k < cols) {
+        nRow = row;
+        nCol = col + k;
+      } else {
+        nCol = (col + k) % cols;
+        nRow = (Math.floor((col + k)/cols) + row) % rows;
+      }
+      // debugger;
+      newGrid[nRow][nCol] = ele;
+      // debugger;
+    }
+  }
+
+  return newGrid;
+};
+
+// let grid = [[1, 2, 3], [4, 5, 6], [7, 8, 9]], k = 1;
+// console.log(shiftGrid(grid, k));
+
+
+//------------------------------------------------------------------------------
+
+//  (23/30)
+
+var stringMatching = function (words) {
+  let res = [];
+  for (let i = 0; i < words.length; i++) {
+    let word1 = words[i];
+    for (let j = i + 1; j < words.length; j++) {
+      let word2 = words[j];
+      if (word1.includes(word2) && !res.includes(word2)) res.push(word2); 
+      if (word2.includes(word1) && !res.includes(word1)) res.push(word1); 
+    }
+  }
+  return res;
+};
+
+
+//------------------------------------------------------------------------------
+
+//  (22/30)
+
+// # Write your MySQL query statement below
+// select email
+// from Person
+// group by email
+// having COUNT(email) > 1
+
+
+//------------------------------------------------------------------------------
+
+// 1046. Last Stone Weight (21/30)
+
+var lastStoneWeight = function (stones) {
+  stones.sort((a,b) => b-a);
+  while (stones.length > 1) {
+    let s1 = stones.shift();
+    let s2 = stones.shift();
+    if (s1 > s2) {
+      stones.push(s1-s2);
+      stones.sort((a, b) => b - a);
+    }
+  }
+  
+  return stones.length ? stones[0] : 0;
+};
+
+
+//------------------------------------------------------------------------------
+
+// 867. Transpose Matrix (20/20)
+
+var transpose = function (A) {
+  let transposed = [];
+  for (let col = 0; col < A[0].length; col++) {
+    let sub = [];
+    for (let row = 0; row < A.length; row++) {
+      let ele = A[row][col];
+      sub.push(ele);
+    }
+    transposed.push(sub);
+  }
+  return transposed;
+};
+
+
+
+//------------------------------------------------------------------------------
+
+// 1518. Water Bottles (19/20)
+
+var numWaterBottles = function (numBottles, numExchange) {
+  let drank = numBottles;
+
+  while (numBottles >= numExchange) {
+    let newBottles = Math.floor(numBottles / numExchange);
+    let rem = numBottles % numExchange;
+
+    drank += newBottles;
+    numBottles = newBottles + rem;
+  }
+
+  return drank;
+};
+
+//------------------------------------------------------------------------------
+
+// 669. Trim a Binary Search Tree (18/20)
+
+var trimBST = function (root, L, R) {
+  if (!root) return root;
+  if (root.val > R) return trimBST(root.left, L, R);
+  if (root.val < L) return trimBST(root.right, L, R);
+
+  root.left = trimBST(root.left, L, R);
+  root.right = trimBST(root.right, L, R);
+  return root;
+};
+
+
+//------------------------------------------------------------------------------
+
+// 637. Average of Levels in Binary Tree (17/20)
+
+var averageOfLevels = function (root) {
+  let res = [];
+  let queue = [root];
+
+  while (queue.length) {
+    if (queue.length === 1) {
+      let node = queue.shift();
+      res.push(node.val);
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
+    } else {
+      let vals = queue.map(node => node.val);
+      let sum = vals.reduce((a, b) => a + b);
+      res.push(sum / vals.length);
+      for (let i = 0; i < vals.length; i++) {
+        let node = queue.shift();
+        if (node.left) queue.push(node.left);
+        if (node.right) queue.push(node.right);
+      }
+    }
+  }
+
+  return res;
+};
+
+
+//------------------------------------------------------------------------------
+
+// 884. Uncommon Words from Two Sentences (16/20)
+
+var uncommonFromSentences = function (A, B) {
+  let count = {};
+  words = A.split(" ").concat(B.split(" "));
+  for (let i = 0; i < words.length; i++) {
+    let word = words[i];
+    if (!count[word]) count[word] = 0;
+    count[word]++
+  }
+  return Object.keys(count).filter(k => count[k] === 1);
+};
+
+
+//------------------------------------------------------------------------------
+
+// 1103. Distribute Candies to People (15/20)
+
+var distributeCandies = function (candies, num_people) {
+  let arr = Array(num_people).fill(0);
+  // let arr = Array.apply(null, Array(num_people)).map(x => 0);
+  
+  let i = 1;
+  while (candies > 0) {
+    if (candies >= i) {
+      arr[(i - 1) % num_people] += i;
+      candies -= i;
+    } else {
+      arr[(i - 1) % num_people] += candies;
+      candies = 0;
+    }
+
+    i++;
+  }
+
+  return arr;
+};
+
+
+//------------------------------------------------------------------------------
+
+// 496. Next Greater Element I (14/20)
+
+var nextGreaterElement = function (nums1, nums2) {
+  let res = [];
+  for (let i = 0; i < nums1.length; i++) {
+    let num = nums1[i];
+    let idx = nums2.indexOf(num);
+    let sub = nums2.slice(idx + 1);
+    if (sub.length === 0 || !sub.some(n => n > num)) {
+      res.push(-1);
+    } else {
+      for (let j = 0; j < sub.length; j++) {
+        if (sub[j] > num) {
+          res.push(sub[j])
+          break;
+        };
+      }
+    }
+  }
+  return res;
+};
 
 
 //------------------------------------------------------------------------------
@@ -39,7 +632,40 @@
 // 1185. Day of the Week (13/20)
 
 var dayOfTheWeek = function (day, month, year) {
-
+  // 1/1/71 is a Friday
+  daysOfWeek = ["Friday", "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"];
+  let days = 0;
+  let months = {
+    1: 31,
+    2: 28,
+    3: 31,
+    4: 30,
+    5: 31,
+    6: 30,
+    7: 31,
+    8: 31,
+    9: 30,
+    10: 31,
+    11: 30,
+    12: 31,
+  }
+  for (let i = 1971; i < year; i++) {
+    if (i % 4 === 0) {
+      days += 366;
+    } else {
+      days += 365;
+    }
+  }
+  for (let i = 1; i < month; i++) {
+    if (year % 4 === 0 && i === 2) {
+      days += months[2] + 1;
+    } else {
+      days += months[i];
+    }
+  }
+  days += day - 1;
+  days = days % 7;
+  return daysOfWeek[days];
 };
 
 
@@ -141,7 +767,7 @@ var findLucky = function (arr) {
   return keys.length > 0 ? keys[keys.length - 1] : -1;
 };
 
-console.log(findLucky([2, 2, 3, 4]));
+// console.log(findLucky([2, 2, 3, 4]));
 
 
 //------------------------------------------------------------------------------
