@@ -20,6 +20,30 @@
 
 //------------------------------------------------------------------------------
 
+function combineSortedLists(l1, l2) {
+  if (!l1) return l2;
+  if (!l2) return l1;
+
+  let merged = [];
+
+  let ele;
+  while (l1.length && l2.length) {
+    if (l1[0] > l2[0]) {
+      ele = l2.shift();
+    } else {
+      ele = l1.shift();
+    }
+    merged.push(ele);
+  }
+
+  return merged.concat([...l1, ...l2]);
+}
+
+let l1 = [1, 5, 10];
+let l2 = [2, 3, 6, 12, 15];
+
+console.log(combineSortedLists(l1, l2));
+
 
 //------------------------------------------------------------------------------
 
