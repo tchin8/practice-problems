@@ -1,5 +1,7 @@
 // const _ = require('lodash');
 
+const { keys } = require("lodash");
+
 // for (let i = 50; i > 0; i--) {
 //   console.log("//------------------------------------------------------------------------------");
 //   console.log(`//  (${i}/50)`)
@@ -46,49 +48,611 @@
 //------------------------------------------------------------------------------
 //  (31/50)
 //------------------------------------------------------------------------------
-//  (30/50)
+//  (30/50) 290. Word Pattern
+
+var wordPattern = function (pattern, str) {
+  if (pattern === str && str.length > 1) return false;
+  if (pattern === str && str.length === 1) return true;
+  str = str.split(" ");
+  let pairs = {};
+  for (let i = 0; i < str.length; i++) {
+    let char = pattern[i];
+    let word = str[i];
+    if (!pairs[char]) pairs[char] = word;
+  }
+
+  let newStr = [];
+  for (let i = 0; i < pattern.length; i++) {
+    let char = pattern[i];
+    newStr.push(pairs[char]);
+  }
+  let keys = Object.keys(pairs)
+  for (let i = 0; i < keys.length; i++) {
+    for (let j = i + 1; j < keys.length; j++) {
+      if (pairs[keys[i]] === pairs[keys[j]]) return false;
+    }
+  }
+
+  return newStr.join(" ") === str.join(" ");
+};
+
+let pattern = "abc", str = "b c a";
+console.log(wordPattern(pattern, str))
+
+
 //------------------------------------------------------------------------------
-//  (29/50)
+//  (29/50) 949. Largest Time for Given Digits
+
+var largestTimeFromDigits = function (A) {
+  let nums = A
+  let hour = []
+
+
+  if (Math.min(...nums) > 2) {
+    return ''
+  }
+
+  if (nums.includes(2)) {
+    hour.push(2)
+    nums.splice(A.indexOf(2), 1)
+  } else if (nums.includes(1)) {
+    hour.push(1)
+    nums.splice(A.indexOf(1), 1)
+  } else if (nums.includes(0)) {
+    hour.push(0)
+    nums.splice(A.indexOf(0), 1)
+  }
+
+  if (hour[0] === 0 || hour[0] === 1) {
+    hour.push(Math.max(...nums))
+    nums.splice(nums.indexOf(Math.max(...nums)), 1)
+
+    if (Math.max(...nums) < 6) {
+      nums = nums.sort().reverse().join('')
+    } else if (Math.min(...nums) > 5) {
+      return ''
+    } else {
+      nums = nums.sort().join('')
+    }
+    return hour.join('') + ':' + nums
+  }
+
+
+  if (Math.min(...nums) > 3) {
+    return ''
+  }
+
+  if (nums.includes(3)) {
+    hour.push(3)
+    nums.splice(A.indexOf(3), 1)
+  } else if (nums.includes(2)) {
+    hour.push(2)
+    nums.splice(nums.indexOf(2), 1)
+  } else if (nums.includes(1)) {
+    hour.push(1)
+    nums.splice(nums.indexOf(1), 1)
+  } else if (nums.includes(0)) {
+    hour.push(0)
+    nums.splice(nums.indexOf(0), 1)
+  }
+
+  if (Math.min(...nums) > 5 && Math.max(...nums) > 5 && (hour[1] === 0 || hour[1] === 1)) {
+    hour.push(Math.max(...nums))
+    nums.splice(nums.indexOf(Math.max(...nums)), 1)
+    nums.unshift(hour[0])
+    hour.shift()
+  }
+
+  if (Math.max(...nums) < 6) {
+    nums = nums.sort().reverse().join('')
+  } else if (Math.min(...nums) > 5) {
+    return ''
+  } else {
+    nums = nums.sort().join('')
+  }
+
+  return hour.join('') + ':' + nums
+};
+
+// var largestTimeFromDigits = function (A) {
+//   let max = [2, 3, 5, 9];
+//   let str = "";
+//   let count = {};
+
+//   for (let i = 0; i < A.length; i++) {
+//     let num = A[i];
+//     if (!count[num]) count[num] = 0;
+//     count[num]++;
+//   }
+
+//   let keys = Object.keys(count);
+//   for (let i = 0; i < max.length; i++) {
+//     let m = max[i];
+
+//     for (let j = m; j >= 0; j--) {
+//       if (keys.includes("0") && keys.includes("2") && keys.some(n => parseInt(n) === 6) && !keys.some(n => parseInt(n) > 2 && parseInt(n) < 6)) {
+//         if (i === 0) {
+//           // debugger;
+//           str += "0";
+//           count["0"]--;
+//           break;
+//         }
+//       }
+//       if (count[j]) {
+//         // debugger;
+//         str += j;
+//         count[j]--;
+//         break;
+//       }
+//     }
+//     if (i === 0 && str.length !== 1) return "";
+//     if (i === 1 && str.length !== 2) return "";
+//     if (i === 1) str += ":";
+//     if (i === 2 && str.length !== 4) return "";
+//     if (i === 3 && str.length !== 5) return "";
+
+//     if (i === 0 && str[0] === '0') {
+//       max = [0, 9, 5, 9];
+//     }
+//     if (i === 0 && str[0] === '1') {
+//       max = [1, 9, 5, 9];
+//     }
+//   }
+
+//   return str;
+// };
+
+// let A = [1, 2, 3, 4];
+// console.log(largestTimeFromDigits(A));
+// A = [0, 4, 0, 0];
+// console.log(largestTimeFromDigits(A));
+// A = [4, 1, 0, 0];
+// console.log(largestTimeFromDigits(A));
+// A = [2, 0, 6, 6];
+// console.log(largestTimeFromDigits(A));
+// A = [3, 2, 7, 0];
+// console.log(largestTimeFromDigits(A));
+// A = [8, 2, 0, 0];
+// console.log(largestTimeFromDigits(A));
+
 //------------------------------------------------------------------------------
-//  (28/50)
+//  (28/50) 14. Longest Common Prefix
+
+var longestCommonPrefix = function (strs) {
+  let min = strs[0].length; 
+  let pre = "";
+  for (let i = 1; i < strs.length; i++) {
+    let length = strs[i].length;
+    if (length < min) min = length;
+  }
+  for (let i = 0; i < min; i++) {
+    let sub = strs[0].slice(0, i+1);
+    if (strs.every(str => str.startsWith(sub))) {
+      pre = sub;
+    } else {
+      break;
+    }
+  }
+  return pre;
+};
+
 //------------------------------------------------------------------------------
-//  (27/50)
+//  (27/50) 189. Rotate Array
+
+var rotate = function (nums, k) {
+  k = k % nums.length;
+  for (let i = 0; i < k; i++) {
+    let ele = nums.pop();
+    nums.unshift(ele);
+  }
+  return nums;
+};
+
 //------------------------------------------------------------------------------
-//  (26/50)
+//  (26/50) 28. Implement strStr()
+
+var strStr = function (haystack, needle) {
+  return haystack.indexOf(needle);
+};
+
 //------------------------------------------------------------------------------
-//  (25/50)
+//  (25/50) 69. Sqrt(x)
+
+var mySqrt = function (x) {
+  return Math.floor(Math.sqrt(x));
+};
+
 //------------------------------------------------------------------------------
-//  (24/50)
+//  (24/50) 941. Valid Mountain Array
+
+var validMountainArray = function (A) {
+  if (A.length < 3) return false;
+  let dir = 1;
+  for (let i = 0; i < A.length - 1; i++) {
+    let curr = A[i];
+    let next = A[i + 1];
+
+    if (curr === next) return false;
+    if (i === 0 && curr > next) return false;
+    if (dir === 1 && curr > next) dir = -1;
+    if (dir === -1 && curr < next) return false;
+  }
+  return dir === -1;
+};
+
 //------------------------------------------------------------------------------
-//  (23/50)
+//  (23/50) 58. Length of Last Word
+
+var lengthOfLastWord = function (s) {
+  if (!s.length) return 0;
+  s = s.split(" ").reverse();
+  while (s.length) {
+    if (s[0].length > 0) return s[0].length;
+    s.shift();
+  }
+  return s.length; 
+};
+
 //------------------------------------------------------------------------------
-//  (22/50)
+//  (22/50) 686. Repeated String Match
+
+var repeatedStringMatch = function (A, B) {
+  const n = Math.ceil(B.length / A.length);
+  if (A.repeat(n).includes(B)) return n;
+  if (A.repeat(n + 1).includes(B)) return n + 1;
+  return -1;
+};
+
+// var repeatedStringMatch = function (A, B) {
+//   let count = 1;
+//   let copy = A;
+//   while (copy.length <= (A.length * B.length)) {
+//     if (copy.includes(B)) return count;
+//     copy += A;
+//     count++;
+//   }
+//   return -1;
+// };
+
 //------------------------------------------------------------------------------
-//  (21/50)
+//  (21/50) 633. Sum of Square Numbers
+
+var judgeSquareSum = function (c) {
+  if (c === 0) {
+    return true;
+  }
+  for (let a = 0; a * a < c; a++) {
+    let b = Math.sqrt(parseFloat(c - a * a));
+    if (b - Math.round(b) === 0) {
+      return true;
+    }
+  }
+  return false;
+};
+
+var judgeSquareSum = function (c) {
+  let squares = {};
+  let n = Math.floor(Math.sqrt(c));
+  for (let i = 0; i <= n; i++) {
+    for (let j = 0; j <= n; j++) {
+      if (!squares[i]) squares[i] = i * i;
+      if (!squares[j]) squares[j] = j * j;
+      if (squares[i] + squares[j] === c) return true;
+    }
+  }
+  return false;
+};
+
 //------------------------------------------------------------------------------
-//  (20/50)
+//  (20/50) 176. Second Highest Salary
+
+// # Write your MySQL query statement below
+// SELECT
+// IFNULL(
+//   (SELECT DISTINCT Salary
+//        FROM Employee
+//        ORDER BY Salary DESC
+//         LIMIT 1 OFFSET 1),
+//   NULL) AS SecondHighestSalary
+
+
 //------------------------------------------------------------------------------
-//  (19/50)
+//  (19/50) 532. K-diff Pairs in an Array
+
+var findPairs = function (nums, k) {
+  let count = 0;
+  let pairs = {};
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j < nums.length; j++) {
+      let num1 = nums[i] <= nums[j] ? nums[i] : nums[j];
+      let num2 = nums[i] <= nums[j] ? nums[j] : nums[i];
+      if (num2 - num1 === k) {
+        if (pairs[num1] === undefined) {
+          pairs[num1] = num2;
+          count += 1;
+        }
+      };
+    }
+  }
+  return count;
+};
+
+// let nums = [3, 1, 4, 1, 5], k = 2;
+// console.log(findPairs(nums, k));
+
 //------------------------------------------------------------------------------
-//  (18/50)
+//  (18/50) 605. Can Place Flowers
+
+var canPlaceFlowers = function (flowerbed, n) {
+  if (flowerbed.length === 1 && flowerbed[0] === 0 && n === 1) return true;
+  for (let i = 0; i < flowerbed.length; i++) {
+    let prev = flowerbed[i - 1];
+    let current = flowerbed[i];
+    let next = flowerbed[i + 1];
+
+    if (n === 0) return true;
+
+    if (prev === undefined) {
+      if (current === 0 && next === 0) {
+        flowerbed[i] = 1;
+        n--;
+      }
+      continue;
+    }
+
+    if (next === undefined) {
+      if (prev === 0 && current === 0) {
+        flowerbed[i] = 1;
+        n--;
+      }
+      continue;
+    }
+
+    if (prev === 0 && current === 0 && next === 0) {
+      flowerbed[i] = 1;
+      n--;
+    }
+  }
+
+  return n === 0;
+};
+
 //------------------------------------------------------------------------------
-//  (17/50)
+//  (17/50) 204. Count Primes
+
+const countPrimes = (n) => {
+  let arr = new Array(n).fill(true);
+
+  for (let i = 2; i * i < n; i++) {
+    if (arr[i] === true) {
+      for (let j = 2; j * i < n; j++) {
+        arr[j * i] = false;
+      }
+    }
+  }
+
+  let primeCount = 0;
+  for (let i = 2; i < arr.length; i++) {
+    if (arr[i] === true) {
+      primeCount++;
+    }
+  }
+
+  return primeCount;
+};
+
+// time exceeded
+// var countPrimes = function (n) {
+//   let res = [];
+//   let i = 2;
+//   for (let i = 2; i < n; i++) {
+//     if (i % 2 === 0) continue;
+//     if (isPrime(i)) res.push(i);
+//   }
+//   return res.length;
+// };
+
+// const isPrime = function (n) {
+//   if (n < 2) return false;
+//   for (let i = 2; i < n; i++) {
+//     if (n % i === 0) return false;
+//   }
+//   return true;
+// }
+
 //------------------------------------------------------------------------------
-//  (16/50)
+//  (16/50) 581. Shortest Unsorted Continuous Subarray
+
+var findUnsortedSubarray = function (nums) {
+  let sorted = nums.slice();
+  sorted.sort((a, b) => a - b);
+  let firstIdx, lastIdx;
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] !== sorted[i]) {
+      firstIdx = i;
+      break;
+    }
+  }
+  for (let i = nums.length - 1; i >= 0; i--) {
+    if (nums[i] !== sorted[i]) {
+      lastIdx = i;
+      break;
+    }
+  }
+  let res = nums.slice(firstIdx, lastIdx + 1);
+  return res.length;
+};
+
+
 //------------------------------------------------------------------------------
-//  (15/50)
+//  (15/50) 414. Third Maximum Number
+
+var thirdMax = function (nums) {
+  let count = {};
+  for (let i = 0; i < nums.length; i++) {
+    let num = nums[i];
+    if (!count[num]) count[num] = 1;
+  }
+  nums = Object.keys(count);
+  nums.sort((a, b) => b - a);
+  if (nums.length < 3) {
+    return nums[0];
+  } else {
+    return nums[2];
+  }
+};
+
 //------------------------------------------------------------------------------
 //  (14/50) 
+
+var buddyStrings = function (A, B) {
+  if (A.length != B.length) {
+    return false;
+  }
+  let [dif, chars] = [[], new Set(A)];
+  for (i in A) {
+    if (A[i] != B[i]) {
+      dif.push([A[i], B[i]]);
+    }
+  }
+  return dif.length === 2 && dif[0].join() === dif[1].reverse().join() || (dif.length === 0 && chars.size !== A.length);
+};
+
+// var buddyStrings = function (A, B) {
+//   A = A.split("");
+//   for (let i = 0; i < A.length; i++) {
+//     for (let j = i + 1; j < A.length; j++) {
+//       let char1 = A[i];
+//       let char2 = A[j];
+//       A[i] = char2;
+//       A[j] = char1;
+//       if (A.join("") === B) return true;
+//       A[i] = char1;
+//       A[j] = char2;
+//     }
+//   }
+
+//   if (A === B) return false;
+//   return false;
+// };
+
 //------------------------------------------------------------------------------
-//  (13/50) 
+//  (13/50) 665. Non-decreasing Array
+
+var checkPossibility = function (nums) {
+  let count = 0;
+  for (let i = 0; i < nums.length; i++) {
+    let prev = nums[i - 1];
+    let num = nums[i];
+    let next = nums[i + 1];
+
+    if (!prev) {
+      if (num > next) {
+        nums[i] = next;
+        count++;
+      }
+    } else if (!next) {
+      if (prev > num) {
+        nums[i] = prev;
+        count++;
+      }
+    } else if (prev > next && num > next) {
+      nums[i + 1] = num;
+      count++;
+    } else if (prev === next && prev < num) {
+      nums[i] = prev;
+      count++;
+    } else if (prev < next && num > next) {
+      nums[i] = prev;
+      count++;
+    } else if (num > next) {
+      nums[i + 1] = num;
+      count++;
+    }
+  }
+  return count <= 1;
+};
+
+// var checkPossibility = function (nums) {
+//   let possibility1 = nums.slice();
+//   let possibility2 = nums.slice();
+//   for (let i = 0; i < nums.length - 1; i++) {
+//     if (nums[i] > nums[i + 1]) {
+//       possibility1[i] = nums[i + 1];
+//       possibility2[i + 1] = nums[i];
+//       break;
+//     }
+//   }
+//   let possible1 = true;
+//   let possible2 = true;
+//   for (let i = 0; i < possibility1.length - 1; i++) {
+//     if (possibility1[i] > possibility1[i + 1]) {
+//       possible1 = false;
+//     }
+//     if (possibility2[i] > possibility2[i + 1]) {
+//       possible2 = false;
+//     }
+//   }
+//   return possible1 || possible2
+// };
+
+// 3, 4, 2, 3
+// -1, 4, 2, 3
+// 3, 3, 3, 2, 4
+// 1, 4, 1, 2
+
+
 //------------------------------------------------------------------------------
-//  (12/50) 
+//  (12/50) 1346. Check If N and Its Double Exist
+
+var checkIfExist = function (arr) {
+  if (arr.length <= 1) return false;
+  while (arr.length > 1) {
+    let num = arr.pop();
+    if (arr.some(n => num / 2 === n || num * 2 === n)) return true;
+  }
+  return false;
+};
 
 //------------------------------------------------------------------------------
 //  (11/50) 1417. Reformat The String
 
 var reformat = function (s) {
+  let numbers = "0123456789";
+  let alpha = [];
+  let nums = [];
+  let str = "";
+  for (let i = 0; i < s.length; i++) {
+    let char = s[i];
+    if (numbers.includes(char)) {
+      nums.push(char);
+    } else {
+      alpha.push(char);
+    }
+  }
+  if (Math.abs(nums.length - alpha.length) > 1) return str;
 
+  while (alpha.length || nums.length) {
+    if (str.length === 0) {
+      if (alpha.length >= nums.length) {
+        str += alpha[0];
+        alpha = alpha.slice(1);
+      } else {
+        str += nums[0];
+        nums = nums.slice(1);
+      }
+    } else {
+      if (numbers.includes(str[str.length - 1])) {
+        str += alpha[0];
+        alpha = alpha.slice(1);
+      } else {
+        str += nums[0];
+        nums = nums.slice(1);
+      }
+    }
+  }
+
+  return str;
 };
 
 //------------------------------------------------------------------------------
