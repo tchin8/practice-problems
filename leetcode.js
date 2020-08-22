@@ -28,9 +28,28 @@
 //------------------------------------------------------------------------------
 //  (40/50) 1071. Greatest Common Divisor of Strings
 
-var gcdOfStrings = function (str1, str2) {
+// INCOMPLETEEE!!!!
 
-};
+// var gcdOfStrings = function (str1, str2) {
+//   let str = "";
+  
+//   while (str1.length && str2.length) {
+//     if (str1[0] === str2[0]) {
+//       str += str1[0];
+//       str1 = str1.slice(1);
+//       str2 = str2.slice(1);
+//     } else {
+//       return "";
+//     }
+//   }
+
+//   let rem;
+//   if (str1.length > 0) {
+//     rem = str1;
+//   } else {
+//     rem = str2;
+//   }
+// };
 
 //------------------------------------------------------------------------------
 //  (39/50) 1089. Duplicate Zeros
