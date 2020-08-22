@@ -1,7 +1,5 @@
 // const _ = require('lodash');
 
-const { keys } = require("lodash");
-
 // for (let i = 50; i > 0; i--) {
 //   console.log("//------------------------------------------------------------------------------");
 //   console.log(`//  (${i}/50)`)
@@ -34,19 +32,150 @@ const { keys } = require("lodash");
 //------------------------------------------------------------------------------
 //  (38/50)
 //------------------------------------------------------------------------------
-//  (37/50)
+//  (37/50) 112. Path Sum
+
+var hasPathSum = function (root, sum) {
+  if (!root) {
+    return false;
+  }
+  if (!root.left && !root.right) {
+    return root.val === sum ? true : false;
+  }
+  let remain = sum - root.val;
+  return hasPathSum(root.left, remain) || hasPathSum(root.right, remain);
+};
+
 //------------------------------------------------------------------------------
-//  (36/50)
+//  (36/50) 925. Long Pressed Name
+
+var isLongPressedName = function (name, typed) {
+  if (name[name.length - 1] !== typed[typed.length - 1] || 
+    name[0] !== typed[0] || name.length > typed.length) return false;
+
+  let i = 0, j = 0;
+  while (i < name.length && j < typed.length) {
+    let lastSame = name.charAt(i), count = 1;
+    i++;
+    while (i < name.length && name.charAt(i) === lastSame) {
+      count++;
+      i++;
+    }
+    while (j < typed.length && typed.charAt(j) === lastSame) {
+      count--;
+      j++;
+    }
+    if (count > 0) return false;
+  }
+  return i === name.length;
+};
+
+// var isLongPressedName = function (name, typed) {
+//   if (name[name.length - 1] !== typed[typed.length - 1]) return false;
+//   if (name[0] !== typed[0]) return false;
+//   let count = {}, countTyped = {};
+//   for (let i = 0; i < name.length; i++) {
+//     let char = name[i];
+//     if (!count[char]) count[char] = 0;
+//     count[char]++;
+//   }
+//   for (let i = 0; i < typed.length; i++) {
+//     let char = typed[i];
+//     if (!countTyped[char]) countTyped[char] = 0;
+//     countTyped[char]++;
+//   }
+//   return Object.keys(count).every(k => count[k] <= countTyped[k]);
+// };
+
 //------------------------------------------------------------------------------
-//  (35/50)
+//  (35/50) 88. Merge Sorted Array
+
+var merge = function (nums1, m, nums2, n) {
+  nums1 = nums1.slice(0, m);
+  nums1 = nums1.concat(nums2);
+  return nums1.sort((a, b) => a - b);
+};
+
+let nums1 = [1, 2, 3, 0, 0, 0], m = 3, nums2 = [2, 5, 6], n = 3;
+console.log(merge(nums1, m, nums2, n))
+
 //------------------------------------------------------------------------------
 //  (34/50)
+
+var isIsomorphic = function (s, t) {
+  if (s.length !== t.length) return false;
+  let pairs = {};
+  let str = "";
+  for (let i = 0; i < s.length; i++) {
+    let key = s[i];
+    let val = t[i];
+    if (!pairs[key] && !Object.values(pairs).includes(val)) {
+      pairs[key] = val;
+    }
+  }
+  for (let i = 0; i < s.length; i++) {
+    let k = s[i];
+    str += pairs[k];
+  }
+
+  return str === t;
+};
+
 //------------------------------------------------------------------------------
-//  (33/50)
+//  (33/50) 219. Contains Duplicate II
+
+var containsNearbyDuplicate = function (nums, k) {
+  if (nums.length <= 1) return false;
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j < nums.length; j++) {
+      let num1 = nums[i];
+      let num2 = nums[j];
+      if (num1 === num2 && Math.abs(i - j) <= k) return true;
+    }
+  }
+  return false;
+};
+
 //------------------------------------------------------------------------------
-//  (32/50)
+//  (32/50)434. Number of Segments in a String
+
+var countSegments = function (s) {
+  if (s.length === 0) return "";
+  let count = 0;
+  s = s.split(" ");
+  for (let i = 0; i < s.length; i++) {
+    if (s[i].length > 0) count++;
+  }
+  return count;
+};
+
+
 //------------------------------------------------------------------------------
-//  (31/50)
+//  (31/50) 414. Third Maximum Number
+
+// var thirdMax = function (nums) {
+//   nums = Array.from(new Set(nums));
+//   const len = nums.length;
+//   if (len <= 2) {
+//     return Math.max(...nums);
+//   }
+//   if (len === 3) {
+//     return Math.min(...nums);
+//   }
+//   nums = nums.sort((a, b) => { return b - a; })
+//   return nums[2];
+// };
+
+// var thirdMax = function (nums) {
+//   let max = [];
+//   nums.sort((a, b) => b - a);
+//   while (max.length < 3 || nums.length === 0) {
+//     let num = nums.shift();
+//     if (!max.includes(num)) max.push(num);
+//   }
+//   return max[max.length - 1];
+// };
+
+
 //------------------------------------------------------------------------------
 //  (30/50) 290. Word Pattern
 
@@ -76,8 +205,8 @@ var wordPattern = function (pattern, str) {
   return newStr.join(" ") === str.join(" ");
 };
 
-let pattern = "abc", str = "b c a";
-console.log(wordPattern(pattern, str))
+// let pattern = "abc", str = "b c a";
+// console.log(wordPattern(pattern, str))
 
 
 //------------------------------------------------------------------------------
