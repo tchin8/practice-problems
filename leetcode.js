@@ -30,7 +30,26 @@
 //------------------------------------------------------------------------------
 //  (39/50)
 //------------------------------------------------------------------------------
-//  (38/50)
+//  (38/50) 1556. Thousand Separator
+
+var thousandSeparator = function (n) {
+  if (n.length < 4) return n.toString();
+
+  let str = "";
+  n = n.toString();
+  for (let i = n.length - 1; i >= 0; i--) {
+    let num = n[i];
+    str = num + str;
+    if (i !== 0 && (n.length - i) % 3 === 0) {
+      str = "." + str;
+    } 
+  }
+  return str;
+};
+
+// console.log(thousandSeparator(0));
+
+
 //------------------------------------------------------------------------------
 //  (37/50) 112. Path Sum
 
@@ -95,8 +114,8 @@ var merge = function (nums1, m, nums2, n) {
   return nums1.sort((a, b) => a - b);
 };
 
-let nums1 = [1, 2, 3, 0, 0, 0], m = 3, nums2 = [2, 5, 6], n = 3;
-console.log(merge(nums1, m, nums2, n))
+// let nums1 = [1, 2, 3, 0, 0, 0], m = 3, nums2 = [2, 5, 6], n = 3;
+// console.log(merge(nums1, m, nums2, n))
 
 //------------------------------------------------------------------------------
 //  (34/50)
