@@ -10,9 +10,68 @@
 //------------------------------------------------------------------------------
 //  (49/50)
 //------------------------------------------------------------------------------
-//  (48/50)
+//  (48/50) 819. Most Common Word
+
+var mostCommonWord = function (paragraph, banned) {
+  let ban = new Set(banned);
+  let arr = paragraph.replace(/[!\?\'\,\;\.']/g, ' ').toLowerCase().split(' ');
+  let counts = arr.reduce((obj, word) => {
+    if (!ban.has(word) && word.length > 0) { obj[word] = ~~obj[word] + 1 }
+    return obj;
+  }, {});
+  return Object.keys(counts).reduce((maxKey, key) => {
+    return counts[key] > counts[maxKey] ? key : maxKey;
+  }, Object.keys(counts)[0]);
+};
+
+// var mostCommonWord = function (paragraph, banned) {
+//   if (paragraph.length === 0) return "";
+//   let alpha = "abcdefghijklmnopqrstuvwxyz", count = {}, max, str;
+//   paragraph = paragraph.toLowerCase().split(" ");
+//   for (let i = 0; i < paragraph.length; i++) {
+//     let word = paragraph[i];
+//     if (!alpha.includes(word[word.length - 1])) word = word.slice(0, word.length - 1);
+//     if (banned.includes(word)) continue;
+//     if (!count[word]) count[word] = 0;
+//     count[word]++;
+//     if (!max) max = count[word];
+//     if (!str) str = word;
+//     if (count[word] > max) {
+//       max = count[word];
+//       str = word;
+//     }
+//   }
+//   return str;
+// };
+
 //------------------------------------------------------------------------------
-//  (47/50)
+//  (47/50) 860. Lemonade Change
+
+var lemonadeChange = function (bills) {
+  let count = {};
+  for (let i = 0; i < bills.length; i++) {
+    let bill = bills[i];
+    if (bill === 10) {
+      if (!count['5']) return false;
+      count['5']--;
+    } else if (bill === 20) {
+      if (count['10'] >= 1 && count['5'] >= 1) {
+        count['10']--;
+        count['5'] -= 1;
+      } else if (count['5'] >= 3) {
+        count['5'] -= 3;
+      } else {
+        return false;
+      }
+    }
+    if (!count[bill]) count[bill] = 0;
+    count[bill]++;
+  }
+  return true;
+};
+
+// console.log(lemonadeChange([5, 5, 10, 10, 5, 20, 5, 10, 5, 5]));
+
 //------------------------------------------------------------------------------
 //  (46/50) 953. Verifying an Alien Dictionary
 
