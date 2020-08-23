@@ -5,6 +5,149 @@
 //   console.log(`//  (${i}/50)`)
 // }
 
+
+
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+// 231. Power of Two
+
+var isPowerOfTwo = function (n) {
+  if (n === 1) return true;
+
+  while (n > 1) {
+    n /= 2;
+  }
+
+  return n === 1;
+};
+
+//------------------------------------------------------------------------------
+// 392. Is Subsequence
+
+var isSubsequence = function (s, t) {
+  t = t.split("").reverse();
+  s = s.split("");
+
+  while (s.length) {
+    let char = s.pop();
+    let idx = t.indexOf(char);
+    if (idx === -1) return false;
+    t = t.slice(idx + 1);
+  }
+  return s.length === 0;
+};
+
+//------------------------------------------------------------------------------
+// 409. Longest Palindrome
+
+var longestPalindrome = function (s) {
+  const count = {};
+  let sum = 0;
+  let keys;
+
+  // collection of characters and their occurrences
+  for (let i = 0; i < s.length; i++) {
+    if (!count[s.charAt(i)]) count[s.charAt(i)] = 1;
+    else count[s.charAt(i)]++;
+  }
+
+  keys = Object.keys(count);
+
+  // palindromes have characters in pairs and one solo character
+  for (const k of keys) {
+    if (count[k] % 2 !== 0) sum = sum + count[k] - 1;
+    else sum += count[k];
+  }
+  for (const k of keys) {
+    if (count[k] % 2 === 0) continue;
+    sum += 1;
+    break;
+  }
+
+  return sum;
+};
+
+// var longestPalindrome = function (s) {
+//   if (s.length <= 1) return s.length;
+//   let count = {};
+//   for (let i = 0; i < s.length; i++) {
+//     let char = s[i].toLowerCase();
+//     if (!count[char]) count[char] = 0;
+//     count[char]++;
+//   }
+//   let evens = Object.values(count).filter(c => c % 2 === 0);
+//   if (evens.length === 0) {
+//     evens = 0;
+//   } else if (evens.length === 1) {
+//     evens = evens[0];
+//   } else {
+//     evens = evens.reduce((a, b) => a + b);
+//   }
+//   let odds = Object.values(count).filter(c => c % 2 === 1);
+//   if (odds.length === 0) {
+//     odds = 0;
+//   } else if (odds.length === 1) {
+//     odds = odds[0];
+//   } else {
+//     odds = odds.filter(o => o !== 1);
+//     let length = odds.length;
+//     odds = odds.reduce((a, b) => a + b);
+//     odds = odds - length + 1;
+//   }
+//   return evens + odds;
+// };
+
+let s = "civilwartestingwhetherthatnaptionoranynartionsoconceivedandsodedicatedcanlongendureWeareqmetonagreatbattlefiemldoftzhatwarWehavecometodedicpateaportionofthatfieldasafinalrestingplaceforthosewhoheregavetheirlivesthatthatnationmightliveItisaltogetherfangandproperthatweshoulddothisButinalargersensewecannotdedicatewecannotconsecratewecannothallowthisgroundThebravelmenlivinganddeadwhostruggledherehaveconsecrateditfaraboveourpoorponwertoaddordetractTgheworldadswfilllittlenotlenorlongrememberwhatwesayherebutitcanneverforgetwhattheydidhereItisforusthelivingrathertobededicatedheretotheulnfinishedworkwhichtheywhofoughtherehavethusfarsonoblyadvancedItisratherforustobeherededicatedtothegreattdafskremainingbeforeusthatfromthesehonoreddeadwetakeincreaseddevotiontothatcauseforwhichtheygavethelastpfullmeasureofdevotionthatweherehighlyresolvethatthesedeadshallnothavediedinvainthatthisnationunsderGodshallhaveanewbirthoffreedomandthatgovernmentofthepeoplebythepeopleforthepeopleshallnotperishfromtheearth";
+console.log(longestPalindrome(s))
+
+//------------------------------------------------------------------------------
+// 724. Find Pivot Index
+
+var pivotIndex = function (nums) {
+  for (let i = 0; i < nums.length; i++) {
+    let left = nums.slice(0, i);
+    let right = nums.slice(i + 1);
+    let leftSum, rightSum;
+    if (left.length === 0) {
+      leftSum = 0;
+    } else {
+      leftSum = left.length === 1 ? left[0] : left.reduce((a, b) => a + b);
+    }
+    if (right.length === 0) {
+      rightSum = 0;
+    } else {
+      rightSum = right.length === 1 ? right[0] : right.reduce((a, b) => a + b);
+    }
+    if (leftSum === rightSum) return i;
+  }
+  return -1;
+};
+
+//------------------------------------------------------------------------------
+// 747. Largest Number At Least Twice of Others
+
+var dominantIndex = function (nums) {
+  if (nums.length === 1) return 0;
+  let copy = nums.slice();
+  copy.sort((a, b) => b - a);
+  if (copy[0] >= copy[1] * 2) {
+    return nums.indexOf(copy[0]);
+  } else {
+    return -1;
+  }
+};
+
 //------------------------------------------------------------------------------
 //  (50/50) 989. Add to Array-Form of Integer
 
@@ -27,9 +170,9 @@ var addToArrayForm = function (A, K) {
   return A;
 };
 
-console.log(addToArrayForm([2, 7, 4], 181));
-console.log(addToArrayForm([0], 23));
-console.log(addToArrayForm([0], 10000));
+// console.log(addToArrayForm([2, 7, 4], 181));
+// console.log(addToArrayForm([0], 23));
+// console.log(addToArrayForm([0], 10000));
 
 //------------------------------------------------------------------------------
 //  (49/50) 1013. Partition Array Into Three Parts With Equal Sum
