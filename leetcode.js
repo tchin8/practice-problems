@@ -19,12 +19,63 @@
 //  (45/50)
 //------------------------------------------------------------------------------
 //  (44/50)
+
+
+
 //------------------------------------------------------------------------------
-//  (43/50)
+//  (43/50) 997. Find the Town Judge
+
+var findJudge = function (N, trust) {
+  let judge;
+  for (let i = 1; i <= N; i++) {
+    if (!trust.some(p => p[0] === i)) judge = i;
+  }
+
+  for (let i = 1; i <= N; i++) {
+    if (i !== judge) {
+      if (!trust.some(p => p[0] === i && p[1] === judge)) return -1;
+    }
+  }
+  return judge;
+};
+
 //------------------------------------------------------------------------------
-//  (42/50)
+//  (42/50) 1005. Maximize Sum Of Array After K Negations
+
+var largestSumAfterKNegations = function (A, K) {
+  if (A.length === 0) return 0;
+  A.sort((a, b) => a - b);
+  while (K > 0) {
+    A[0] = -A[0];
+    A.sort((a, b) => a - b);
+    K--;
+  }
+  if (A.length === 1) return A[0];
+  return A.reduce((a, b) => a + b);
+};
+
 //------------------------------------------------------------------------------
-//  (41/50)
+//  (41/50) 1232. Check If It Is a Straight Line
+
+var checkStraightLine = function(coordinates) {
+  if (coordinates.every(c => coordinates[0][0] === c[0]) ||
+    coordinates.every(c => coordinates[0][1] === c[1]) ||
+    coordinates.length <= 2) return true;
+    
+    // slope is diff between 1st and 2nd point
+    let x1 = coordinates[0][0], y1 = coordinates[0][1], slope = (coordinates[1][1] - y1) / (coordinates[1][0] - x1);
+    
+    // slope for all other points should be same as first 2
+    for(let i = 2; i < coordinates.length;i++){ 
+        if((coordinates[i][1] - y1)  !== slope * (coordinates[i][0]  - x1)) return false;
+    }
+    return true; 
+};
+
+// let pos = [[0, 0], [0, 5], [5, 0], [1337, 0], [0, 1337]];
+let pos = [[0, 1], [1, 3], [-4, -7], [5, 11]];
+console.log(checkStraightLine(pos));
+
 //------------------------------------------------------------------------------
 //  (40/50) 1071. Greatest Common Divisor of Strings
 
