@@ -14,13 +14,70 @@
 //------------------------------------------------------------------------------
 //  (47/50)
 //------------------------------------------------------------------------------
-//  (46/50)
-//------------------------------------------------------------------------------
-//  (45/50)
-//------------------------------------------------------------------------------
-//  (44/50)
+//  (46/50) 953. Verifying an Alien Dictionary
 
+var isAlienSorted = function (words, order) {
+  if (words.length === 1) return true;
 
+  for (let i = 0; i < words.length - 1; i++) {
+    let w1 = words[i];
+    let w2 = words[i + 1];
+    if (w1 === w2) continue;
+    
+    if (w1.startsWith(w2)) return false;
+
+    let j = 0;
+    while (j < w1.length && j < w2.length) {
+      let idx1 = order.indexOf(w1[j]);
+      let idx2 = order.indexOf(w2[j]);
+      if (idx1 < idx2) {
+        break;
+      } else if (idx1 > idx2) {
+        return false;
+      }
+      j++;
+    }
+  }
+  return true;
+};
+
+//------------------------------------------------------------------------------
+//  (45/50) 1010. Pairs of Songs With Total Durations Divisible by 60
+
+var numPairsDivisibleBy60 = function (time) {
+  let count = 0;
+  for (let i = 0; i < time.length; i++) {
+    for (let j = i + 1; j < time.length; j++) {
+      if ((time[i] + time[j]) % 60 === 0) count++;
+    }
+  }
+  return count;
+};
+
+//------------------------------------------------------------------------------
+//  (44/50) 1037. Valid Boomerang
+
+var isBoomerang = function (points) {
+  if (points.every(p => points[0][0] === p[0]) || 
+    points.every(p => points[0][1] === p[1])) return false;
+
+  for (let i = 0; i < points.length - 1; i++) {
+    let p = points[i];
+    let next = points[i + 1];
+    if (p[0] === next[0] && p[1] === next[1]) return false;
+  }
+
+  if (points[0][0] === points[2][0] && points[0][1] === points[2][1]) return false;
+
+  let x1 = points[0][0], y1 = points[0][1], slope = (points[1][1] - y1) / (points[1][0] - x1);
+
+  for (let i = 2; i < points.length; i++) {
+    if ((points[i][1] - y1) === slope * (points[i][0] - x1)) return false;
+  }
+  return true; 
+};
+
+// console.log(isBoomerang([[0, 1], [0, 1], [2, 1]]))
 
 //------------------------------------------------------------------------------
 //  (43/50) 997. Find the Town Judge
@@ -62,19 +119,19 @@ var checkStraightLine = function(coordinates) {
     coordinates.every(c => coordinates[0][1] === c[1]) ||
     coordinates.length <= 2) return true;
     
-    // slope is diff between 1st and 2nd point
-    let x1 = coordinates[0][0], y1 = coordinates[0][1], slope = (coordinates[1][1] - y1) / (coordinates[1][0] - x1);
-    
-    // slope for all other points should be same as first 2
-    for(let i = 2; i < coordinates.length;i++){ 
-        if((coordinates[i][1] - y1)  !== slope * (coordinates[i][0]  - x1)) return false;
-    }
-    return true; 
+  // slope is diff between 1st and 2nd point
+  let x1 = coordinates[0][0], y1 = coordinates[0][1], slope = (coordinates[1][1] - y1) / (coordinates[1][0] - x1);
+  
+  // slope for all other points should be same as first 2
+  for(let i = 2; i < coordinates.length;i++){ 
+      if((coordinates[i][1] - y1)  !== slope * (coordinates[i][0]  - x1)) return false;
+  }
+  return true; 
 };
 
 // let pos = [[0, 0], [0, 5], [5, 0], [1337, 0], [0, 1337]];
-let pos = [[0, 1], [1, 3], [-4, -7], [5, 11]];
-console.log(checkStraightLine(pos));
+// let pos = [[0, 1], [1, 3], [-4, -7], [5, 11]];
+// console.log(checkStraightLine(pos));
 
 //------------------------------------------------------------------------------
 //  (40/50) 1071. Greatest Common Divisor of Strings
