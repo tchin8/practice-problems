@@ -6,9 +6,61 @@
 // }
 
 //------------------------------------------------------------------------------
-//  (50/50)
+//  (50/50) 989. Add to Array-Form of Integer
+
+var addToArrayForm = function (A, K) {
+  for (let i = A.length - 1; i >= 0; i--) {
+    let num = A[i];
+    num += (K % 10);
+    K = (K - (K % 10)) / 10;
+    if (num > 9) {
+      K += Math.floor(num / 10);
+      num = num % 10;
+    }
+    A[i] = num;
+    if (K === 0) return A;
+  }
+  if (K) {
+    K = `${K}`.split("").map(n => parseInt(n));
+    A = K.concat(A);
+  };
+  return A;
+};
+
+console.log(addToArrayForm([2, 7, 4], 181));
+console.log(addToArrayForm([0], 23));
+console.log(addToArrayForm([0], 10000));
+
 //------------------------------------------------------------------------------
-//  (49/50)
+//  (49/50) 1013. Partition Array Into Three Parts With Equal Sum
+
+var canThreePartsEqualSum = function (A) {
+  if (A.length < 3) return false;
+  let sum = A.reduce((a, b) => a + b);
+  if (sum % 3 !== 0) return false;
+
+  let t = sum / 3;
+  let cur = 0;
+  let count = 0;
+  for (const a of A) {
+    cur += a;
+    if (cur === t) {
+      count++;
+      cur = 0;
+    }
+    if (count > 3) {
+      if (t === 0) {
+        count--;
+      } else {
+        return false;
+      }
+    }
+  }
+  return count === 3;
+};
+
+// console.log(canThreePartsEqualSum([3, 3, 6, 5, -2, 2, 5, 1, -9, 4]));
+
 //------------------------------------------------------------------------------
 //  (48/50) 819. Most Common Word
 
