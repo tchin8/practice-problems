@@ -22,7 +22,7 @@
 
 var maximumProduct = function (nums) {
   three = nums.sort((a, b) => b - a).slice(0, 3);
-  return Math.max(three[0] * three[1] * three[2], three[0] * nums[nums.length-1] * nums[nums.length-2];
+  return Math.max(three[0] * three[1] * three[2], three[0] * nums[nums.length-1] * nums[nums.length-2]);
 };
 
 //------------------------------------------------------------------------------
