@@ -16,6 +16,34 @@
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
+// 459. Repeated Substring Pattern
+
+var repeatedSubstringPattern = function (s) {
+  let copy = s.slice();
+
+  let i = 1; sub = copy.slice(0, i), copy = copy.slice(i);
+
+  while (i <= s.length / 2) {
+    debugger;
+    if (sub === copy) return true;
+    if (copy.startsWith(sub)) {
+      debugger;
+      copy = copy.slice(i);
+    } else {
+      i++;
+      copy = s;
+      sub = copy.slice(0, i);
+      copy = copy.slice(i);
+      debugger;
+    }
+  }
+
+  return false;
+};
+
+// console.log(repeatedSubstringPattern("abab"));    // true
+// console.log(repeatedSubstringPattern("aba"));    // false
+// console.log(repeatedSubstringPattern("abcabcabcabc"));    // true
 
 //------------------------------------------------------------------------------
 // 628. Maximum Product of Three Numbers
@@ -114,8 +142,8 @@ var longestPalindrome = function (s) {
 //   return evens + odds;
 // };
 
-let s = "civilwartestingwhetherthatnaptionoranynartionsoconceivedandsodedicatedcanlongendureWeareqmetonagreatbattlefiemldoftzhatwarWehavecometodedicpateaportionofthatfieldasafinalrestingplaceforthosewhoheregavetheirlivesthatthatnationmightliveItisaltogetherfangandproperthatweshoulddothisButinalargersensewecannotdedicatewecannotconsecratewecannothallowthisgroundThebravelmenlivinganddeadwhostruggledherehaveconsecrateditfaraboveourpoorponwertoaddordetractTgheworldadswfilllittlenotlenorlongrememberwhatwesayherebutitcanneverforgetwhattheydidhereItisforusthelivingrathertobededicatedheretotheulnfinishedworkwhichtheywhofoughtherehavethusfarsonoblyadvancedItisratherforustobeherededicatedtothegreattdafskremainingbeforeusthatfromthesehonoreddeadwetakeincreaseddevotiontothatcauseforwhichtheygavethelastpfullmeasureofdevotionthatweherehighlyresolvethatthesedeadshallnothavediedinvainthatthisnationunsderGodshallhaveanewbirthoffreedomandthatgovernmentofthepeoplebythepeopleforthepeopleshallnotperishfromtheearth";
-console.log(longestPalindrome(s))
+// let s = "civilwartestingwhetherthatnaptionoranynartionsoconceivedandsodedicatedcanlongendureWeareqmetonagreatbattlefiemldoftzhatwarWehavecometodedicpateaportionofthatfieldasafinalrestingplaceforthosewhoheregavetheirlivesthatthatnationmightliveItisaltogetherfangandproperthatweshoulddothisButinalargersensewecannotdedicatewecannotconsecratewecannothallowthisgroundThebravelmenlivinganddeadwhostruggledherehaveconsecrateditfaraboveourpoorponwertoaddordetractTgheworldadswfilllittlenotlenorlongrememberwhatwesayherebutitcanneverforgetwhattheydidhereItisforusthelivingrathertobededicatedheretotheulnfinishedworkwhichtheywhofoughtherehavethusfarsonoblyadvancedItisratherforustobeherededicatedtothegreattdafskremainingbeforeusthatfromthesehonoreddeadwetakeincreaseddevotiontothatcauseforwhichtheygavethelastpfullmeasureofdevotionthatweherehighlyresolvethatthesedeadshallnothavediedinvainthatthisnationunsderGodshallhaveanewbirthoffreedomandthatgovernmentofthepeoplebythepeopleforthepeopleshallnotperishfromtheearth";
+// console.log(longestPalindrome(s))
 
 //------------------------------------------------------------------------------
 // 724. Find Pivot Index
