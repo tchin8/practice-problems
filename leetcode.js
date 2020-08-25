@@ -16,6 +16,61 @@
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+// 415. Add Strings
+
+var addStrings = function (num1, num2) {
+  let newNum = [];
+  let extra = 0;
+  num1 = num1.split("").reverse();
+  num2 = num2.split("").reverse();
+  for (let i = 0; i < num1.length || i < num2.length; i++) {
+    let ele1 = num1[i] === undefined ? 0 : parseInt(num1[i]);
+    let ele2 = num2[i] === undefined ? 0 : parseInt(num2[i]);
+    let sum = ele1 + ele2 + extra;
+    debugger;
+    if (sum > 9) {
+      newNum.push(sum % 10);
+      extra = Math.floor(sum / 10);
+    } else {
+      newNum.push(sum);
+      extra = 0;
+      debugger;
+    }
+  }
+  if (extra) newNum.push(extra);
+  return newNum.reverse().map(n => n.toString()).join("");
+};
+
+// console.log(addStrings("0", "0"));
+// console.log(addStrings("408", "5"));
+
+//------------------------------------------------------------------------------
+// 345. Reverse Vowels of a String
+
+var reverseVowels = function (s) {
+  let vowels = "aeiouAEIOU";
+  let chars = "";
+  for (let i = 0; i < s.length; i++) {
+    let char = s[i];
+    if (vowels.includes(char)) chars += char;
+  }
+  chars = chars.split("");
+  s = s.split("");
+  for (let i = 0; i < s.length; i++) {
+    let char = s[i];
+    if (vowels.includes(char)) s[i] = chars.pop();
+  }
+  return s.join("");
+};
+
+
+//------------------------------------------------------------------------------
 // 459. Repeated Substring Pattern
 
 var repeatedSubstringPattern = function (s) {
@@ -24,22 +79,23 @@ var repeatedSubstringPattern = function (s) {
   let i = 1; sub = copy.slice(0, i), copy = copy.slice(i);
 
   while (i <= s.length / 2) {
-    debugger;
+    // debugger;
     if (sub === copy) return true;
     if (copy.startsWith(sub)) {
-      debugger;
+      // debugger;
       copy = copy.slice(i);
     } else {
       i++;
       copy = s;
       sub = copy.slice(0, i);
       copy = copy.slice(i);
-      debugger;
+      // debugger;
     }
   }
 
   return false;
 };
+
 
 // console.log(repeatedSubstringPattern("abab"));    // true
 // console.log(repeatedSubstringPattern("aba"));    // false
