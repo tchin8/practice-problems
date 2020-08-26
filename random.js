@@ -16,6 +16,94 @@
 
 
 //------------------------------------------------------------------------------
+
+
+//------------------------------------------------------------------------------
+
+function carParkingRoof(cars, k) {
+  // Write your code here
+  let minLength = Infinity;
+  cars.sort((a, b) => a - b);
+  for (let i = 0; i <= cars.length - k; i++) {
+    let kCars = cars.slice(i, i + k);
+    let first = kCars[0];
+    let last = kCars[kCars.length - 1];
+    let length = last - first + 1;
+    if (length < minLength) minLength = length;
+  }
+  return minLength;
+}
+
+// console.log(carParkingRoof([6, 2, 12, 7], 3));
+// console.log(carParkingRoof([2, 10, 8, 17, 3], 4));
+
+//------------------------------------------------------------------------------
+
+function maximumContainers(scenarios) {
+  // Write your code here
+  let res = [];
+  scenarios = scenarios.map(s => s.split(" "));
+  for (let i = 0; i < scenarios.length; i++) {
+    let s = scenarios[i];
+    let n = parseInt(s[0]);
+    let cost = parseInt(s[1]);
+    let m = parseInt(s[2]);
+    let max = 0;
+
+    if (n > cost) {
+      max = Math.floor(n / cost);
+      n -= (n * max);
+    }
+
+    let containers = max;
+    while (containers >= m) {
+      let trade = Math.floor(containers / m);
+      max += trade;
+      containers = trade === containers / m ? trade : trade + (containers % m);
+    }
+    res.push(max);
+  }
+  return res;
+}
+
+// console.log(maximumContainers(['10 2 5', '12 4 4', '6 2 2']))
+
+//------------------------------------------------------------------------------
+
+function closest(s, queries) {
+  // Write your code here
+  let res = [];
+  let indices = {};
+  for (let i = 0; i < s.length; i++) {
+    let char = s[i];
+    if (!indices[char]) indices[char] = [];
+    indices[char].push(i);
+  }
+  for (let i = 0; i < queries.length; i++) {
+    let idx = queries[i];
+    let char = s[idx];
+    if (indices[char].length === 1) {
+      res.push(-1);
+    } else {
+      let charIndices = indices[char];
+      let charIdx = charIndices.indexOf(idx);
+      if (charIndices[charIdx - 1] === undefined) {
+        res.push(charIndices[charIdx + 1]);
+      } else if (charIndices[charIdx + 1] === undefined) {
+        res.push(charIndices[charIdx - 1]);
+      } else {
+        let prev = charIndices[charIdx - 1];
+        let next = charIndices[charIdx + 1];
+        let closer = idx - prev <= next - idx ? prev : next;
+        res.push(closer);
+      }
+    }
+  }
+  return res;
+}
+
+
+//------------------------------------------------------------------------------
 // IBM sample
 
 function fizzBuzz(n) {
@@ -58,7 +146,7 @@ function combineSortedLists(l1, l2) {
 let l1 = [1, 5, 10];
 let l2 = [2, 3, 6, 12, 15];
 
-console.log(combineSortedLists(l1, l2));
+// console.log(combineSortedLists(l1, l2));
 
 
 //------------------------------------------------------------------------------
@@ -258,36 +346,36 @@ const recursiveBoard = (board, word) => {
 // Given word = "ABCB", return false.
 
 
-function recursiveBoard(board, word) {
-  let firstChar = [];
+// function recursiveBoard(board, word) {
+//   let firstChar = [];
 
-  for (let i = 0; i < word.length; i++) { // O(n)
-    let char = word[i];
+//   for (let i = 0; i < word.length; i++) { // O(n)
+//     let char = word[i];
 
-    for (let row = 0; row < board.length; row++) {  // O(n)
-      for (let col = 0; col < board[0].length; col++) {    // O(n)
-        let cell = board[row][col];
+//     for (let row = 0; row < board.length; row++) {  // O(n)
+//       for (let col = 0; col < board[0].length; col++) {    // O(n)
+//         let cell = board[row][col];
 
-        if (cell === char) {
-          firstChar.push([row, col]);
-        }
-      }
-    }
-  }
+//         if (cell === char) {
+//           firstChar.push([row, col]);
+//         }
+//       }
+//     }
+//   }
 
-  if (firstChar.length > 0) {
-    for (let i = 0; i < array.length; i++) { // O(n)
-      let pos = array[i];
-      let used = [pos];
-      return rec2Board(board, word.slice(1), pos, used);
+//   if (firstChar.length > 0) {
+//     for (let i = 0; i < array.length; i++) { // O(n)
+//       let pos = array[i];
+//       let used = [pos];
+//       return rec2Board(board, word.slice(1), pos, used);
 
-      // horizontal : board[0][1], board[0][-1]
-      // vertocal : board[1][0], board[-1][0]
-    }
-  } else {
-    return false;
-  }
-}
+//       // horizontal : board[0][1], board[0][-1]
+//       // vertocal : board[1][0], board[-1][0]
+//     }
+//   } else {
+//     return false;
+//   }
+// }
 
 function rec2Board(board, word, pos, used) {
   if (word.length === 0) return true;
