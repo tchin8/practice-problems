@@ -7,7 +7,6 @@
 
 
 
-//------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
 
@@ -18,6 +17,93 @@
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+// 167. Two Sum II - Input array is sorted
+
+var twoSum = function (numbers, target) {
+  for (let i = 0; i < numbers.length; i++) {
+    let n = numbers[i];
+    let diff = target - n;
+    let sub = numbers.slice(i + 1);
+    if (sub.includes(diff)) return [i + 1, sub.indexOf(diff)];
+  }
+};
+
+//------------------------------------------------------------------------------
+// 976. Largest Perimeter Triangle  INCOMPELTE
+
+var largestPerimeter = function (A) {
+  let perim = 0;
+  A.sort((a, b) => a - b);
+  let length = A.length;
+  for (let i = 0; i < length; i++) {
+    for (let j = i + 1; j < length; j++) {
+      for (let k = j + 1; k < length; k++) {
+        let a = A[i];
+        let b = A[j];
+        let c = A[k];
+        debugger;
+        if (a * a + b * b === c * c || a === b || b === c) {
+          debugger;
+          let p = a + b + c;
+          if (perim < p) perim = p;
+        }
+      }
+    }
+  }
+  return perim;
+};
+
+// console.log(largestPerimeter([2, 1, 2]));
+
+
+//------------------------------------------------------------------------------
+// 1385. Find the Distance Value Between Two Arrays
+
+var findTheDistanceValue = function (arr1, arr2, d) {
+  let count = 0;
+  for (let i = 0; i < arr1.length; i++) {
+    let n1 = arr1[i];
+    if (arr2.every(n2 => Math.abs(n1 - n2) > d)) count += 1;
+  }
+  return count;
+};
+
+//------------------------------------------------------------------------------
+// 1403. Minimum Subsequence in Non-Increasing Order
+
+var minSubsequence = function (nums) {
+  if (nums.length === 1) return nums;
+  nums.sort((a, b) => b - a);
+  let totalSum = nums.reduce((a, b) => a + b);
+  let res = [];
+  let sum = 0;
+  for (let i = 0; i < nums.length; i++) {
+    let n = nums[i];
+    sum += n;
+    res.push(n);
+    if (sum > totalSum - sum) return res;
+  }
+};
+
+//------------------------------------------------------------------------------
+// 561. Array Partition I
+
+var arrayPairSum = function (nums) {
+  let sum = 0;
+  nums.sort((a, b) => a - b);
+  for (let i = 0; i < nums.length; i += 2) {
+    sum += nums[i];
+  }
+  return sum;
+};
 
 //------------------------------------------------------------------------------
 // 455. Assign Cookies
