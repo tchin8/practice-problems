@@ -23,6 +23,36 @@
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
+// 844. Backspace String Compare
+
+var backspaceCompare = function (S, T) {
+  while (S.includes('#')) {
+    let idx = S.indexOf('#');
+    let newStr = ""
+    if (S[idx - 1] !== undefined) newStr += S.slice(0, idx - 1);
+    newStr += S.slice(idx + 1);
+    S = newStr;
+  }
+
+  while (T.includes('#')) {
+    let idx = T.indexOf('#');
+    let newStr = ""
+    if (T[idx - 1] !== undefined) newStr += T.slice(0, idx - 1);
+    newStr += T.slice(idx + 1);
+    T = newStr;
+  }
+  
+  return S === T;
+};
+
+// let S = "ab#c", T = "ad#c";
+// console.log(backspaceCompare(S, T))
+// S = "ab##", T = "c#d#";
+// console.log(backspaceCompare(S, T));
+// S = "a##c", T = "#a#c";
+// console.log(backspaceCompare(S, T));
+// S = "a#c", T = "b"
+// console.log(backspaceCompare(S, T));
 
 //------------------------------------------------------------------------------
 // 167. Two Sum II - Input array is sorted
