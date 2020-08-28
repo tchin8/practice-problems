@@ -21,6 +21,163 @@
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
+// 594. Longest Harmonious Subsequence
+
+var findLHS = function (nums) {
+  let count = {}, res = 0;
+  for (let n of nums) {
+    count[n] = count[n] + 1 || 1;
+  }
+  for (let key in count) {
+    if (count[parseInt(key) + 1]) {
+      res = Math.max(res, count[key] + count[parseInt(key) + 1]);
+    }
+  }
+  return res;
+};
+
+//------------------------------------------------------------------------------
+// 596. Classes More Than 5 Students
+
+// # Write your MySQL query statement below
+// select class 
+// from courses
+// group by class
+// having count(distinct student) >= 5
+
+//------------------------------------------------------------------------------
+// 643. Maximum Average Subarray I
+
+var findMaxAverage = function (nums, k) {
+  if (k === 1) return Math.max(...nums);
+  let max = -Infinity;
+  for (let i = 0; i <= nums.length - k; i++) {
+    let sub = nums.slice(i, i + k);
+    let subMax = sub.reduce((a, b) => a + b) / k;
+    if (subMax > max) max = subMax;
+  }
+  return max;
+};
+
+//------------------------------------------------------------------------------
+// 645. Set Mismatch
+
+var findErrorNums = function (nums) {
+  let res = new Array(2);
+  let set = new Set(nums);
+  for (let i = 0; i < nums.length; i++) {
+    let n = nums[i];
+    if (nums.slice(i + 1).includes(n)) res[0] = n;
+    if (!set.has(i) && i > 0) res[1] = i;
+  }
+  return res;
+};
+
+// let nums = [1, 2, 2, 4];
+// console.log(findErrorNums(nums));
+
+//------------------------------------------------------------------------------
+// 674. Longest Continuous Increasing Subsequence
+
+var findLengthOfLCIS = function (nums) {
+  if (nums.length <= 1) return nums.length; 
+  let max = 1;
+  let current = 1;
+  for (let i = 1; i < nums.length; i++) {
+    let prev = nums[i - 1];
+    let curr = nums[i];
+    if (curr > prev) {
+      current += 1;
+    } else {
+      if (max < current) {
+        max = current;
+      }
+      if (max > nums.length - i - 1) return max;
+      current = 1;
+    }
+    if (i === nums.length - 1 && max < current) max = current;
+  }
+  return max;
+};
+
+// console.log(findLengthOfLCIS([1, 3, 5, 4, 7]))
+// console.log(findLengthOfLCIS([2, 2, 2, 2, 2]))
+// console.log(findLengthOfLCIS([1, 3, 5, 7]))
+
+//------------------------------------------------------------------------------
+// 697. Degree of an Array
+
+var findShortestSubArray = function (nums) {
+  let indices = {};
+  for (let i = 0; i < nums.length; i++) {
+    let n = nums[i];
+    if (!indices[n]) indices[n] = [];
+    indices[n].push(i);
+  }
+  let max = Math.max(...Object.values(indices).map(i => i.length));
+  let maxNums = [];
+  let keys = Object.keys(indices);
+  for (let i = 0; i < keys.length; i++) {
+    let k = keys[i];
+    if (indices[k].length === max) maxNums.push(k);
+  }
+  if (maxNums.length === 1) {
+    let idx = indices[maxNums[0]];
+    return idx[idx.length - 1] - idx[0] + 1;
+  } 
+  let min = Infinity;
+  debugger;
+  for (let i = 0; i < maxNums.length; i++) {
+    let num = maxNums[i];
+    let idx = indices[num];
+    let length = idx[idx.length - 1] - idx[0] + 1;
+    debugger;
+    if (length < min) min = length;
+  }
+  return min;
+}; 
+
+// console.log(findShortestSubArray([1, 2, 2, 3, 1]));
+
+//------------------------------------------------------------------------------
+// 704. Binary Search
+
+var search = function (nums, target) {
+  if (nums.length === 0) return -1;
+  let idx = Math.floor(nums.length / 2);
+  let mid = nums[idx];
+  if (mid === target) return idx;
+
+  let left = nums.slice(0, idx);
+  let right = nums.slice(idx + 1);
+
+  if (mid > target) {
+    return search(left, target);
+  } else {
+    let res = search(right, target);
+    if (res === -1) return -1;
+    return idx + res + 1;
+  }
+};
+
+//------------------------------------------------------------------------------
+// 788. Rotated Digits
+
+var rotatedDigits = function (N) {
+  let invalid = "347";
+  let valid = "2569";
+  let count = 0;
+  for (let i = 1; i <= N; i++) {
+    num = i.toString().split("");
+    if (num.some(n => invalid.includes(n))) continue;
+    if (num.some(n => valid.includes(n))) count++;
+    // debugger;
+  }
+  return count;
+};
+
+// console.log(rotatedDigits(10));
+// console.log(rotatedDigits(857));
 
 //------------------------------------------------------------------------------
 // 844. Backspace String Compare
