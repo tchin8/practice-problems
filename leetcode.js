@@ -8,7 +8,6 @@
 
 
 
-//------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
 
@@ -16,9 +15,148 @@
 
 //------------------------------------------------------------------------------
 
-//------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
+// 108. Convert Sorted Array to Binary Search Tree
+
+var sortedArrayToBST = function (nums) {
+  if (!nums || !nums.length) return null;
+
+  let mid = Math.floor(nums.length / 2);
+  const node = new TreeNode(nums[mid]);
+  node.left = sortedArrayToBST(nums.slice(0, mid));
+  node.right = sortedArrayToBST(nums.slice(mid + 1, nums.length))
+  return node;
+};
+
+//------------------------------------------------------------------------------
+// 107. Binary Tree Level Order Traversal II
+
+var levelOrderBottom = function (root) {
+  if (!root) return [];
+  let res = [];
+  let queue = [root];
+  while (queue.length) {
+    let size = queue.length;
+    let current = [];
+    for (let i = 0; i < size; i++) {
+      let head = queue.shift();
+      current.push(head.val);
+      if (head.left) queue.push(head.left)
+      if (head.right) queue.push(head.right)
+    }
+    res.unshift(current);
+  }
+  return res;
+};
+
+//------------------------------------------------------------------------------
+// 183. Customers Who Never Order
+
+// # Write your MySQL query statement below
+// select name as Customers
+// from Customers
+// left join Orders on Orders.customerId = Customers.id
+// where Orders.id is null
+
+//------------------------------------------------------------------------------
+// 21. Merge Two Sorted Lists
+
+var mergeTwoLists = function (l1, l2) {
+  if (!l1 || !l2) return l1 || l2;
+  let newList = new ListNode(0);
+  let node = newList;
+  while (l1 && l2) {
+    if (l1.val < l2.val) {
+      node.next = l1;
+      l1 = l1.next;
+    } else {
+      node.next = l2;
+      l2 = l2.next;
+    }
+    node = node.next;
+  }
+  if (l1) node.next = l1;
+  if (l2) node.next = l2;
+  return newList.next;
+};
+
+
+//------------------------------------------------------------------------------
+
+var getMinimumDifference = function (root) {
+  let queue = [root];
+  let vals = [];
+
+  while (queue.length) {
+    let node = queue.shift();
+    vals.push(node.val);
+    if (node.left) queue.push(node.left);
+    if (node.right) queue.push(node.right);
+  }
+
+  let min = Infinity;
+  vals.sort((a, b) => a - b);
+  for (let i = 0; i < vals.length - 1; i++) {
+    let v = vals[i];
+    let next = vals[i + 1];
+    if (next - v < min) min = next - v;
+  }
+  return min;
+};
+
+//------------------------------------------------------------------------------
+// 1051. Height Checker
+
+var heightChecker = function (heights) {
+  let copy = heights.slice();
+  heights.sort((a, b) => a - b);
+  let count = 0;
+  for (let i = 0; i < heights.length; i++) {
+    if (heights[i] !== copy[i]) count++;
+  }
+  return count;
+};
+
+
+//------------------------------------------------------------------------------
+// 374. Guess Number Higher or Lower
+
+var guessNumber = function (n) {
+  let i = 1;
+  while (guess(i)) i++;
+  return i;
+};
+
+// console.log(guessNumber(10))
+
+//------------------------------------------------------------------------------
+// 367. Valid Perfect Square
+
+var isPerfectSquare = function (num) {
+  for (let i = 1; i * i <= num; i++) {
+    if (i * i === num) return true;
+  }
+  return false;
+};
+
+//------------------------------------------------------------------------------
+// 404. Sum of Left Leaves
+
+var sumOfLeftLeaves = function (root) {
+  if (!root) return 0;
+  let sum = 0;
+  if (root.left) {
+    if (!root.left.left && !root.left.right) {
+      sum += root.left.val;
+    } else {
+      sum += sumOfLeftLeaves(root.left);
+    }
+  }
+  sum += sumOfLeftLeaves(root.right);
+  return sum;
+};
+
 
 //------------------------------------------------------------------------------
 // 594. Longest Harmonious Subsequence
