@@ -14,7 +14,25 @@
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
+// 83. Remove Duplicates from Sorted List
 
+var deleteDuplicates = function (head) {
+  if (!head) return null;
+
+  let current = head;
+  let next = current.next;
+  while (next) {
+    if (current.val !== next.val) {
+      current.next = next;
+      current = next;
+    } 
+    if (current.val === next.val && !next.next) {
+      current.next = null;
+    }
+    next = next.next;
+  }
+  return head;
+};
 
 //------------------------------------------------------------------------------
 // 108. Convert Sorted Array to Binary Search Tree
