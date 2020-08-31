@@ -14,7 +14,18 @@
 //------------------------------------------------------------------------------
 // 27. Remove Element
 
-var
+var removeElement = function (nums, val) {
+  let j = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] !== val) {
+      nums[j] = nums[i];
+      j++;
+    }
+  }
+  nums.splice(j);
+  return nums.length;
+};
+
 
 //------------------------------------------------------------------------------
 // 83. Remove Duplicates from Sorted List
