@@ -6,16 +6,13 @@
 // }
 
 
+function TreeNode(val, left, right) {
+  this.val = (val === undefined ? 0 : val)
+  this.left = (left === undefined ? null : left)
+  this.right = (right === undefined ? null : right)
+}
 
 
-
-//------------------------------------------------------------------------------
-
-
-//------------------------------------------------------------------------------
-
-
-//------------------------------------------------------------------------------
 
 
 //------------------------------------------------------------------------------
@@ -31,10 +28,202 @@
 
 
 //------------------------------------------------------------------------------
+// 1008. Construct Binary Search Tree from Preorder Traversal
 
+var bstFromPreorder = function (preorder) {
+  let pre = (root, x) => {
+    if (root.val > x) {
+      if (!root.left)
+        root.left = new TreeNode(x);
+      else
+        pre(root.left, x);
+    } else {
+      if (!root.right)
+        root.right = new TreeNode(x);
+      else
+        pre(root.right, x);
+    }
+  };
+  let root = new TreeNode(preorder[0]);
+  for (let i = 1; i < preorder.length; ++i)
+    pre(root, preorder[i]);
+  return root;
+};
+
+// console.log(bstFromPreorder([8, 5, 1, 7, 10, 12]))
 
 //------------------------------------------------------------------------------
+// 654. Maximum Binary Tree
 
+var constructMaximumBinaryTree = function (nums) {
+  if (nums.length === 0) return null;
+  let max = Math.max(...nums);
+  let idx = nums.indexOf(max);
+  let left = nums.slice(0, idx);
+  let right = nums.slice(idx + 1);
+  let root = new TreeNode(max);
+
+  root.left = constructMaximumBinaryTree(left);
+  root.right = constructMaximumBinaryTree(right);
+
+  return root;
+};
+
+//------------------------------------------------------------------------------
+// 1038. Binary Search Tree to Greater Sum Tree
+
+var bstToGst = function (root) {
+  let last = 0;
+  const dfs = function (node) {
+    if (!node) return;
+    dfs(node.right);
+    node.val += last;
+    last = node.val;
+    dfs(node.left);
+  }
+
+  dfs(root);
+  return root;
+};
+
+// var bstToGst = function (root) {
+//   if (!root) return root;
+//   sum = getSum(root);
+//   let stack = [root];
+//   while (stack.length) {
+
+//   }
+// };
+
+// const getSum = root => {
+//   if (!root) return 0;
+
+//   let leftSum = getSum(root.left);
+//   let rightSum = getSum(root.right);
+//   return leftSum + rightSum + root.val;
+// }
+
+//------------------------------------------------------------------------------
+// 1409. Queries on a Permutation With Key
+
+var processQueries = function (queries, m) {
+  let P = [], res = [];
+  for (let i = 1; i <= m; i++) {
+    P.push(i);
+  }
+  for (let i = 0; i < queries.length; i++) {
+    let q = queries[i];
+    let idx = P.indexOf(q);
+    res.push(idx);
+    P = [P[idx], ...P.slice(0, idx), ...P.slice(idx + 1)];
+  }
+  return res;
+};
+
+//------------------------------------------------------------------------------
+// 1561. Maximum Number of Coins You Can Get
+
+var maxCoins = function (piles) {
+  piles.sort((a, b) => b - a);
+  let numGroups = piles.length / 3;
+  let sum = 0;
+  debugger;
+  for (let i = 1; i <= numGroups * 2 - 1; i += 2) {
+    debugger;
+    sum += piles[i];
+  }
+  return sum;
+};
+
+// console.log(maxCoins([2, 4, 1, 2, 7, 8]))
+
+//------------------------------------------------------------------------------
+// 1315. Sum of Nodes with Even-Valued Grandparent
+
+var sumEvenGrandparent = function (root) {
+  if (!root) return 0;
+  let sum = 0;
+  let queue = [root];
+  while (queue.length) {
+    let node = queue.shift();
+    if (node.val % 2 === 0) {
+      if (node.left && node.left.left) sum += node.left.left.val;
+      if (node.left && node.left.right) sum += node.left.right.val;
+      if (node.right && node.right.right) sum += node.right.right.val;
+      if (node.right && node.right.left) sum += node.right.left.val;
+    }
+    if (node.left) queue.push(node.left);
+    if (node.right) queue.push(node.right);
+  }
+  return sum;
+};
+
+//------------------------------------------------------------------------------
+// 807. Max Increase to Keep City Skyline
+
+// const transpose = m => m[0].map((x, i) => m.map(x => x[i]))
+
+var maxIncreaseKeepingSkyline = function (grid) {
+  let rowMaxes = grid.map(row => Math.max(...row))
+  let colMaxes = transpose(grid).map(row => Math.max(...row))
+
+  let increase = 0;
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[i].length; j++) {
+      let newTotal = Math.min(rowMaxes[i], colMaxes[j])
+      increase += newTotal - grid[i][j];
+    }
+  }
+  return increase
+};
+
+//------------------------------------------------------------------------------
+// 1302. Deepest Leaves Sum
+
+var deepestLeavesSum = function (root) {
+  let queue = [root];
+  let sum;
+  while (queue.length) {
+    sum = 0;
+    let num = queue.length;
+    for (let i = 0; i < num; i++) {
+      let curr = queue.shift();
+      sum += curr.val;
+      if (curr.right) queue.push(curr.right);
+      if (curr.left) queue.push(curr.left);
+    }
+  }
+  return sum;
+};
+
+// var deepestLeavesSum = function (root) {
+//   if (!root) return 0;
+//   let queue = [root];
+//   let deepest;
+//   let last = root;
+//   while (queue.length) {
+//     let node = queue.shift();
+//     if (node.left) queue.push(node.left);
+//     if (node.right) queue.push(node.right);
+//     if (last === node && queue.length) {
+//       last = queue[queue.length - 1];
+//       deepest = queue.slice();
+//     };
+//   }
+//   return deepest.reduce((a, b) => a.val + b.val);
+// };
+
+//------------------------------------------------------------------------------
+// Leaves Sum
+
+var leavesSum = function (root) {
+  if (!root) return 0;
+  if (!root.left && !root.right) return root.val;
+
+  let left = leavesSum(root.left);
+  let right = leavesSum(root.right);
+  return left + right;
+};
 
 //------------------------------------------------------------------------------
 // 1379. Find a Corresponding Node of a Binary Tree in a Clone of That Tree
