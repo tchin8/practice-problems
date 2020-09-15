@@ -17,25 +17,23 @@
 
 //------------------------------------------------------------------------------
 
-// # # # # # # # 1. Write a function that flattens an arbitrarily nested array. Assume the array contains either numbers or further nested arrays. For example: flatten([1, [2, [3, 4]]]) -> [1, 2, 3, 4]
-// # # # # # # Ruby 
-// # # Don't use a built-in flattener
-// # # 
-// # #2 - #5 Please do in SQL, do not use Active Record 
-// # #
-// # # # # # # # 2. Suppose we are building a simple social network. There are users, and users can be friends with other users. Design a schema for this setup. What row or rows would you store in the Friendships table if User 1 is friends with User 2?
-// # # # # # # # 
-// # # # # 
-// # # # # # # # 3. Suppose we want to support statuses - i.e. users can post statuses, and all the friends of a user can view that user's statuses. How would you add to your schema to support this? A status consists of a simple string, and a user can post many statuses over time
-// # # # # # # # 
-// # # # # 
-// # # # # # # # 4. What would the query look like to fetch a user's timeline - i.e. the posts their friends have made, with most recent statuses coming first?
-// # # # # # # # 
-// # # # # 
-// # # # # # # # 5. Suppose we want to support friend requests. I.e. to be friends with someone (and view their statuses), you must first request permission, and they must approve you. How would you modify your schema and the query to support this?
-// # # # # # # #  
-// # */
+// 1. Write a function that flattens an arbitrarily nested array. Assume the array contains either numbers or further nested arrays. For example: flatten([1, [2, [3, 4]]]) -> [1, 2, 3, 4]
+// Ruby 
+// # Don't use a built-in flattener
 // # 
+// #2 - #5 Please do in SQL, do not use Active Record 
+// #
+// 2. Suppose we are building a simple social network. There are users, and users can be friends with other users. Design a schema for this setup. What row or rows would you store in the Friendships table if User 1 is friends with User 2?
+// 
+// # # # 
+// 3. Suppose we want to support statuses - i.e. users can post statuses, and all the friends of a user can view that user's statuses. How would you add to your schema to support this? A status consists of a simple string, and a user can post many statuses over time
+// 
+// # # # # 
+// 4. What would the query look like to fetch a user's timeline - i.e. the posts their friends have made, with most recent statuses coming first?
+// 
+// # # # # 
+// 5. Suppose we want to support friend requests. I.e. to be friends with someone (and view their statuses), you must first request permission, and they must approve you. How would you modify your schema and the query to support this?
+//  
 
 // #1
 // def flatten(arr) 
