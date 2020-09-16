@@ -4,6 +4,141 @@
 
 
 //------------------------------------------------------------------------------
+const _ = require('lodash');
+
+// function sayHello() {
+//   console.log('Hello, World');
+// }
+
+// _.times(5, sayHello);
+
+
+/* 
+
+You should write a hangman game.  Hangman is a game in which one player
+(the computer) has a secret word, and the other player (the human) guesses
+letters in the word within a certain number of incorrect guesses.  At each
+turn, the computer should print out the status of the guessed word, using
+"-" for letters that have not yet been guessed.  The computer also prints
+out the number of guesses that the human has.  Then, the human guesses a
+letter. If the human guesses correctly the computer reveals all matching
+letters; if the human guesses incorrectly the computer notifies the user
+and takes away a guess.  The game ends when the human guesses the complete
+word (human wins) or runs out of incorrect guesses (human loses).  For the
+purposes of this exercise you may hardcode the word.  All other details
+are left up to your judgment.  The start of a game for the word "foobar" is below:
+
+Word status: ------
+Guesses left: 10
+
+Please guess a letter: <human enters "b" at the console and hits enter>
+You guessed correctly!
+Word status: ---b--
+Guesses left: 10
+
+Please guess a letter: <human enters "o" at the console and hits enter>
+You guessed correctly!
+Word status: -oob--
+Guesses left: 10
+
+Please guess a letter: <human enters "z" at the console and hits enter>
+You guessed incorrectly!
+Word status: -oob--
+Guesses left: 9
+
+ */
+
+class Hangman {
+  constructor(word, guesses) {
+    this.word = word;
+    this.guesses = guesses;
+
+    // this.wordStatus = new Array(this.word.length).map(x => '-')
+    this.wordStatus = [];
+    for (let i = 0; i < this.word.length; i++) {
+      this.wordStatus.push('-');
+    }
+
+
+    this.chars = {};
+
+    for (let i = 0; i < this.word.length; i++) {
+      let char = this.word[i];
+      if (!this.chars[char]) this.chars[char] = [];
+      this.chars[char].push(i);
+    }
+
+    console.log(this.wordStatus.join(""));
+    console.log(this.guesses);
+    // this.startGame();
+  }
+
+  startGame() {
+    while (!this.gameOver()) {
+      let res = prompt('Please guess a letter: ');
+      if (this.chars[res]) {
+        console.log('You guessed correctly!')
+        let idx = this.chars[res];
+        for (let i = 0; i < idx.length; i++) {
+          let j = idx[i];
+          this.wordStatus[j] = res;
+        }
+      } else {
+        console.log('You guessed incorrectly!')
+        this.guesses -= 1;
+      }
+
+      console.log(this.wordStatus.join(""));
+      console.log(this.guesses);
+    }
+
+    this.winOrLose()
+  }
+
+  guess(letter) {
+    if (this.chars[letter]) {
+      console.log('You guessed correctly!')
+      let idx = this.chars[letter];
+      for (let i = 0; i < idx.length; i++) {
+        let j = idx[i];
+        this.wordStatus[j] = letter;
+      }
+    } else {
+      console.log('You guessed incorrectly!')
+      this.guesses -= 1;
+    }
+
+    console.log(this.wordStatus.join(""));
+    console.log(this.guesses);
+  }
+
+  gameOver() {
+    return !this.guesses || this.wordStatus.includes('-');
+  }
+
+  winOrLose() {
+    if (!this.guesses) {
+      console.log('You lose!')
+    } else {
+      console.log('You win!')
+    }
+  }
+
+}
+
+
+let game = new Hangman('foobar', 10);
+game.guess('x')
+game.guess('x')
+game.guess('x')
+game.guess('x')
+game.guess('x')
+game.guess('x')
+game.guess('x')
+game.guess('x')
+game.guess('x')
+game.guess('x')
+game.winOrLose();
 
 
 //------------------------------------------------------------------------------
