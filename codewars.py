@@ -26,6 +26,19 @@
 
 # ------------------------------------------------------------------------------
 
+def namelist(names):
+    str = ''
+    if len(names) == 0:
+        return str
+    for i in range(len(names)):
+        n = names[i]['name']
+        if i == len(names) - 1:
+            str += '& '
+        elif i != 0:
+            str += ', '
+        str += n
+    return str
+
 
 # ------------------------------------------------------------------------------
 
