@@ -29,6 +29,13 @@ function TreeNode(val, left, right) {
 //------------------------------------------------------------------------------
 
 
+
+//------------------------------------------------------------------------------
+
+
+//------------------------------------------------------------------------------
+
+
 //------------------------------------------------------------------------------
 
 
@@ -36,6 +43,82 @@ function TreeNode(val, left, right) {
 
 
 //------------------------------------------------------------------------------
+
+// 763. Partition Labels
+
+var partitionLabels = function (S) {};
+
+//------------------------------------------------------------------------------
+
+// 1305. All Elements in Two Binary Search Trees
+
+let getAllElements = (A, B, a = [], b = [], c = []) => {
+  let go = (root, inorder) => {
+    if (root.left) go(root.left, inorder);
+    inorder.push(root.val);
+    if (root.right) go(root.right, inorder);
+  };
+  let merge = (A, B, i = 0, j = 0, C = []) => {
+    while (i < A.length && j < B.length)
+      if (A[i] <= B[j]) C.push(A[i++]);
+      else C.push(B[j++]);
+    while (i < A.length) C.push(A[i++]);
+    while (j < B.length) C.push(B[j++]);
+    return C;
+  };
+  if (A) go(A, a);
+  if (B) go(B, b);
+  return merge(a, b);
+};
+
+//------------------------------------------------------------------------------
+// 1551. Minimum Operations to Make Array Equal
+
+// var minOperations = function (n) {
+//   if (n.length <= 1) return 0;
+//   let sum = n.reduce((acc, el) => acc + el);
+//   let mid = sum / n.length;
+//   let changes = 0;
+//   for (let num of n) {
+//     changes += Math.abs(mid - num);
+//   }
+//   return changes / 2;
+// };
+
+//------------------------------------------------------------------------------
+// 1572. Matrix Diagonal Sum
+
+var diagonalSum = function (mat) {
+  let sum = 0;
+  let last = mat.length - 1;
+  for (let i = 0; i < mat.length; i++) {
+    sum += mat[i][i];
+    if (i !== last - i) sum += mat[i][last - i];
+  }
+  return sum;
+};
+
+
+//------------------------------------------------------------------------------
+
+// 1588. Sum of All Odd Length Subarrays
+
+var sumOddLengthSubarrays = function(arr) {
+  if (arr.length === 0) return 0;
+  if (arr.length === 1) return arr[0];
+  let sum = arr.reduce((acc, el) => acc + el);
+
+  let i = 3;
+  while (i <= arr.length) {
+    for (let j = 0; j <= arr.length - i; j++) {
+      let sub = arr.slice(j, j + i);
+      sum += sub.reduce((acc, el) => acc + el);
+    }
+    i += 2;
+  }
+
+  return sum;
+};
 
 
 //------------------------------------------------------------------------------
