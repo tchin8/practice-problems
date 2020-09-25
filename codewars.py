@@ -20,8 +20,18 @@
 
 # ------------------------------------------------------------------------------
 
+def sort_array(source_array):
+    odds = list(filter(lambda x: x % 2 == 1, source_array))
+    j = 0
+    for i in range(len(source_array)):
+        if source_array[i] % 2 == 1:
+            source_array[i] = odds[j]
+            j += 1
+    return source_array
+
 
 # ------------------------------------------------------------------------------
+
 def domain_name(url):
     i1 = 0
     i2 = 0
