@@ -1,4 +1,4 @@
-const _ = require('lodash');
+// const _ = require('lodash');
 
 
 //------------------------------------------------------------------------------
@@ -13,6 +13,41 @@ const _ = require('lodash');
 
 //------------------------------------------------------------------------------
 
+// Given a string s, find the length of the longest substring without repeating characters.
+// k = 3
+// None
+// Example 1:
+// Input: s = "abcabcbb"
+// "abcca"
+// "abcc"
+// "c"
+// Output: 3
+// Explanation: The answer is "abc", with the length of 3.
+
+function longestSubstring(str) {
+  let sub = '';
+  let longestSub = '';
+  let count = {};
+  for (let i = 0; i < str.length; i++) {
+    let char = str[i];
+    if (count[char]) {
+      if (longestSub.length < sub.length) {
+        longestSub = sub;
+      }
+      sub = '';
+      count = {};
+      count[char] = true;
+      sub += char;
+    } else {
+      count[char] = true;
+      sub += char;
+    }
+  }
+  return longestSub;
+}
+
+str = "abcabcbbcdefgfgg";
+console.log(longestSubstring(str));       
 
 //------------------------------------------------------------------------------
 
@@ -137,18 +172,18 @@ class Hangman {
 }
 
 
-let game = new Hangman('foobar', 10);
-game.guess('x')
-game.guess('x')
-game.guess('x')
-game.guess('x')
-game.guess('x')
-game.guess('x')
-game.guess('x')
-game.guess('x')
-game.guess('x')
-game.guess('x')
-game.winOrLose();
+// let game = new Hangman('foobar', 10);
+// game.guess('x')
+// game.guess('x')
+// game.guess('x')
+// game.guess('x')
+// game.guess('x')
+// game.guess('x')
+// game.guess('x')
+// game.guess('x')
+// game.guess('x')
+// game.guess('x')
+// game.winOrLose();
 
 
 //------------------------------------------------------------------------------
