@@ -41,6 +41,17 @@ function TreeNode(val, left, right) {
 
 //------------------------------------------------------------------------------
 
+// 1329. Sort the Matrix Diagonally
+
+var diagonalSort = function (mat) {
+  let flattened = [].concat.apply([], mat);
+  flattened.sort((a, b) => a - b);
+
+  let height = mat.length;
+  let width = mat[0].length;
+
+};
+
 
 //------------------------------------------------------------------------------
 
