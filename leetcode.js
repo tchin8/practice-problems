@@ -42,15 +42,117 @@ function TreeNode(val, left, right) {
 //------------------------------------------------------------------------------
 
 // 1329. Sort the Matrix Diagonally
+// I misunderstood the problem lol, so this works if you solve it my way...
+// [2, 0], [1, 0], [0, 0], [0, 1], [0, 2], [0, 3]
+// [2, 1], [1, 1], [1, 2], [1, 3]
+// [2, 2], [2, 3]
+
+// var diagonalSort = function (mat) {
+//   let flattened = [].concat.apply([], mat);
+//   flattened.sort((a, b) => a - b);
+
+//   let height = mat.length;
+//   let width = mat[0].length;
+
+//   let row = height - 1;
+//   let prevCol = 0;
+//   let col = 0;
+
+//   while (flattened.length) {
+//     mat[row][col] = flattened.shift();
+//     if (col === width - 1) {
+//       row = height - 1;
+//       prevCol += 1;
+//       col = prevCol;
+//     } else if (row <= col) {
+//       col++;
+//     } else {
+//       row--;
+//     }
+//   }
+
+//   return mat;
+// };
+
+// [4, 0]
+// [3, 0], [4, 1]
+// [2, 0], [3, 1], [4, 2]
+// [1, 0], [2, 1], [3, 2], [4, 3]
+// [0, 0], [1, 1], [2, 2], [3, 3], [4, 4]
+
+// [0, 1], [1, 2], [2, 3], [3, 4], [4, 5]
+// [0, 2], [1, 3], [2, 4], [3, 5]
+// [0, 3], [1, 4], [2, 5]
+// [0, 4], [1, 5]
+// [0, 5]
 
 var diagonalSort = function (mat) {
-  let flattened = [].concat.apply([], mat);
-  flattened.sort((a, b) => a - b);
+  let row = mat.length - 1;
+  let col = mat[0].length - 1;
 
-  let height = mat.length;
-  let width = mat[0].length;
+  let diag, diagCoords;
+  // 2 iterations
 
+  for (i = row - 1; i >= 0; i--) {
+    diag = [mat[i][0]];
+    diagCoords = [[i, 0]];
+    let k = i + 1;
+    let j = 1;
+    while (k <= row) {
+      diag.push(mat[k][j])
+      diagCoords.push([k, j]);
+      j++;
+      k++;
+    }
+
+    diag.sort((a, b) => a - b);
+
+    for (let m = 0; m < diagCoords.length; m++) {
+      let [x, y] = diagCoords[m];
+      mat[x][y] = diag.shift();
+    }
+  }
+
+  for (i = 1; i <= col - 1; i++) {
+    let diag = [mat[0][i]];
+    let diagCoords = [[0, i]];
+
+    let k = 1;
+    let j = i + 1;
+    while (j <= col) {
+      diag.push(mat[k][j]);
+      diagCoords.push([k, j]);
+      j++;
+      k++;
+    }
+
+    diag.sort((a, b) => a - b);
+
+    for (let m = 0; m < diagCoords.length; m++) {
+      let [x, y] = diagCoords[m];
+      mat[x][y] = diag.shift();
+    }
+  }
+
+  return mat;
 };
+
+// let mat = [[3,3,1,1],[2,2,1,2],[1,1,1,2]];
+let mat = [
+  [11, 25, 66, 1, 69, 7],
+  [23, 55, 17, 45, 15, 52],
+  [75, 31, 36, 44, 58, 8],
+  [22, 27, 33, 25, 68, 4],
+  [84, 28, 14, 11, 5, 50],
+];
+// [
+//   [5, 17, 4, 1, 52, 7],
+//   [11, 11, 25, 45, 8, 69],
+//   [14, 23, 25, 44, 58, 15],
+//   [22, 27, 31, 36, 50, 66],
+//   [84, 28, 75, 33, 55, 68],
+// ];
+console.log(diagonalSort(mat));
 
 
 //------------------------------------------------------------------------------
