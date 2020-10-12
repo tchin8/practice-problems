@@ -12,6 +12,28 @@
 
 //------------------------------------------------------------------------------
 
+// currency conversion
+// INCOMPLETE
+
+function currencyConverter(curr) {
+  let rates = [['USD', 'JPY', 110], ['USD', 'AUD', 1.45], ['JPY', 'GBP', 0.0070]];
+
+  let current = rates.filter(c => c[1] === curr[0])[0];
+  let conversion = 1 / current[2];
+  // debugger;
+
+  while (current[0] !== curr[1]) {
+    current = rates.filter(c => c[1] === current[0])[0];
+    conversion = 1 / current[2];
+    // debugger
+  }
+
+  return conversion;
+}
+
+let currencies = ['GBP', 'AUD'];
+console.log(currencyConverter(currencies))      // 1.89
+
 
 //------------------------------------------------------------------------------
 
