@@ -40,23 +40,18 @@ function lengthOfLongestSubstring(str) {
   if (str.length <= 1) return str.length;
   let sub = '';
   let longestSub = '';
-  let count = {};
   for (let i = 0; i < str.length; i++) {
     let char = str[i];
-    if (count[char]) {
-      if (longestSub.length < sub.length) {
-        longestSub = sub;
-      }
-      sub = '';
-      count = {};
-      count[char] = true;
+    if (!sub.includes(char)) {
       sub += char;
     } else {
-      count[char] = true;
+      if (sub.length > longestSub.length) longestSub = sub;
+      let idx = sub.indexOf(char);
+      sub = sub.slice(idx + 1);
       sub += char;
     }
   }
-  return longestSub.length;
+  return longestSub.length > sub.length ? longestSub.length : sub.length;
 }
 
 //------------------------------------------------------------------------------
