@@ -34,7 +34,30 @@ function TreeNode(val, left, right) {
 
 
 //------------------------------------------------------------------------------
+// 3. Longest Substring Without Repeating Characters
 
+function lengthOfLongestSubstring(str) {
+  if (str.length <= 1) return str.length;
+  let sub = '';
+  let longestSub = '';
+  let count = {};
+  for (let i = 0; i < str.length; i++) {
+    let char = str[i];
+    if (count[char]) {
+      if (longestSub.length < sub.length) {
+        longestSub = sub;
+      }
+      sub = '';
+      count = {};
+      count[char] = true;
+      sub += char;
+    } else {
+      count[char] = true;
+      sub += char;
+    }
+  }
+  return longestSub.length;
+}
 
 //------------------------------------------------------------------------------
 
