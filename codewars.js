@@ -17,7 +17,15 @@
 
 //------------------------------------------------------------------------------
 
+// Sentences should start with capital letters.
 
+function fix(paragraph){
+  let chars = paragraph.split("");
+  for (let i = 0; i < chars.length; i++) {
+    if (i === 0 || chars[i - 2] === '.') chars[i] = chars[i].toUpperCase();
+  }
+  return chars.join("");
+}
 
 
 //------------------------------------------------------------------------------
