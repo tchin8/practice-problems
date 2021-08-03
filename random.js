@@ -10,6 +10,19 @@
 //------------------------------------------------------------------------------
 
 
+function sortEvensAndOdds(arr) {
+  let evens = 0;
+  arr.forEach(num => {
+    if (num % 2 === 0) evens += 1;
+  });
+  let moves = 0;
+  for (let i = 0; i < evens; i++) {
+    if (arr[i] % 2 !== 0) moves += 1;
+  }
+  return moves;
+}
+
+
 //------------------------------------------------------------------------------
 
 // currency conversion
